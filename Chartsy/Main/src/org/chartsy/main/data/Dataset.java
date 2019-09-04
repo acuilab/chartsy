@@ -8,7 +8,7 @@ import java.util.List;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 数据集
  * @author viorel.gheba
  */
 public class Dataset implements Serializable

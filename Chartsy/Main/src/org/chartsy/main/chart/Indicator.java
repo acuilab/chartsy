@@ -30,7 +30,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 指标
  * @author viorel.gheba
  */
 public abstract class Indicator extends ChartFrameAdapter

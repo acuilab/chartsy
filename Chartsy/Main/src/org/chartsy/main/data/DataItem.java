@@ -5,7 +5,7 @@ import java.util.Date;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 数据项
  * @author viorel.gheba
  */
 public class DataItem implements Serializable, Comparable<DataItem>
@@ -13,12 +13,12 @@ public class DataItem implements Serializable, Comparable<DataItem>
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    private long time;
-    private double open;
-    private double high;
-    private double low;
-    private double close;
-    private double volume;
+    private long time;      // 时间
+    private double open;    // 开盘
+    private double high;    // 高
+    private double low;     // 低
+    private double close;   // 收盘
+    private double volume;  // 量
 
     public DataItem(long time, double close)
     {

@@ -6,7 +6,7 @@ import org.chartsy.main.ChartFrame;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 图表
  * @author viorel.gheba
  */
 public abstract class Chart

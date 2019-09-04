@@ -27,6 +27,7 @@ import org.openide.nodes.AbstractNode;
 
 /**
  * The Absolute Price Oscillator.
+ * 绝对价格振荡器。
  *
  * @author joshua.taylor
  */

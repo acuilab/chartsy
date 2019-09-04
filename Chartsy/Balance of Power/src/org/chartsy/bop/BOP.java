@@ -27,7 +27,7 @@ import org.chartsy.talib.TaLibUtilities;
 import org.openide.nodes.AbstractNode;
 
 /**
- *
+ * 权力平衡（BOP）指标通过评估每个人将价格推向极端水平的能力来衡量多头与空头的强弱程度。
  * @author joshua.taylor
  */
 public class BOP extends Indicator

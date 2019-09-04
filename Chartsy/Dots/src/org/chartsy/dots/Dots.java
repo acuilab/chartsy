@@ -12,7 +12,7 @@ import org.chartsy.main.utils.Range;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 点（图表）
  * @author viorel.gheba
  */
 public class Dots 
