@@ -5,34 +5,32 @@ import java.util.Calendar;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 每周间隔
  * @author viorel.gheba
  */
-public class WeeklyInterval extends Interval implements Serializable
-{
+public class WeeklyInterval extends Interval implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    public WeeklyInterval()
-    {
+    public WeeklyInterval() {
         super("Weekly");
-		timeParam = "w";
+        timeParam = "w";
     }
 
-    public long startTime()
-    {
+    @Override
+    public long startTime() {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.YEAR, -4);
         return c.getTimeInMillis();
     }
 
-    public String getTimeParam()
-    {
+    @Override
+    public String getTimeParam() {
         return timeParam;
     }
 
-    public int getLengthInSeconds()
-    {
+    @Override
+    public int getLengthInSeconds() {
         return 604800;
     }
 

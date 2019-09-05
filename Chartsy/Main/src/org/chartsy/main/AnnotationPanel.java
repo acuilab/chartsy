@@ -32,12 +32,12 @@ import org.chartsy.main.utils.Range;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
+ * 注解面板
  *
  * @author viorel.gheba
  */
 public class AnnotationPanel extends JPanel
-	implements MouseListener, MouseMotionListener, KeyListener, Serializable
-{
+        implements MouseListener, MouseMotionListener, KeyListener, Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
@@ -47,68 +47,64 @@ public class AnnotationPanel extends JPanel
     public static final int MOVE = 3;
     private int state;
 
-    private ChartFrame chartFrame;
-    private List<Annotation> annotations;
-    private Annotation current = null;
-	private ToolTipManager toolTipManager;
+    private ChartFrame chartFrame;          // 父窗口
+    private List<Annotation> annotations;   // 注解列表
+    private Annotation current = null;      // 当前注解
+    private final ToolTipManager toolTipManager;
 
-    public AnnotationPanel(ChartFrame frame)
-    {
+    public AnnotationPanel(ChartFrame frame) {
         state = NONE;
         chartFrame = frame;
-		toolTipManager = ToolTipManager.sharedInstance();
-		toolTipManager.setLightWeightPopupEnabled(true);
-		toolTipManager.registerComponent(this);
+        toolTipManager = ToolTipManager.sharedInstance();
+        toolTipManager.setLightWeightPopupEnabled(true);
+        toolTipManager.registerComponent(this);
         annotations = new ArrayList<Annotation>();
 
         setOpaque(false);
-		setDoubleBuffered(true);
+        setDoubleBuffered(true);
 
         addMouseListener((MouseListener) this);
         addMouseMotionListener((MouseMotionListener) this);
         addKeyListener((KeyListener) this);
     }
 
-    public ChartFrame getChartFrame()
-    { return chartFrame; }
+    public ChartFrame getChartFrame() {
+        return chartFrame;
+    }
 
-    public int getState()
-    { return state; }
+    public int getState() {
+        return state;
+    }
 
-    public void setState(int i)
-    { state = i; }
+    public void setState(int i) {
+        state = i;
+    }
 
-	@Override
-	public void paint(Graphics g)
-	{
-		Graphics2D g2 = GraphicsUtils.prepareGraphics(g);
-        for (Annotation annotation : annotations)
+    @Override
+    public void paint(Graphics g) {
+        // 在注解面板上绘制所有注解
+        Graphics2D g2 = GraphicsUtils.prepareGraphics(g);
+        for (Annotation annotation : annotations) {
             annotation.paint(g2);
-	}
-
-	@Override
-	public void update(Graphics g)
-	{
-		paint(g);
-	}
-
-    public Range getRange()
-    {
-        Container parent = getParent();
-        if (parent instanceof ChartPanel)
-        {
-            return ((ChartPanel)parent).getRange();
-        }
-        else
-        {
-            return ((IndicatorPanel)parent).getIndicator().getRange(chartFrame);
         }
     }
 
-    public void setAnnotationsList(List<Annotation> list)
-    {
-        for (Annotation a : list)
-        {
+    @Override
+    public void update(Graphics g) {
+        paint(g);
+    }
+
+    public Range getRange() {
+        Container parent = getParent();
+        if (parent instanceof ChartPanel) {
+            return ((ChartPanel) parent).getRange();
+        } else {
+            return ((IndicatorPanel) parent).getIndicator().getRange(chartFrame);
+        }
+    }
+
+    public void setAnnotationsList(List<Annotation> list) {
+        for (Annotation a : list) {
             a.setChartFrame(chartFrame);
             a.setAnnotationPanel(this);
             annotations.add(a);
@@ -116,53 +112,54 @@ public class AnnotationPanel extends JPanel
         repaint();
     }
 
-    public List<Annotation> getAnnotationsList()
-    { return annotations; }
+    public List<Annotation> getAnnotationsList() {
+        return annotations;
+    }
 
-    public Annotation[] getAnnotations()
-    { return annotations.toArray(new Annotation[annotations.size()]); }
+    public Annotation[] getAnnotations() {
+        return annotations.toArray(new Annotation[annotations.size()]);
+    }
 
-    public void addAnnotation(Annotation a)
-    { annotations.add(a); }
+    public void addAnnotation(Annotation a) {
+        annotations.add(a);
+    }
 
-    public boolean hasCurrent()
-    { return current != null; }
+    public boolean hasCurrent() {
+        return current != null;
+    }
 
-    public boolean isCurrentNull()
-    { return current == null; }
+    public boolean isCurrentNull() {
+        return current == null;
+    }
 
-    public Annotation getCurrent()
-    { return current ; }
+    public Annotation getCurrent() {
+        return current;
+    }
 
-    public void setCurrent(Annotation a)
-    { current = a; }
+    public void setCurrent(Annotation a) {
+        current = a;
+    }
 
-    public void deselectAll()
-    {
-        for (Annotation annotation : annotations)
+    public void deselectAll() {
+        for (Annotation annotation : annotations) {
             annotation.setSelected(false);
+        }
         current = null;
     }
 
-    public void removeAllAnnotations()
-    {
-        try
-        {
+    public void removeAllAnnotations() {
+        try {
             current = null;
             annotations.clear();
             validate();
             repaint();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ChartFrame.LOG.log(Level.SEVERE, null, ex);
         }
     }
 
-    public void removeAnnotation()
-    {
-        if (!isCurrentNull() && getCurrent().isSelected())
-        {
+    public void removeAnnotation() {
+        if (!isCurrentNull() && getCurrent().isSelected()) {
             current.setSelected(false);
             annotations.remove(getCurrent());
             current = null;
@@ -170,13 +167,10 @@ public class AnnotationPanel extends JPanel
         }
     }
 
-    private boolean isAnnotation(int x, int y)
-    {
-        for (Annotation a : annotations)
-        {
+    private boolean isAnnotation(int x, int y) {
+        for (Annotation a : annotations) {
             boolean b = a.pointIntersects(x, y);
-            if (b)
-            {
+            if (b) {
                 current = a;
                 current.setActive(true);
                 current.setSelected(true);
@@ -186,96 +180,84 @@ public class AnnotationPanel extends JPanel
         return false;
     }
 
-    public void mouseClicked(MouseEvent e)
-    {}
+    public void mouseClicked(MouseEvent e) {
+    }
 
-    public void mousePressed(MouseEvent e)
-    {
+    public void mousePressed(MouseEvent e) {
         requestFocus();
 
-        if (e.isConsumed())
+        if (e.isConsumed()) {
             return;
+        }
 
-        if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
-        {
-            if (getCursor().equals(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR)))
+        if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
+            if (getCursor().equals(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR))) {
                 getParent().requestFocus();
+            }
 
-            if (AnnotationManager.getDefault().hasNew())
+            if (AnnotationManager.getDefault().hasNew()) {
                 setState(NEWANNOTATION);
-            
-            switch (getState())
-            {
+            }
+
+            switch (getState()) {
                 case NONE:
                     chartFrame.deselectAll();
-                    if (!isAnnotation(e.getX(), e.getY()))
-                    {
-                        if (!getCursor().equals(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR)))
-                        {
-                            if (chartFrame.getChartProperties().getMarkerVisibility())
-                            {
+                    if (!isAnnotation(e.getX(), e.getY())) {
+                        if (!getCursor().equals(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR))) {
+                            if (chartFrame.getChartProperties().getMarkerVisibility()) {
                                 Rectangle rect = getBounds();
                                 rect.grow(-2, -2);
 
                                 int i = chartFrame.getChartData().getIndex(e.getPoint(), rect);
-                                if (i != -1)
-                                {
+                                if (i != -1) {
                                     chartFrame.getSplitPanel().setIndex(i);
                                     chartFrame.getSplitPanel().labelText();
                                     chartFrame.getSplitPanel().repaint();
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 chartFrame.getSplitPanel().setIndex(-1);
                             }
                         }
-                    }
-                    else
-                    {
-                        if (!isCurrentNull())
+                    } else {
+                        if (!isCurrentNull()) {
                             getCurrent().mousePressed(e);
+                        }
                     }
                     break;
                 case RESIZE:
-                    if (!isCurrentNull())
+                    if (!isCurrentNull()) {
                         getCurrent().mousePressed(e);
+                    }
                     break;
                 case MOVE:
-                    if (!isCurrentNull())
+                    if (!isCurrentNull()) {
                         getCurrent().mousePressed(e);
+                    }
                     break;
                 case NEWANNOTATION:
                     chartFrame.deselectAll();
                     Annotation a = AnnotationManager.getDefault().getNewAnnotation(chartFrame);
                     a.setAnnotationPanel(this);
                     setCurrent(a);
-                    if (!isCurrentNull())
-                    {
+                    if (!isCurrentNull()) {
                         getCurrent().mousePressed(e);
-                    }
-                    else
-                    {
+                    } else {
                         setState(NONE);
                         mousePressed(e);
                     }
                     break;
             }
         }
-        if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2)
-        {
-            if (!isCurrentNull())
-            {
+        if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+            if (!isCurrentNull()) {
                 AnnotationProperties dialog = new AnnotationProperties(new JFrame(), true);
                 dialog.initializeForm(getCurrent());
                 dialog.setLocationRelativeTo(chartFrame);
                 dialog.setVisible(true);
             }
         }
-        if (e.getButton() == MouseEvent.BUTTON3)
-        {
-            switch (getState())
-            {
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            switch (getState()) {
                 case NONE:
                     chartFrame.getMenu().show(this, e.getX(), e.getY());
                     break;
@@ -283,74 +265,65 @@ public class AnnotationPanel extends JPanel
         }
     }
 
-    public void mouseReleased(MouseEvent e)
-    {
-        if (e.isConsumed())
+    public void mouseReleased(MouseEvent e) {
+        if (e.isConsumed()) {
             return;
+        }
 
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK)
-        {
-            if (!isCurrentNull())
+        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+            if (!isCurrentNull()) {
                 getCurrent().mouseReleased(e);
+            }
         }
     }
 
-    public void mouseEntered(MouseEvent e)
-    {
-		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		//tooltipHandler(e);
+    public void mouseEntered(MouseEvent e) {
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        //tooltipHandler(e);
     }
 
-    public void mouseExited(MouseEvent e)
-    {}
+    public void mouseExited(MouseEvent e) {
+    }
 
-    public void mouseDragged(MouseEvent e)
-    {
-        if (e.isConsumed())
+    public void mouseDragged(MouseEvent e) {
+        if (e.isConsumed()) {
             return;
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK)
-        {
-            if (!isCurrentNull())
+        }
+        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+            if (!isCurrentNull()) {
                 getCurrent().mouseDragged(e);
-            else
-            {
-                if (chartFrame.getChartProperties().getMarkerVisibility())
-                {
+            } else {
+                if (chartFrame.getChartProperties().getMarkerVisibility()) {
                     Rectangle rect = getBounds();
                     rect.grow(-2, -2);
 
                     int i = chartFrame.getChartData().getIndex(e.getPoint(), rect);
-                    if (i != -1)
-                    {
+                    if (i != -1) {
                         chartFrame.getSplitPanel().setIndex(i);
                         chartFrame.getSplitPanel().labelText();
                         chartFrame.getSplitPanel().repaint();
                     }
-                }
-                else
-                {
+                } else {
                     chartFrame.getSplitPanel().setIndex(-1);
                 }
             }
         }
     }
 
-    public void mouseMoved(MouseEvent e)
-    {
-		//tooltipHandler(e);
-	}
+    public void mouseMoved(MouseEvent e) {
+        //tooltipHandler(e);
+    }
 
-    public void keyTyped(KeyEvent e)
-    {}
+    public void keyTyped(KeyEvent e) {
+    }
 
-    public void keyPressed(KeyEvent e)
-    {
-        if (e.isConsumed())
+    public void keyPressed(KeyEvent e) {
+        if (e.isConsumed()) {
             return;
-        
+        }
+
         requestFocus();
-        switch (e.getKeyCode())
-        {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_MINUS:
                 chartFrame.zoomOut();
                 break;
@@ -361,18 +334,16 @@ public class AnnotationPanel extends JPanel
                 chartFrame.zoomIn();
                 break;
         }
-        switch (e.getModifiers())
-        {
+        switch (e.getModifiers()) {
             case KeyEvent.SHIFT_MASK:
-                if (e.getKeyCode() == KeyEvent.VK_EQUALS)
+                if (e.getKeyCode() == KeyEvent.VK_EQUALS) {
                     chartFrame.zoomIn();
+                }
                 break;
         }
 
-        if (hasCurrent() && getCurrent().isSelected())
-        {
-            switch (e.getKeyCode())
-            {
+        if (hasCurrent() && getCurrent().isSelected()) {
+            switch (e.getKeyCode()) {
                 case KeyEvent.VK_DELETE:
                     removeAnnotation();
                     break;
@@ -389,13 +360,9 @@ public class AnnotationPanel extends JPanel
                     getCurrent().moveRight();
                     break;
             }
-        }
-        else
-        {
-            if (chartFrame.getChartProperties().getMarkerVisibility())
-            {
-                switch (e.getKeyCode())
-                {
+        } else {
+            if (chartFrame.getChartProperties().getMarkerVisibility()) {
+                switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT:
                         chartFrame.getSplitPanel().moveLeft();
                         break;
@@ -407,110 +374,97 @@ public class AnnotationPanel extends JPanel
         }
     }
 
-    public void keyReleased(KeyEvent e)
-    {}
+    public void keyReleased(KeyEvent e) {
+    }
 
-	public void tooltipHandler(MouseEvent e)
-	{
-		ChartData chartData = chartFrame.getChartData();
-		Dataset dataset = chartData.getVisible();
-		DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-		String newLine = "<br>";
+    public void tooltipHandler(MouseEvent e) {
+        ChartData chartData = chartFrame.getChartData();
+        Dataset dataset = chartData.getVisible();
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        String newLine = "<br>";
 
-		Rectangle rect = getBounds();
-		rect.grow(-2, -2);
-		int index = chartData.getIndex(e.getPoint(), rect);
-		if (index != -1)
-		{
-			StringBuilder builder = new StringBuilder();
-			Container parent = getParent();
-			if (parent instanceof ChartPanel)
-			{
-				ChartPanel chartPanel = (ChartPanel) parent;
-				long time = dataset.getTimeAt(index);
-				double open = dataset.getOpenAt(index);
-				double high = dataset.getHighAt(index);
-				double low = dataset.getLowAt(index);
-				double close = dataset.getLowAt(index);
-				double volume = dataset.getVolumeAt(index);
+        Rectangle rect = getBounds();
+        rect.grow(-2, -2);
+        int index = chartData.getIndex(e.getPoint(), rect);
+        if (index != -1) {
+            StringBuilder builder = new StringBuilder();
+            Container parent = getParent();
+            if (parent instanceof ChartPanel) {
+                ChartPanel chartPanel = (ChartPanel) parent;
+                long time = dataset.getTimeAt(index);
+                double open = dataset.getOpenAt(index);
+                double high = dataset.getHighAt(index);
+                double low = dataset.getLowAt(index);
+                double close = dataset.getLowAt(index);
+                double volume = dataset.getVolumeAt(index);
 
-				builder.append("<html>");
-				builder.append("Date: ")
-					.append(chartData.getInterval().getMarkerString(time))
-					.append(newLine).append(newLine);
-				builder.append("Open: ")
-					.append(decimalFormat.format(open))
-					.append(newLine);
-				builder.append("High: ")
-					.append(decimalFormat.format(high))
-					.append(newLine);
-				builder.append("Low: ")
-					.append(decimalFormat.format(low))
-					.append(newLine);
-				builder.append("Close: ")
-					.append(decimalFormat.format(close))
-					.append(newLine);
-				builder.append("Volume: ")
-					.append(decimalFormat.format(volume))
-					.append(newLine);
+                builder.append("<html>");
+                builder.append("Date: ")
+                        .append(chartData.getInterval().getMarkerString(time))
+                        .append(newLine).append(newLine);
+                builder.append("Open: ")
+                        .append(decimalFormat.format(open))
+                        .append(newLine);
+                builder.append("High: ")
+                        .append(decimalFormat.format(high))
+                        .append(newLine);
+                builder.append("Low: ")
+                        .append(decimalFormat.format(low))
+                        .append(newLine);
+                builder.append("Close: ")
+                        .append(decimalFormat.format(close))
+                        .append(newLine);
+                builder.append("Volume: ")
+                        .append(decimalFormat.format(volume))
+                        .append(newLine);
 
-				if (chartPanel.hasOverlays())
-				{
-					for (Overlay overlay : chartPanel.getOverlays())
-					{
-						LinkedHashMap map = overlay.getHTML(chartFrame, index);
-						Iterator it = map.keySet().iterator();
-						while (it.hasNext())
-						{
-							String key = it.next().toString();
-							String value = map.get(key).toString();
-							if (value.equals(" "))
-							{
-								builder.append(newLine);
-								builder.append(key).append(newLine);
-							} else
-							{
-								builder.append(key).append(" ")
-									.append(value).append(newLine);
-							}
-						}
-					}
-				}
-				
-				builder.append("</html>");
-			}
-			else
-			{
-				IndicatorPanel indicatorPanel = (IndicatorPanel) parent;
-				Indicator indicator = indicatorPanel.getIndicator();
-				long time = dataset.getTimeAt(index);
+                if (chartPanel.hasOverlays()) {
+                    for (Overlay overlay : chartPanel.getOverlays()) {
+                        LinkedHashMap map = overlay.getHTML(chartFrame, index);
+                        Iterator it = map.keySet().iterator();
+                        while (it.hasNext()) {
+                            String key = it.next().toString();
+                            String value = map.get(key).toString();
+                            if (value.equals(" ")) {
+                                builder.append(newLine);
+                                builder.append(key).append(newLine);
+                            } else {
+                                builder.append(key).append(" ")
+                                        .append(value).append(newLine);
+                            }
+                        }
+                    }
+                }
 
-				builder.append("<html>");
-				builder.append("Date: ")
-					.append(chartData.getInterval().getMarkerString(time))
-					.append(newLine).append(newLine);
+                builder.append("</html>");
+            } else {
+                IndicatorPanel indicatorPanel = (IndicatorPanel) parent;
+                Indicator indicator = indicatorPanel.getIndicator();
+                long time = dataset.getTimeAt(index);
 
-				LinkedHashMap map = indicator.getHTML(chartFrame, index);
-				Iterator it = map.keySet().iterator();
-				while (it.hasNext())
-				{
-					String key = it.next().toString();
-					String value = map.get(key).toString();
-					if (value.equals(" "))
-					{
-						builder.append(key).append(newLine);
-					} else
-					{
-						builder.append(key).append(" ")
-							.append(value).append(newLine);
-					}
-				}
-				
-				builder.append("</html>");
-			}
+                builder.append("<html>");
+                builder.append("Date: ")
+                        .append(chartData.getInterval().getMarkerString(time))
+                        .append(newLine).append(newLine);
 
-			setToolTipText(builder.toString());
-		}
-	}
+                LinkedHashMap map = indicator.getHTML(chartFrame, index);
+                Iterator it = map.keySet().iterator();
+                while (it.hasNext()) {
+                    String key = it.next().toString();
+                    String value = map.get(key).toString();
+                    if (value.equals(" ")) {
+                        builder.append(key).append(newLine);
+                    } else {
+                        builder.append(key).append(" ")
+                                .append(value).append(newLine);
+                    }
+                }
+
+                builder.append("</html>");
+            }
+
+            setToolTipText(builder.toString());
+        }
+    }
 
 }

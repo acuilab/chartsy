@@ -4,18 +4,19 @@ import java.io.Serializable;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 股票
  * @author viorel.gheba
  */
 final public class Stock implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    private String symbol = "";
-    private String exchange = "";
-    private String companyName = "";
+    private String symbol = "";         // 代码
+    private String exchange = "";       // 交易所
+    private String companyName = "";    // 公司名称
 
-    public Stock() {}
+    public Stock() {
+    }
 
     public Stock(String symbol) {
         this(symbol, "");
@@ -27,8 +28,11 @@ final public class Stock implements Serializable {
     }
 
     public void setSymbol(String symbol) {
-        if (symbol != null) symbol = symbol.toUpperCase();
-        else symbol = "";
+        if (symbol != null) {
+            symbol = symbol.toUpperCase();
+        } else {
+            symbol = "";
+        }
         this.symbol = symbol;
     }
 
@@ -52,10 +56,9 @@ final public class Stock implements Serializable {
         return companyName;
     }
 
-	public boolean hasCompanyName()
-	{
-		return companyName.hashCode() != "".hashCode();
-	}
+    public boolean hasCompanyName() {
+        return companyName.hashCode() != "".hashCode();
+    }
 
     public boolean isIndex() {
         return symbol.startsWith("$");
@@ -66,48 +69,56 @@ final public class Stock implements Serializable {
     }
 
     public String getSymbolRoot() {
-        if (isFuture()) return symbol.substring(0, symbol.length() - 2);
-        else return symbol;
+        if (isFuture()) {
+            return symbol.substring(0, symbol.length() - 2);
+        } else {
+            return symbol;
+        }
     }
 
     public String getKey() {
         return symbol + exchange;
     }
 
-    public @Override boolean equals(Object obj)
-	{
-        if (obj == this) 
-			return true;
+    public @Override
+    boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
 
-        if (!(obj instanceof Stock)) 
-			return false;
+        if (!(obj instanceof Stock)) {
+            return false;
+        }
 
         Stock that = (Stock) obj;
 
-        if (!getSymbol().equals(that.getSymbol()))
-			return false;
+        if (!getSymbol().equals(that.getSymbol())) {
+            return false;
+        }
 
-		if (!getExchange().equals(that.getExchange()))
-			return false;
+        if (!getExchange().equals(that.getExchange())) {
+            return false;
+        }
 
-		if (!getCompanyName().equals(that.getCompanyName()))
-			return false;
+        if (!getCompanyName().equals(that.getCompanyName())) {
+            return false;
+        }
 
         return true;
     }
 
-	public @Override int hashCode()
-	{
-		int hash = 7;
-		hash = 47 * hash + (this.symbol != null ? this.symbol.hashCode() : 0);
-		hash = 47 * hash + (this.exchange != null ? this.exchange.hashCode() : 0);
-		//hash = 47 * hash + (this.companyName != null ? this.companyName.hashCode() : 0);
-		return hash;
-	}
+    public @Override
+    int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + (this.symbol != null ? this.symbol.hashCode() : 0);
+        hash = 47 * hash + (this.exchange != null ? this.exchange.hashCode() : 0);
+        //hash = 47 * hash + (this.companyName != null ? this.companyName.hashCode() : 0);
+        return hash;
+    }
 
-    public @Override String toString()
-	{
-		return symbol + "," + companyName + "," + exchange;
-	}
+    public @Override
+    String toString() {
+        return symbol + "," + companyName + "," + exchange;
+    }
 
 }

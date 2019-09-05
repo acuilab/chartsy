@@ -5,34 +5,29 @@ import java.util.Calendar;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 十五分钟间隔
  * @author viorel.gheba
  */
-public class FifteenMinuteInterval extends Interval implements Serializable
-{
+public class FifteenMinuteInterval extends Interval implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    public FifteenMinuteInterval()
-    {
+    public FifteenMinuteInterval() {
         super("15 Min", true);
-		timeParam = "15";
+        timeParam = "15";
     }
 
-    public long startTime()
-    {
+    public long startTime() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.MONTH, -3);
         return c.getTimeInMillis();
     }
 
-    public String getTimeParam()
-    {
+    public String getTimeParam() {
         return timeParam;
     }
 
-    public int getLengthInSeconds()
-    {
+    public int getLengthInSeconds() {
         return 900;
     }
 

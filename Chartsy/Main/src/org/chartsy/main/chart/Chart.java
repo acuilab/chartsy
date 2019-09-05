@@ -7,19 +7,20 @@ import org.chartsy.main.utils.SerialVersion;
 
 /**
  * 图表
+ *
  * @author viorel.gheba
  */
-public abstract class Chart
-        implements Serializable
-{
+public abstract class Chart implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    public Chart()
-	{
-	}
+    public Chart() {
+    }
 
+    // 获得图表名称
     public abstract String getName();
+
+    // 绘制图表
     public abstract void paint(Graphics2D g, ChartFrame cf);
 
 }

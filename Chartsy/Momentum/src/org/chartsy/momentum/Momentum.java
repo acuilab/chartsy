@@ -26,6 +26,7 @@ import org.openide.nodes.AbstractNode;
 
 /**
  * The Momentum calculation
+ * 动量指标
  *
  * @author joshua.taylor
  */

@@ -43,6 +43,7 @@ public class Exchange implements Serializable {
         return sufix;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -61,8 +62,9 @@ public class Exchange implements Serializable {
         return true;
     }
 
+    @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(getExchange());
         sb.append(": ");
         sb.append(getSufix());

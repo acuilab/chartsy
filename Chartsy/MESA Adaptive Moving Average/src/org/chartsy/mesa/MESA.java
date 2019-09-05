@@ -26,6 +26,7 @@ import org.openide.nodes.AbstractNode;
 
 /**
  * The MESA Adaptive Moving Average by J. Ehlers.
+ * 自适应移动平均线
  *
  * @author joshua.taylor
  */

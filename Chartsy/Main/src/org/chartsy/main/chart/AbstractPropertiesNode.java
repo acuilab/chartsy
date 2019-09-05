@@ -19,47 +19,43 @@ import org.openide.util.lookup.Lookups;
  *
  * @author Viorel
  */
-public abstract class AbstractPropertiesNode 
+public abstract class AbstractPropertiesNode
         extends AbstractNode
-        implements PropertyChangeListener, Externalizable
-{
+        implements PropertyChangeListener, Externalizable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
     protected static final Logger LOG = Logger.getLogger(AbstractPropertiesNode.class.getPackage().getName());
 
-    public AbstractPropertiesNode(String name)
-    {
+    public AbstractPropertiesNode(String name) {
         super(Children.LEAF);
         setDisplayName(name);
     }
 
-    public AbstractPropertiesNode(String name, AbstractPropertyListener listener)
-    {
+    public AbstractPropertiesNode(String name, AbstractPropertyListener listener) {
         super(Children.LEAF, Lookups.singleton(listener));
         setDisplayName(name);
         listener.addPropertyChangeListener((PropertyChangeListener) this);
     }
 
-	public AbstractPropertyListener getAbstractPropertyListener()
-	{
-		return getLookup().lookup(AbstractPropertyListener.class);
-	}
+    public AbstractPropertyListener getAbstractPropertyListener() {
+        return getLookup().lookup(AbstractPropertyListener.class);
+    }
 
-    public Sheet.Set[] getSets()
-    {
-        return new Sheet.Set[] {
+    public Sheet.Set[] getSets() {
+        return new Sheet.Set[]{
             getPropertiesSet()
         };
     }
 
-    protected Sheet.Set getPropertiesSet()
-    { return getPropertiesSet(getDisplayName()); }
+    protected Sheet.Set getPropertiesSet() {
+        return getPropertiesSet(getDisplayName());
+    }
 
-    protected Sheet.Set getPropertiesSet(String name)
-    { return getPropertiesSet(name, name); }
+    protected Sheet.Set getPropertiesSet(String name) {
+        return getPropertiesSet(name, name);
+    }
 
-    protected Sheet.Set getPropertiesSet(String name, String description)
-    {
+    protected Sheet.Set getPropertiesSet(String name, String description) {
         Sheet.Set set = new Sheet.Set();
         set.setName(name);
         set.setDisplayName(name);
@@ -67,21 +63,22 @@ public abstract class AbstractPropertiesNode
         return set;
     }
 
-    protected PropertySupport.Reflection getProperty
-		(String name, String description,
-		Class clazz, Class property, Class propertyEditor,
-		String getMethod, String setMethod,
-		final Object defaultValue) throws NoSuchMethodException
-    {
+    protected PropertySupport.Reflection getProperty(String name, String description,
+            Class clazz, Class property, Class propertyEditor,
+            String getMethod, String setMethod,
+            final Object defaultValue) throws NoSuchMethodException {
         @SuppressWarnings(value = "unchecked")
-        PropertySupport.Reflection reflection = new PropertySupport.Reflection(getLookup().lookup(clazz), property, getMethod, setMethod)
-        {
-            public @Override void restoreDefaultValue()
-                    throws IllegalAccessException, InvocationTargetException
-            { super.setValue(defaultValue); }
+        PropertySupport.Reflection reflection = new PropertySupport.Reflection(getLookup().lookup(clazz), property, getMethod, setMethod) {
+            public @Override
+            void restoreDefaultValue()
+                    throws IllegalAccessException, InvocationTargetException {
+                super.setValue(defaultValue);
+            }
 
-            public @Override boolean supportsDefaultValue()
-            { return true; }
+            public @Override
+            boolean supportsDefaultValue() {
+                return true;
+            }
         };
         reflection.setName(name);
         reflection.setDisplayName(name);
@@ -91,15 +88,17 @@ public abstract class AbstractPropertiesNode
         return reflection;
     }
 
-    public void propertyChange(PropertyChangeEvent evt)
-    {
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
         firePropertySetsChange(null, getPropertySets());
     }
 
-    public void writeExternal(ObjectOutput out) throws IOException 
-    {}
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+    }
 
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
-    {}
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    }
 
 }

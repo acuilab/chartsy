@@ -16,7 +16,7 @@ import org.chartsy.main.data.ChartData;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 主面板
  * @author viorel.gheba
  */
 public class MainPanel extends JLayeredPane implements Serializable
@@ -24,11 +24,11 @@ public class MainPanel extends JLayeredPane implements Serializable
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    private ChartFrame chartFrame;
-    private ChartSplitPanel sPane;
-    private Grid grid;
-    private DateAxis dateAxis;
-    private PriceAxis priceAxis;
+    private ChartFrame chartFrame;  // 父窗口
+    private ChartSplitPanel sPane;  // 图表分割面板
+    private Grid grid;              // 网格
+    private DateAxis dateAxis;      // 日期轴
+    private PriceAxis priceAxis;    // 价格轴
 
     public MainPanel(ChartFrame frame)
     {

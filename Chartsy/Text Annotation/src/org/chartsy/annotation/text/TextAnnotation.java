@@ -24,24 +24,20 @@ import org.openide.NotifyDescriptor;
 import org.openide.nodes.AbstractNode;
 
 /**
- *
+ * 文本注解
  * @author Viorel
  */
-public class TextAnnotation
-        extends Annotation
-{
+public class TextAnnotation extends Annotation {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
     private AnnotationProperties properties;
 
-    public TextAnnotation()
-    {
+    public TextAnnotation() {
         super();
     }
 
-    public TextAnnotation(ChartFrame frame)
-    {
+    public TextAnnotation(ChartFrame frame) {
         super(frame);
         actionSet.set(TOP);
         actionSet.set(TOP_LEFT);
@@ -54,16 +50,19 @@ public class TextAnnotation
         properties = new AnnotationProperties();
     }
 
-    public @Override String getName()
-    { return "Text"; }
+    public @Override
+    String getName() {
+        return "Text";
+    }
 
-    public Annotation newInstance(ChartFrame frame)
-    { return new TextAnnotation(frame); }
+    public Annotation newInstance(ChartFrame frame) {
+        return new TextAnnotation(frame);
+    }
 
-    public boolean pointIntersects(double x, double y)
-    {
-        if (getActionPoint(x, y) != NONE)
+    public boolean pointIntersects(double x, double y) {
+        if (getActionPoint(x, y) != NONE) {
             return true;
+        }
 
         double X1 = getXFromTime(getT1()), X2 = getXFromTime(getT2());
         double Y1 = getYFromValue(getV1()), Y2 = getYFromValue(getV2());
@@ -74,8 +73,7 @@ public class TextAnnotation
         return r.contains(x, y);
     }
 
-    public void paint(Graphics2D g)
-    {
+    public void paint(Graphics2D g) {
         // get g properties
         java.awt.Rectangle oldClip = g.getClipBounds();
         Font oldFont = g.getFont();
@@ -97,8 +95,7 @@ public class TextAnnotation
         rectangle.setFrameFromDiagonal(X1, Y1, X2, Y2);
 
         // paint rectangle fill if visible
-        if (properties.getInsideVisibility())
-        {
+        if (properties.getInsideVisibility()) {
             g.setColor(fillColor);
             g.fill(rectangle);
         }
@@ -109,8 +106,7 @@ public class TextAnnotation
         g.draw(rectangle);
 
         // paint string inside the rectangle
-        if (text != null && text.length() > 0)
-        {
+        if (text != null && text.length() > 0) {
             g.setColor(textColor);
             g.setStroke(oldStroke);
             g.setFont(textFont);
@@ -121,14 +117,13 @@ public class TextAnnotation
             LineBreakMeasurer measurer = new LineBreakMeasurer(iterator, g.getFontRenderContext());
 
             float width = (float) ((X2 - X1) - (2 * border));
-            float Y = (float)(Y1 + border);
+            float Y = (float) (Y1 + border);
 
             List<TextLayout> layouts = new ArrayList<TextLayout>();
             List<Point2D> points = new ArrayList<Point2D>();
 
             TextLayout textLayout = null;
-            while (measurer.getPosition() < iterator.getEndIndex())
-            {
+            while (measurer.getPosition() < iterator.getEndIndex()) {
                 textLayout = measurer.nextLayout(width);
                 Y += (textLayout.getAscent());
 
@@ -142,9 +137,8 @@ public class TextAnnotation
             newClip.setFrameFromDiagonal(X1 + border, Y1 + border, X2 - border, Y2 - border);
             g.setClip(newClip);
 
-            for (int i = 0; i < layouts.size(); i++)
-            {
-                layouts.get(i).draw(g, (float)points.get(i).getX(), (float)points.get(i).getY());
+            for (int i = 0; i < layouts.size(); i++) {
+                layouts.get(i).draw(g, (float) points.get(i).getX(), (float) points.get(i).getY());
             }
         }
 
@@ -154,41 +148,41 @@ public class TextAnnotation
         g.setClip(oldClip);
 
         // paint action points
-        if (isSelected())
+        if (isSelected()) {
             paintActionPoints(g);
+        }
     }
 
-    public @Override void mouseReleased(MouseEvent e)
-    {
-        if (isNew())
-        {
+    public @Override
+    void mouseReleased(MouseEvent e) {
+        if (isNew()) {
             NotifyDescriptor.InputLine notifyDescriptor = new NotifyDescriptor.InputLine(
-                        "Text:",
-                        "Type text for annotation",
-                        NotifyDescriptor.OK_CANCEL_OPTION,
-                        NotifyDescriptor.PLAIN_MESSAGE);
+                    "Text:",
+                    "Type text for annotation",
+                    NotifyDescriptor.OK_CANCEL_OPTION,
+                    NotifyDescriptor.PLAIN_MESSAGE);
             Object retval = DialogDisplayer.getDefault().notify(notifyDescriptor);
-            if (retval.equals(NotifyDescriptor.OK_OPTION))
-            {
+            if (retval.equals(NotifyDescriptor.OK_OPTION)) {
                 String text = notifyDescriptor.getInputText();
-                if (text == null)
+                if (text == null) {
                     text = "";
+                }
                 properties.setText(text);
             }
         }
 
         Annotation current = getAnnotationPanel().getCurrent();
-        if (current != null && current.isNew())
+        if (current != null && current.isNew()) {
             current.setNew(false);
+        }
 
         AnnotationManager.getDefault().clearNewAnnotation();
         getAnnotationPanel().setState(AnnotationPanel.NONE);
         getAnnotationPanel().repaint();
     }
 
-    
-
-    public AbstractNode getNode()
-    { return new AnnotationNode(properties); }
+    public AbstractNode getNode() {
+        return new AnnotationNode(properties);
+    }
 
 }

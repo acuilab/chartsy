@@ -9,325 +9,287 @@ import org.chartsy.main.utils.SerialVersion;
 
 /**
  * 数据集
+ *
  * @author viorel.gheba
  */
-public class Dataset implements Serializable
-{
+public class Dataset implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
     private List<DataItem> data;
 
-    public Dataset()
-    {
+    public Dataset() {
         this.data = new ArrayList<DataItem>();
     }
 
-    public Dataset(List<DataItem> list)
-    {
+    public Dataset(List<DataItem> list) {
         data = list;
     }
 
-    public boolean isNull()
-    {
+    public boolean isNull() {
         return (data == null);
     }
 
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return data.isEmpty();
     }
 
-    public void sort()
-    {
-		Collections.sort(data);
+    public void sort() {
+        Collections.sort(data);
     }
 
-    public int getItemsCount()
-    {
+    public int getItemsCount() {
         return data.size();
     }
 
-    public int getLastIndex()
-    {
-		int index = data.size() - 1;
+    // 获得数据集最后一项的索引
+    public int getLastIndex() {
+        int index = data.size() - 1;
         return index < 0 ? 0 : index;
     }
 
-	public double getDiffValue()
-	{
-		double lastClose = getCloseAt(getLastIndex());
-		double prevClose = getCloseAt(getLastIndex() - 1);
-		double diff = lastClose - prevClose;
-		return diff;
-	}
+    public double getDiffValue() {
+        double lastClose = getCloseAt(getLastIndex());
+        double prevClose = getCloseAt(getLastIndex() - 1);
+        double diff = lastClose - prevClose;
+        return diff;
+    }
 
-	public double getPercentValue()
-	{
-		double lastClose = getCloseAt(getLastIndex());
-		double prevClose = getCloseAt(getLastIndex() - 1);
-		double percent = ((lastClose - prevClose) / prevClose) * 100;
-		return percent;
-	}
+    public double getPercentValue() {
+        double lastClose = getCloseAt(getLastIndex());
+        double prevClose = getCloseAt(getLastIndex() - 1);
+        double percent = ((lastClose - prevClose) / prevClose) * 100;
+        return percent;
+    }
 
-    public List<DataItem> getDataItems()
-    {
+    // 获得数据项集合
+    public List<DataItem> getDataItems() {
         return data;
     }
 
-    public DataItem getDataItem(int index)
-    {
-        if (index < 0 || index >= data.size())
+    // 根据索引获得数据项
+    public DataItem getDataItem(int index) {
+        if (index < 0 || index >= data.size()) {
             return null;
+        }
         return data.get(index);
     }
 
-    public void setDataItem(int index, DataItem item)
-    {
-        if (index < 0 || index >= data.size())
+    // 设置数据项
+    public void setDataItem(int index, DataItem item) {
+        if (index < 0 || index >= data.size()) {
             return;
+        }
         data.set(index, item);
     }
 
-    public void addDataItem(DataItem item)
-    {
+    public void addDataItem(DataItem item) {
         data.add(item);
     }
 
-    public long[] getTimeValues()
-    {
+    public long[] getTimeValues() {
         long[] values = new long[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
-				values[i] = data.get(i).getTime();
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
+                values[i] = data.get(i).getTime();
+            }
+        }
         return values;
     }
 
-    public Date[] getDateValues()
-    {
+    public Date[] getDateValues() {
         Date[] values = new Date[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
                 values[i] = data.get(i).getDate();
+            }
+        }
         return values;
     }
 
-    public double[] getOpenValues()
-    {
+    public double[] getOpenValues() {
         double[] values = new double[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
                 values[i] = data.get(i).getOpen();
+            }
+        }
         return values;
     }
 
-    public double[] getHighValues()
-    {
+    public double[] getHighValues() {
         double[] values = new double[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
                 values[i] = data.get(i).getHigh();
+            }
+        }
         return values;
     }
 
-    public double[] getLowValues()
-    {
+    public double[] getLowValues() {
         double[] values = new double[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
                 values[i] = data.get(i).getLow();
+            }
+        }
         return values;
     }
 
-    public double[] getCloseValues()
-    {
+    public double[] getCloseValues() {
         double[] values = new double[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
                 values[i] = data.get(i).getClose();
+            }
+        }
         return values;
     }
 
-    public double[] getVolumeValues()
-    {
+    public double[] getVolumeValues() {
         double[] values = new double[data.size()];
-        for (int i = 0; i < data.size(); i++)
-            if (data.get(i) != null)
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) != null) {
                 values[i] = data.get(i).getVolume();
+            }
+        }
         return values;
     }
 
-    public long getTimeAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public long getTimeAt(int index) {
+        if (index < 0 || index > data.size()) {
             return 0;
         }
         return data.get(index) != null ? data.get(index).getTime() : 0;
     }
 
-    public void setTimeAt(int index, long value)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public void setTimeAt(int index, long value) {
+        if (index < 0 || index > data.size()) {
             return;
         }
-        if (data.get(index) == null)
-        {
+        if (data.get(index) == null) {
             return;
         }
         data.get(index).setTime(value);
     }
 
-    public Date getDateAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public Date getDateAt(int index) {
+        if (index < 0 || index > data.size()) {
             return null;
         }
         return data.get(index).getDate();
     }
 
-    public double getOpenAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public double getOpenAt(int index) {
+        if (index < 0 || index > data.size()) {
             return 0;
         }
         return data.get(index) != null ? data.get(index).getOpen() : 0;
     }
 
-    public void setOpenAt(int index, double value)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public void setOpenAt(int index, double value) {
+        if (index < 0 || index > data.size()) {
             return;
         }
         data.get(index).setOpen(value);
     }
 
-    public double getHighAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public double getHighAt(int index) {
+        if (index < 0 || index > data.size()) {
             return 0;
         }
         return data.get(index) != null ? data.get(index).getHigh() : 0;
     }
 
-    public void setHighAt(int index, double value)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public void setHighAt(int index, double value) {
+        if (index < 0 || index > data.size()) {
             return;
         }
         data.get(index).setHigh(value);
     }
 
-    public double getLowAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public double getLowAt(int index) {
+        if (index < 0 || index > data.size()) {
             return 0;
         }
         return data.get(index) != null ? data.get(index).getLow() : 0;
     }
 
-    public void setLowAt(int index, double value)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public void setLowAt(int index, double value) {
+        if (index < 0 || index > data.size()) {
             return;
         }
         data.get(index).setLow(value);
     }
 
-    public double getCloseAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public double getCloseAt(int index) {
+        if (index < 0 || index > data.size()) {
             return 0;
         }
         return data.get(index) != null ? data.get(index).getClose() : 0;
     }
 
-    public void setCloseAt(int index, double value)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public void setCloseAt(int index, double value) {
+        if (index < 0 || index > data.size()) {
             return;
         }
         data.get(index).setClose(value);
     }
 
-    public double getVolumeAt(int index)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public double getVolumeAt(int index) {
+        if (index < 0 || index > data.size()) {
             return 0;
         }
         return data.get(index) != null ? data.get(index).getVolume() : 0;
     }
 
-    public void setVolumeAt(int index, double value)
-    {
-        if (index < 0 || index > data.size())
-        {
+    public void setVolumeAt(int index, double value) {
+        if (index < 0 || index > data.size()) {
             return;
         }
         data.get(index).setVolume(value);
     }
 
-	public DataItem getLastDataItem()
-	{
-		return data.get(getLastIndex());
-	}
+    public DataItem getLastDataItem() {
+        return data.get(getLastIndex());
+    }
 
-    public long getLastTime()
-    {
+    public long getLastTime() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getTime() : 0;
     }
 
-    public Date getLastDate()
-    {
+    public Date getLastDate() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getDate() : null;
     }
 
-    public double getLastOpen()
-    {
+    public double getLastOpen() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getOpen() : 0;
     }
 
-    public double getLastHigh()
-    {
+    public double getLastHigh() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getHigh() : 0;
     }
 
-    public double getLastLow()
-    {
+    public double getLastLow() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getLow() : 0;
     }
 
-    public double getLastClose()
-    {
+    public double getLastClose() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getClose() : 0;
     }
 
-    public double getLastVolume()
-    {
+    public double getLastVolume() {
         return data.get(getLastIndex()) != null ? data.get(getLastIndex()).getVolume() : 0;
     }
 
-    public double getPriceAt(int index, String price)
-    {
+    public double getPriceAt(int index, String price) {
         int p = getPrice(price);
         return getPriceAt(index, p);
     }
 
-    public double getPriceAt(int index, int price)
-    {
-        switch (price)
-        {
+    public double getPriceAt(int index, int price) {
+        switch (price) {
             case OPEN_PRICE:
                 return getOpenAt(index);
             case HIGH_PRICE:
@@ -342,16 +304,13 @@ public class Dataset implements Serializable
         return 0;
     }
 
-    public double getLastPrice(String price)
-    {
+    public double getLastPrice(String price) {
         int p = getPrice(price);
         return getLastPrice(p);
     }
 
-    public double getLastPrice(int price)
-    {
-        switch (price)
-        {
+    public double getLastPrice(int price) {
+        switch (price) {
             case OPEN_PRICE:
                 return getLastOpen();
             case HIGH_PRICE:
@@ -366,13 +325,11 @@ public class Dataset implements Serializable
         return 0;
     }
 
-    public double getMin()
-    {
+    public double getMin() {
         return getMin(LOW_PRICE);
     }
 
-    public double getMin(String price)
-    {
+    public double getMin(String price) {
         int p = getPrice(price);
         return getMin(p);
     }
@@ -383,45 +340,48 @@ public class Dataset implements Serializable
         switch (price) {
             case OPEN_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value > item.getOpen())
+                    if (item != null && value > item.getOpen()) {
                         value = item.getOpen();
+                    }
                 }
                 return value;
             case HIGH_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value > item.getHigh())
+                    if (item != null && value > item.getHigh()) {
                         value = item.getHigh();
+                    }
                 }
                 return value;
             case LOW_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value > item.getLow())
+                    if (item != null && value > item.getLow()) {
                         value = item.getLow();
+                    }
                 }
                 return value;
             case CLOSE_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value > item.getClose())
+                    if (item != null && value > item.getClose()) {
                         value = item.getClose();
+                    }
                 }
                 return value;
             case VOLUME_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value > item.getVolume())
+                    if (item != null && value > item.getVolume()) {
                         value = item.getVolume();
+                    }
                 }
                 return value;
         }
         return 0;
     }
 
-    public double getMinNotZero()
-    {
+    public double getMinNotZero() {
         return getMinNotZero(LOW_PRICE);
     }
 
-    public double getMinNotZero(String price)
-    {
+    public double getMinNotZero(String price) {
         int p = getPrice(price);
         return getMinNotZero(p);
     }
@@ -432,45 +392,48 @@ public class Dataset implements Serializable
         switch (price) {
             case OPEN_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getOpen() != 0 && value > item.getOpen())
+                    if (item != null && item.getOpen() != 0 && value > item.getOpen()) {
                         value = item.getOpen();
+                    }
                 }
                 return value;
             case HIGH_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getHigh() != 0 && value > item.getHigh())
+                    if (item != null && item.getHigh() != 0 && value > item.getHigh()) {
                         value = item.getHigh();
+                    }
                 }
                 return value;
             case LOW_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getLow() != 0 && value > item.getLow())
+                    if (item != null && item.getLow() != 0 && value > item.getLow()) {
                         value = item.getLow();
+                    }
                 }
                 return value;
             case CLOSE_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getClose() != 0 && value > item.getClose())
+                    if (item != null && item.getClose() != 0 && value > item.getClose()) {
                         value = item.getClose();
+                    }
                 }
                 return value;
             case VOLUME_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getVolume() != 0 && value > item.getVolume())
+                    if (item != null && item.getVolume() != 0 && value > item.getVolume()) {
                         value = item.getVolume();
+                    }
                 }
                 return value;
         }
         return 0;
     }
 
-    public double getMax()
-    {
+    public double getMax() {
         return getMax(HIGH_PRICE);
     }
 
-    public double getMax(String price)
-    {
+    public double getMax(String price) {
         int p = getPrice(price);
         return getMax(p);
     }
@@ -481,45 +444,48 @@ public class Dataset implements Serializable
         switch (price) {
             case OPEN_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value < item.getOpen())
+                    if (item != null && value < item.getOpen()) {
                         value = item.getOpen();
+                    }
                 }
                 return value;
             case HIGH_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value < item.getHigh())
+                    if (item != null && value < item.getHigh()) {
                         value = item.getHigh();
+                    }
                 }
                 return value;
             case LOW_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value < item.getLow())
+                    if (item != null && value < item.getLow()) {
                         value = item.getLow();
+                    }
                 }
                 return value;
             case CLOSE_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value < item.getClose())
+                    if (item != null && value < item.getClose()) {
                         value = item.getClose();
+                    }
                 }
                 return value;
             case VOLUME_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && value < item.getVolume())
+                    if (item != null && value < item.getVolume()) {
                         value = item.getVolume();
+                    }
                 }
                 return value;
         }
         return 0;
     }
 
-    public double getMaxNotZero()
-    {
+    public double getMaxNotZero() {
         return getMaxNotZero(HIGH_PRICE);
     }
 
-    public double getMaxNotZero(String price)
-    {
+    public double getMaxNotZero(String price) {
         int p = getPrice(price);
         return getMaxNotZero(p);
     }
@@ -530,115 +496,104 @@ public class Dataset implements Serializable
         switch (price) {
             case OPEN_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getOpen() != 0 && value < item.getOpen())
+                    if (item != null && item.getOpen() != 0 && value < item.getOpen()) {
                         value = item.getOpen();
+                    }
                 }
                 return value;
             case HIGH_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getHigh() != 0 && value < item.getHigh())
+                    if (item != null && item.getHigh() != 0 && value < item.getHigh()) {
                         value = item.getHigh();
+                    }
                 }
                 return value;
             case LOW_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getLow() != 0 && value < item.getLow())
+                    if (item != null && item.getLow() != 0 && value < item.getLow()) {
                         value = item.getLow();
+                    }
                 }
                 return value;
             case CLOSE_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getClose() != 0 && value < item.getClose())
+                    if (item != null && item.getClose() != 0 && value < item.getClose()) {
                         value = item.getClose();
+                    }
                 }
                 return value;
             case VOLUME_PRICE:
                 for (DataItem item : list) {
-                    if (item != null && item.getVolume() != 0 && value < item.getVolume())
+                    if (item != null && item.getVolume() != 0 && value < item.getVolume()) {
                         value = item.getVolume();
+                    }
                 }
                 return value;
         }
         return 0;
     }
 
-    public List<DataItem> getVisibleItems(int period, int end)
-    {
+    public List<DataItem> getVisibleItems(int period, int end) {
         List<DataItem> list = new ArrayList<DataItem>();
-        for (int i = 0; i < period; i++)
-        {
+        for (int i = 0; i < period; i++) {
             int j = end - period + i;
-            if (j < getItemsCount() && j >= 0)
-            {
+            if (j < getItemsCount() && j >= 0) {
                 list.add(data.get(j));
             }
         }
         return list;
     }
 
-    public DataItem[] getVisibleItemsArray(int period, int end)
-    {
+    public DataItem[] getVisibleItemsArray(int period, int end) {
         DataItem[] list = new DataItem[period];
-        for (int i = 0; i < period; i++)
-        {
+        for (int i = 0; i < period; i++) {
             int j = end - period + i;
-            if (j < getItemsCount() && j >= 0)
-            {
+            if (j < getItemsCount() && j >= 0) {
                 list[i] = data.get(j);
             }
         }
         return list;
     }
 
-    public Dataset getVisibleDataset(int period, int end)
-    {
+    public Dataset getVisibleDataset(int period, int end) {
         return new Dataset(getVisibleItems(period, end));
     }
 
-    public static Dataset EMPTY(int count)
-    {
+    public static Dataset EMPTY(int count) {
         List<DataItem> list = new ArrayList<DataItem>();
 
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             list.add(i, null);
         }
 
         return new Dataset(list);
     }
 
-    public static Dataset CONST(Dataset d, double ct)
-    {
-        if (d == null)
-        {
+    public static Dataset CONST(Dataset d, double ct) {
+        if (d == null) {
             return null;
         }
 
         int count = d.getItemsCount();
         Dataset result = EMPTY(count);
 
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             result.setDataItem(i, new DataItem(d.getTimeAt(i), ct));
         }
 
         return result;
     }
 
-    public static Dataset LOG(Dataset d)
-    {
-        if (d == null)
-        {
+    public static Dataset LOG(Dataset d) {
+        if (d == null) {
             return null;
         }
 
         int count = d.getItemsCount();
         Dataset result = EMPTY(count);
 
-        for (int i = 0; i < count; i++)
-        {
-            if (d.getDataItem(i) != null)
-            {
+        for (int i = 0; i < count; i++) {
+            if (d.getDataItem(i) != null) {
                 double open = Math.log10(d.getOpenAt(i));
                 double high = Math.log10(d.getHighAt(i));
                 double low = Math.log10(d.getLowAt(i));
@@ -652,18 +607,15 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset SUM(Dataset d1, Dataset d2)
-    {
-        if (d1 == null || d2 == null)
-        {
+    public static Dataset SUM(Dataset d1, Dataset d2) {
+        if (d1 == null || d2 == null) {
             return null;
         }
 
         int count = d1.getItemsCount();
         Dataset result = EMPTY(count);
 
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             result.setDataItem(i, new DataItem(
                     d1.getTimeAt(i),
                     d1.getOpenAt(i) + d2.getOpenAt(i),
@@ -676,18 +628,15 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset DIFF(Dataset d1, Dataset d2)
-    {
-        if (d1 == null || d2 == null)
-        {
+    public static Dataset DIFF(Dataset d1, Dataset d2) {
+        if (d1 == null || d2 == null) {
             return null;
         }
 
         int count = d1.getItemsCount();
         Dataset result = EMPTY(count);
 
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             result.setDataItem(i, new DataItem(
                     d1.getTimeAt(i),
                     d1.getOpenAt(i) - d2.getOpenAt(i),
@@ -700,18 +649,15 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset MULTIPLY(Dataset d, double value)
-    {
-        if (d == null)
-        {
+    public static Dataset MULTIPLY(Dataset d, double value) {
+        if (d == null) {
             return null;
         }
 
         int count = d.getItemsCount();
         Dataset result = EMPTY(count);
 
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             result.setDataItem(i, new DataItem(
                     d.getTimeAt(i),
                     d.getOpenAt(i) * value,
@@ -724,18 +670,15 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset DIV(Dataset d, double value)
-    {
-        if (d == null)
-        {
+    public static Dataset DIV(Dataset d, double value) {
+        if (d == null) {
             return null;
         }
 
         int count = d.getItemsCount();
         Dataset result = EMPTY(count);
 
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             result.setDataItem(i, new DataItem(
                     d.getTimeAt(i),
                     d.getOpenAt(i) / value,
@@ -748,10 +691,8 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset HMA(Dataset dataset, int period)
-    {
-        if (dataset == null)
-        {
+    public static Dataset HMA(Dataset dataset, int period) {
+        if (dataset == null) {
             return null;
         }
 
@@ -765,10 +706,8 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset SMA(Dataset dataset, int period)
-    {
-        if (dataset == null)
-        {
+    public static Dataset SMA(Dataset dataset, int period) {
+        if (dataset == null) {
             return null;
         }
 
@@ -776,13 +715,11 @@ public class Dataset implements Serializable
         Dataset result = Dataset.EMPTY(count);
 
         int j = 0;
-        for (j = 0; j < count && (dataset.getDataItem(j) == null); j++)
-        {
+        for (j = 0; j < count && (dataset.getDataItem(j) == null); j++) {
             result.setDataItem(j, null);
         }
 
-        for (int i = j + period - 1; i < count; i++)
-        {
+        for (int i = j + period - 1; i < count; i++) {
             long time = dataset.getTimeAt(i);
             double open = 0;
             double high = 0;
@@ -790,8 +727,7 @@ public class Dataset implements Serializable
             double close = 0;
             double volume = 0;
 
-            for (int k = 0; k < period; k++)
-            {
+            for (int k = 0; k < period; k++) {
                 open += dataset.getOpenAt(i - k);
                 high += dataset.getHighAt(i - k);
                 low += dataset.getLowAt(i - k);
@@ -810,10 +746,8 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset EMA(Dataset dataset, int period)
-    {
-        if (dataset == null)
-        {
+    public static Dataset EMA(Dataset dataset, int period) {
+        if (dataset == null) {
             return null;
         }
 
@@ -821,8 +755,7 @@ public class Dataset implements Serializable
         Dataset result = Dataset.EMPTY(count);
 
         int j = 0;
-        for (j = 0; j < count && (dataset.getDataItem(j) == null); j++)
-        {
+        for (j = 0; j < count && (dataset.getDataItem(j) == null); j++) {
             result.setDataItem(j, null);
         }
 
@@ -832,16 +765,14 @@ public class Dataset implements Serializable
         double close = 0;
         double volume = 0;
 
-        for (int i = j; i < period + j && i < count; i++)
-        {
+        for (int i = j; i < period + j && i < count; i++) {
             open += dataset.getOpenAt(i);
             high += dataset.getHighAt(i);
             low += dataset.getLowAt(i);
             close += dataset.getCloseAt(i);
             volume += dataset.getVolumeAt(i);
 
-            if (i == period + j - 1)
-            {
+            if (i == period + j - 1) {
                 open /= (double) period;
                 high /= (double) period;
                 low /= (double) period;
@@ -849,15 +780,13 @@ public class Dataset implements Serializable
                 volume /= (double) period;
 
                 result.setDataItem(i, new DataItem(dataset.getTimeAt(i), open, high, low, close, volume));
-            } else
-            {
+            } else {
                 result.setDataItem(i, null);
             }
         }
 
         double k = 2 / ((double) (period + 1));
-        for (int i = period + j; i < dataset.getItemsCount(); i++)
-        {
+        for (int i = period + j; i < dataset.getItemsCount(); i++) {
             open = (dataset.getOpenAt(i) - open) * k + open;
             high = (dataset.getHighAt(i) - high) * k + high;
             low = (dataset.getLowAt(i) - low) * k + low;
@@ -883,16 +812,13 @@ public class Dataset implements Serializable
      * http://www.incrediblecharts.com/indicators/wilder_moving_average.php
      * http://user42.tuxfamily.org/chart/manual/Exponential-Moving-Average.html
      */
-    public static Dataset EMAWilder(Dataset dataset, int period)
-    {
-        int classic_ema_period = 2*period - 1;
+    public static Dataset EMAWilder(Dataset dataset, int period) {
+        int classic_ema_period = 2 * period - 1;
         return Dataset.EMA(dataset, classic_ema_period);
     }
 
-    public static Dataset WMA(Dataset dataset, int period)
-    {
-        if (dataset == null)
-        {
+    public static Dataset WMA(Dataset dataset, int period) {
+        if (dataset == null) {
             return null;
         }
 
@@ -901,26 +827,22 @@ public class Dataset implements Serializable
         double denominator = ((double) period * ((double) period + 1)) / 2;
 
         int j = 0;
-        for (j = 0; j < count && (dataset.getDataItem(j) == null); j++)
-        {
+        for (j = 0; j < count && (dataset.getDataItem(j) == null); j++) {
             result.setDataItem(j, null);
         }
 
-        for (int i = j; i < period + j; i++)
-        {
+        for (int i = j; i < period + j; i++) {
             result.setDataItem(i, null);
         }
 
-        for (int i = period + j; i < count; i++)
-        {
+        for (int i = period + j; i < count; i++) {
             double open = 0;
             double high = 0;
             double low = 0;
             double close = 0;
             double volume = 0;
 
-            for (int k = i - period; k < i; k++)
-            {
+            for (int k = i - period; k < i; k++) {
                 open += (period - i + k + 1) * dataset.getOpenAt(k);
                 high += (period - i + k + 1) * dataset.getHighAt(k);
                 low += (period - i + k + 1) * dataset.getLowAt(k);
@@ -940,10 +862,8 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset TEMA(Dataset dataset, int period)
-    {
-        if (dataset == null)
-        {
+    public static Dataset TEMA(Dataset dataset, int period) {
+        if (dataset == null) {
             return null;
         }
 
@@ -954,21 +874,18 @@ public class Dataset implements Serializable
         Dataset ema3 = EMA(ema2, period);
 
         int j = 0;
-        for (j = 0; j < count && (dataset.getDataItem(j) == null || ema1.getDataItem(j) == null || ema2.getDataItem(j) == null || ema3.getDataItem(j) == null); j++)
-        {
+        for (j = 0; j < count && (dataset.getDataItem(j) == null || ema1.getDataItem(j) == null || ema2.getDataItem(j) == null || ema3.getDataItem(j) == null); j++) {
             result.setDataItem(j, null);
         }
 
-        for (int i = j; i < count; i++)
-        {
+        for (int i = j; i < count; i++) {
             double open = 0;
             double high = 0;
             double low = 0;
             double close = 0;
             double volume = 0;
 
-            if (ema1.getCloseAt(i) != 0 && ema2.getCloseAt(i) != 0 && ema3.getCloseAt(i) != 0)
-            {
+            if (ema1.getCloseAt(i) != 0 && ema2.getCloseAt(i) != 0 && ema3.getCloseAt(i) != 0) {
                 open = 3 * ema1.getOpenAt(i) - 3 * ema2.getOpenAt(i) + ema3.getOpenAt(i);
                 high = 3 * ema1.getHighAt(i) - 3 * ema2.getHighAt(i) + ema3.getHighAt(i);
                 low = 3 * ema1.getLowAt(i) - 3 * ema2.getLowAt(i) + ema3.getLowAt(i);
@@ -982,10 +899,8 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static Dataset[] ADX(Dataset dataset, int period)
-    {
-        if (dataset == null)
-        {
+    public static Dataset[] ADX(Dataset dataset, int period) {
+        if (dataset == null) {
             return null;
         }
 
@@ -998,8 +913,7 @@ public class Dataset implements Serializable
         Dataset hmhp = Dataset.EMPTY(count);
         Dataset lmlp = Dataset.EMPTY(count);
 
-        for (int i = 1; i < count; i++)
-        {
+        for (int i = 1; i < count; i++) {
             long time = dataset.getTimeAt(i);
 
             double tr0 = dataset.getHighAt(i) - dataset.getCloseAt(i - 1);
@@ -1008,22 +922,17 @@ public class Dataset implements Serializable
             tr1 = Math.abs(dataset.getLowAt(i) - dataset.getCloseAt(i - 1));
             tr.setDataItem(i, new DataItem(time, Math.max(tr0, tr1)));
 
-            if (dataset.getHighAt(i) <= dataset.getHighAt(i - 1) && dataset.getLowAt(i) < dataset.getLowAt(i - 1))
-            {
+            if (dataset.getHighAt(i) <= dataset.getHighAt(i - 1) && dataset.getLowAt(i) < dataset.getLowAt(i - 1)) {
                 lmlp.setDataItem(i, new DataItem(time, dataset.getLowAt(i - 1) - dataset.getLowAt(i)));
-            } else if (dataset.getHighAt(i) > dataset.getHighAt(i - 1) && dataset.getLowAt(i) >= dataset.getLowAt(i - 1))
-            {
+            } else if (dataset.getHighAt(i) > dataset.getHighAt(i - 1) && dataset.getLowAt(i) >= dataset.getLowAt(i - 1)) {
                 hmhp.setDataItem(i, new DataItem(time, dataset.getHighAt(i) - dataset.getHighAt(i - 1)));
-            } else
-            {
+            } else {
                 double tempH = Math.abs(dataset.getHighAt(i) - dataset.getHighAt(i - 1));
                 double tempL = Math.abs(dataset.getLowAt(i) - dataset.getLowAt(i - 1));
 
-                if (tempH > tempL)
-                {
+                if (tempH > tempL) {
                     hmhp.setDataItem(i, new DataItem(time, tempH));
-                } else
-                {
+                } else {
                     lmlp.setDataItem(i, new DataItem(time, tempL));
                 }
             }
@@ -1033,16 +942,13 @@ public class Dataset implements Serializable
         Dataset shmhpDS = Dataset.EMA(hmhp, period);
         Dataset slmlpDS = Dataset.EMA(lmlp, period);
 
-        for (int i = period; i < count; i++)
-        {
+        for (int i = period; i < count; i++) {
             long time = dataset.getTimeAt(i);
             double curPDI = 0;
             double curMDI = 0;
 
-            if (strDS.getDataItem(i) != null)
-            {
-                if (strDS.getCloseAt(i) != 0)
-                {
+            if (strDS.getDataItem(i) != null) {
+                if (strDS.getCloseAt(i) != 0) {
                     curPDI = (shmhpDS.getCloseAt(i) / strDS.getCloseAt(i)) * 100;
                     curMDI = (slmlpDS.getCloseAt(i) / strDS.getCloseAt(i)) * 100;
                 }
@@ -1051,8 +957,7 @@ public class Dataset implements Serializable
             pdi.setDataItem(i, new DataItem(time, curPDI));
             mdi.setDataItem(i, new DataItem(time, curMDI));
 
-            if (curPDI + curMDI != 0)
-            {
+            if (curPDI + curMDI != 0) {
                 dx.setDataItem(i, new DataItem(time, (Math.abs(curPDI - curMDI) / (curPDI + curMDI) * 100)));
             }
         }
@@ -1066,11 +971,12 @@ public class Dataset implements Serializable
         return result;
     }
 
-    public static int getPrice(String price)
-    {
-        for (int i = 0; i < LIST.length; i++)
-            if (price.equals(LIST[i]))
+    public static int getPrice(String price) {
+        for (int i = 0; i < LIST.length; i++) {
+            if (price.equals(LIST[i])) {
                 return i;
+            }
+        }
         return 3; // Default Close
     }
     public static final int OPEN_PRICE = 0;
@@ -1083,9 +989,8 @@ public class Dataset implements Serializable
     public static final String LOW = "Low";
     public static final String CLOSE = "Close";
     public static final String VOLUME = "Volume";
-    public static final String[] LIST = new String[]
-    {
+    public static final String[] LIST = new String[]{
         OPEN, HIGH, LOW, CLOSE
     };
-	
+
 }

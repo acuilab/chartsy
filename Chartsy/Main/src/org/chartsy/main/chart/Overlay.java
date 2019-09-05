@@ -23,72 +23,60 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 图层
  * @author viorel.gheba
  */
-public abstract class Overlay extends ChartFrameAdapter
-        implements Serializable, XMLTemplate
-{
+public abstract class Overlay extends ChartFrameAdapter implements Serializable, XMLTemplate {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
-    
-    protected String datasetKey;
-	protected ConcurrentHashMap<String, Dataset> datasets;
-	protected boolean active = true;
 
-    public Overlay()
-    {
-		datasets = new ConcurrentHashMap<String, Dataset>();
+    protected String datasetKey;                            // 数据集key
+    protected ConcurrentHashMap<String, Dataset> datasets;  // 数据集集合
+    protected boolean active = true;
+
+    public Overlay() {
+        datasets = new ConcurrentHashMap<String, Dataset>();
     }
 
-    public String getFontHTML(Color color, String text)
-    {
+    public String getFontHTML(Color color, String text) {
         String html = "<font color=\"" + Integer.toHexString(color.getRGB() & 0x00ffffff) + "\">" + text + "</font>";
         return html;
     }
 
-    public Dataset getDataset()
-    {
+    public Dataset getDataset() {
         return DatasetUsage.getInstance().getDatasetFromMemory(datasetKey);
     }
 
-    public void setDatasetKey(String datasetKey)
-    {
+    public void setDatasetKey(String datasetKey) {
         this.datasetKey = datasetKey;
     }
 
-	public void clearDatasets()
-	{
-		datasets.clear();
-	}
-
-    public void addDataset(String key, Dataset value)
-    {
-		datasets.put(key, value);
+    public void clearDatasets() {
+        datasets.clear();
     }
 
-    public Dataset getDataset(String key)
-    {
-		return datasets.get(key);
+    public void addDataset(String key, Dataset value) {
+        datasets.put(key, value);
     }
 
-	private boolean datasetExists(String key)
-	{
-		return datasets.containsKey(key);
-	}
+    public Dataset getDataset(String key) {
+        return datasets.get(key);
+    }
 
-    public Dataset visibleDataset(ChartFrame cf, String key)
-    {
-        if (datasetExists(key))
-        {
+    private boolean datasetExists(String key) {
+        return datasets.containsKey(key);
+    }
+
+    // 根据key获得可见数据集
+    public Dataset visibleDataset(ChartFrame cf, String key) {
+        if (datasetExists(key)) {
             Dataset dataset = getDataset(key);
-            if (dataset == null)
-            {
+            if (dataset == null) {
                 return null;
             }
 
-			int period = cf.getChartData().getPeriod();
-			int last = cf.getChartData().getLast();
+            int period = cf.getChartData().getPeriod();
+            int last = cf.getChartData().getLast();
             Dataset visible = dataset.getVisibleDataset(period, last);
             return visible;
         }
@@ -103,20 +91,16 @@ public abstract class Overlay extends ChartFrameAdapter
 
     public abstract LinkedHashMap getHTML(ChartFrame cf, int i);
 
-    public Range getRange(ChartFrame cf, String price)
-    {
+    public Range getRange(ChartFrame cf, String price) {
         Range range = null;
-		String[] keys = datasets.keySet().toArray(new String[datasets.size()]);
-        for (String key : keys)
-        {
+        String[] keys = datasets.keySet().toArray(new String[datasets.size()]);
+        for (String key : keys) {
             Dataset dataset = visibleDataset(cf, key);
             double min = dataset.getMinNotZero(price);
             double max = dataset.getMaxNotZero(price);
-            if (range == null)
-            {
+            if (range == null) {
                 range = new Range(min - (max - min) * 0.01, max + (max - min) * 0.01);
-            } else
-            {
+            } else {
                 range = Range.combine(range, new Range(min - (max - min) * 0.01, max + (max - min) * 0.01));
             }
         }
@@ -140,88 +124,75 @@ public abstract class Overlay extends ChartFrameAdapter
     public abstract String getPrice();
 
     /**
-     * If an override in the overlay class sets this to false
-     * that overlay is not included in the range calculation of the chart.
+     * If an override in the overlay class sets this to false that overlay is
+     * not included in the range calculation of the chart.
      *
      * @return whether to include this overlay in chart range
      */
-    public boolean isIncludedInRange()
-    {
+    public boolean isIncludedInRange() {
         return true;
     }
 
-	public void saveToTemplate(Document document, Element element)
-	{
-		AbstractPropertiesNode node = (AbstractPropertiesNode) getNode();
-		AbstractPropertyListener listener = node.getAbstractPropertyListener();
-		Field[] fields = listener.getClass().getDeclaredFields();
-		for (Field field : fields)
-		{
-			try
-			{
-				field.setAccessible(true);
-				if (field.getModifiers() == Modifier.PRIVATE)
-					XMLUtil.addProperty(document, element, field.getName(), field.get(listener));
-			} 
-			catch (Exception ex)
-			{
-				Logger.getLogger(getName()).log(Level.SEVERE, "", ex);
-			}
-		}
-	}
+    @Override
+    public void saveToTemplate(Document document, Element element) {
+        AbstractPropertiesNode node = (AbstractPropertiesNode) getNode();
+        AbstractPropertyListener listener = node.getAbstractPropertyListener();
+        Field[] fields = listener.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                if (field.getModifiers() == Modifier.PRIVATE) {
+                    XMLUtil.addProperty(document, element, field.getName(), field.get(listener));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getName()).log(Level.SEVERE, "", ex);
+            }
+        }
+    }
 
-	public void loadFromTemplate(Element element)
-	{
-		AbstractPropertiesNode node = (AbstractPropertiesNode) getNode();
-		AbstractPropertyListener listener = node.getAbstractPropertyListener();
-		Field[] fields = listener.getClass().getDeclaredFields();
-		for (Field field : fields)
-		{
-			try
-			{
-				field.setAccessible(true);
-				if (field.getModifiers() == Modifier.PRIVATE) 
-				{
-					if (XMLUtil.elementExists(element, field.getName()))
-					{
-						Class type = field.getType();
-						if (type.equals(String.class))
-							field.set(listener, XMLUtil.getStringProperty(element, field.getName()));
-						else if (type.equals(int.class))
-							field.set(listener, XMLUtil.getIntegerProperty(element, field.getName()));
-						else if (type.equals(double.class))
-							field.set(listener, XMLUtil.getDoubleProperty(element, field.getName()));
-						else if (type.equals(float.class))
-							field.set(listener, XMLUtil.getFloatProperty(element, field.getName()));
-						else if (type.equals(boolean.class))
-							field.set(listener, XMLUtil.getBooleanProperty(element, field.getName()));
-						else if (type.equals(Color.class))
-							field.set(listener, XMLUtil.getColorProperty(element, field.getName()));
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				Logger.getLogger(getName()).log(Level.SEVERE, "", ex);
-			}
-		}
-	}
+    public void loadFromTemplate(Element element) {
+        AbstractPropertiesNode node = (AbstractPropertiesNode) getNode();
+        AbstractPropertyListener listener = node.getAbstractPropertyListener();
+        Field[] fields = listener.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                if (field.getModifiers() == Modifier.PRIVATE) {
+                    if (XMLUtil.elementExists(element, field.getName())) {
+                        Class type = field.getType();
+                        if (type.equals(String.class)) {
+                            field.set(listener, XMLUtil.getStringProperty(element, field.getName()));
+                        } else if (type.equals(int.class)) {
+                            field.set(listener, XMLUtil.getIntegerProperty(element, field.getName()));
+                        } else if (type.equals(double.class)) {
+                            field.set(listener, XMLUtil.getDoubleProperty(element, field.getName()));
+                        } else if (type.equals(float.class)) {
+                            field.set(listener, XMLUtil.getFloatProperty(element, field.getName()));
+                        } else if (type.equals(boolean.class)) {
+                            field.set(listener, XMLUtil.getBooleanProperty(element, field.getName()));
+                        } else if (type.equals(Color.class)) {
+                            field.set(listener, XMLUtil.getColorProperty(element, field.getName()));
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getName()).log(Level.SEVERE, "", ex);
+            }
+        }
+    }
 
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public boolean isActive()
-	{
-		return active;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	@Override
-	public void datasetKeyChanged(String datasetKey)
-	{
-		setDatasetKey(datasetKey);
-		calculate();
-	}
-    
+    @Override
+    public void datasetKeyChanged(String datasetKey) {
+        setDatasetKey(datasetKey);
+        calculate();
+    }
+
 }

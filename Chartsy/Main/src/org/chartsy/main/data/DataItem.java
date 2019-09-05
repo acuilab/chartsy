@@ -6,22 +6,21 @@ import org.chartsy.main.utils.SerialVersion;
 
 /**
  * 数据项
+ *
  * @author viorel.gheba
  */
-public class DataItem implements Serializable, Comparable<DataItem>
-{
+public class DataItem implements Serializable, Comparable<DataItem> {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
     private long time;      // 时间
-    private double open;    // 开盘
-    private double high;    // 高
-    private double low;     // 低
-    private double close;   // 收盘
-    private double volume;  // 量
+    private double open;    // 开盘价
+    private double high;    // 最高价
+    private double low;     // 最低价
+    private double close;   // 收盘价
+    private double volume;  // 数量
 
-    public DataItem(long time, double close)
-    {
+    public DataItem(long time, double close) {
         this.time = time;
         this.open = 0;
         this.high = 0;
@@ -30,8 +29,7 @@ public class DataItem implements Serializable, Comparable<DataItem>
         this.volume = 0;
     }
 
-    public DataItem(long time, double open, double high, double low, double close, double volume)
-    {
+    public DataItem(long time, double open, double high, double low, double close, double volume) {
         this.time = time;
         this.open = open;
         this.high = high;
@@ -40,97 +38,116 @@ public class DataItem implements Serializable, Comparable<DataItem>
         this.volume = volume;
     }
 
-    public DataItem getEmptyDataItem()
-    { return null; }
+    public DataItem getEmptyDataItem() {
+        return null;
+    }
 
-    public long getTime() 
-    { return time; }
+    public long getTime() {
+        return time;
+    }
 
-    public void setTime(long time) 
-    { this.time = time; }
+    public void setTime(long time) {
+        this.time = time;
+    }
 
-    public Date getDate() 
-    { return new Date(time); }
+    public Date getDate() {
+        return new Date(time);
+    }
 
-    public double getOpen() 
-    { return open; }
+    public double getOpen() {
+        return open;
+    }
 
-    public void setOpen(double open) 
-    { this.open = open; }
+    public void setOpen(double open) {
+        this.open = open;
+    }
 
-    public double getHigh() 
-    { return high; }
+    public double getHigh() {
+        return high;
+    }
 
-    public void setHigh(double high) 
-    { this.high = high; }
+    public void setHigh(double high) {
+        this.high = high;
+    }
 
-    public double getLow() 
-    { return low; }
+    public double getLow() {
+        return low;
+    }
 
-    public void setLow(double low) 
-    { this.low = low; }
+    public void setLow(double low) {
+        this.low = low;
+    }
 
-    public double getClose() 
-    { return close; }
+    public double getClose() {
+        return close;
+    }
 
-    public void setClose(double close) 
-    { this.close = close; }
+    public void setClose(double close) {
+        this.close = close;
+    }
 
-    public double getVolume() 
-    { return volume; }
+    public double getVolume() {
+        return volume;
+    }
 
-    public void setVolume(double volume) 
-    { this.volume = volume; }
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
 
-	@Override
-    public boolean equals(Object obj)
-    {
-        if (obj == this)
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof DataItem))
+        if (!(obj instanceof DataItem)) {
             return false;
-        
+        }
+
         DataItem that = (DataItem) obj;
-        if (getTime() != that.getTime()) 
+        if (getTime() != that.getTime()) {
             return false;
+        }
 
-        if (getOpen() != that.getOpen()) 
+        if (getOpen() != that.getOpen()) {
             return false;
+        }
 
-        if (getHigh() != that.getHigh()) 
+        if (getHigh() != that.getHigh()) {
             return false;
+        }
 
-        if (getLow() != that.getLow()) 
+        if (getLow() != that.getLow()) {
             return false;
+        }
 
-        if (getClose() != that.getClose()) 
+        if (getClose() != that.getClose()) {
             return false;
+        }
 
-        if (getVolume() != that.getVolume()) 
+        if (getVolume() != that.getVolume()) {
             return false;
-        
+        }
+
         return true;
     }
 
-	@Override
-	public int hashCode()
-	{
-		int hash = 3;
-		hash = 53 * hash + (int) (this.time ^ (this.time >>> 32));
-		hash = 53 * hash + (int) (Double.doubleToLongBits(this.open) ^ (Double.doubleToLongBits(this.open) >>> 32));
-		hash = 53 * hash + (int) (Double.doubleToLongBits(this.high) ^ (Double.doubleToLongBits(this.high) >>> 32));
-		hash = 53 * hash + (int) (Double.doubleToLongBits(this.low) ^ (Double.doubleToLongBits(this.low) >>> 32));
-		hash = 53 * hash + (int) (Double.doubleToLongBits(this.close) ^ (Double.doubleToLongBits(this.close) >>> 32));
-		hash = 53 * hash + (int) (Double.doubleToLongBits(this.volume) ^ (Double.doubleToLongBits(this.volume) >>> 32));
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + (int) (this.time ^ (this.time >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.open) ^ (Double.doubleToLongBits(this.open) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.high) ^ (Double.doubleToLongBits(this.high) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.low) ^ (Double.doubleToLongBits(this.low) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.close) ^ (Double.doubleToLongBits(this.close) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.volume) ^ (Double.doubleToLongBits(this.volume) >>> 32));
+        return hash;
+    }
 
-	@Override
-    public String toString()
-    {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-		sb.append(Long.toString(time)).append(",");
+        sb.append(Long.toString(time)).append(",");
         //sb.append("DataItem [open=");
         sb.append(Double.toString(open)).append(",");
         //sb.append(", high=");
@@ -145,15 +162,13 @@ public class DataItem implements Serializable, Comparable<DataItem>
         return sb.toString();
     }
 
-	@Override
-	public int compareTo(DataItem item)
-	{
-		return getDate().compareTo(item.getDate());
-	}
+    @Override
+    public int compareTo(DataItem item) {
+        return getDate().compareTo(item.getDate());
+    }
 
-	public boolean updateClose(DataItem item)
-	{
-		return Double.compare(close, item.getClose()) != 0;
-	}
+    public boolean updateClose(DataItem item) {
+        return Double.compare(close, item.getClose()) != 0;
+    }
 
 }

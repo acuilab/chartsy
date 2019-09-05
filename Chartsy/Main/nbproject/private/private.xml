@@ -4,15 +4,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/MainPanel.java</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/AnnotationPanel.java</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/templates/Template.java</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/ChartProperties.java</file>
             <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/ChartFrame.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/dialogs/AnnotationProperties.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/SymbolChanger.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/dialogs/ChartSettings.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/dialogs/SettingsPanel.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/welcome/ui/Forum.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/dialogs/Overlays.java</file>
-            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/Welcome.settings</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/chart/Annotation.java</file>
         </group>
     </open-files>
 </project-private>

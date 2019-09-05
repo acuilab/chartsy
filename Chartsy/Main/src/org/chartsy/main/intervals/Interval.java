@@ -5,15 +5,15 @@ import java.util.Calendar;
 import org.chartsy.main.utils.SerialVersion;
 
 /**
- *
+ * 间隔
  * @author viorel.gheba
  */
 public abstract class Interval implements Serializable
 {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
-    protected String name = "";
-    protected String timeParam = "";
+    protected String name = "";         // 名称
+    protected String timeParam = "";    // 时间参数
     protected boolean intraDay = false;
 
     public Interval(String name)
@@ -146,12 +146,7 @@ public abstract class Interval implements Serializable
             return false;
         }
 
-        if (!that.getTimeParam().equals(getTimeParam()))
-        {
-            return false;
-        }
-
-        return true;
+        return that.getTimeParam().equals(getTimeParam());
     }
 
     public

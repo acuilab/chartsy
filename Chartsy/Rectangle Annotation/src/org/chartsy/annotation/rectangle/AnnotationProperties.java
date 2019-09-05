@@ -11,9 +11,8 @@ import org.chartsy.main.utils.StrokeGenerator;
  *
  * @author viorel.gheba
  */
-public class AnnotationProperties 
-        extends AbstractPropertyListener
-{
+public class AnnotationProperties
+        extends AbstractPropertyListener {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
@@ -22,26 +21,56 @@ public class AnnotationProperties
     public static final int INSIDE_ALPHA = 25;
     public static final boolean INSIDE_VISIBILITY = true;
 
-    private Color color = COLOR;
+    private Color color = COLOR;                            // 颜色
     private int strokeIndex = STROKE_INDEX;
-    private int insideAlpha = INSIDE_ALPHA;
-    private boolean insideVisibility = INSIDE_VISIBILITY;
+    private int insideAlpha = INSIDE_ALPHA;                 // 内部透明度
+    private boolean insideVisibility = INSIDE_VISIBILITY;   // 内部是否可见
 
-    public AnnotationProperties() {}
+    public AnnotationProperties() {
+    }
 
-    public Color getColor() { return color; }
-    public void setColor(Color c) { color = c; }
+    public Color getColor() {
+        return color;
+    }
 
-    public int getStrokeIndex() { return strokeIndex; }
-    public void setStrokeIndex(int i) { strokeIndex = i; }
-    public Stroke getStroke() { return StrokeGenerator.getStroke(strokeIndex); }
-    public void setStroke(Stroke s) { strokeIndex = StrokeGenerator.getStrokeIndex(s); }
+    public void setColor(Color c) {
+        color = c;
+    }
 
-    public int getInsideAlpha() { return insideAlpha; }
-    public void setInsideAlpha(int i) { insideAlpha = i; }
-    public Color getFillColor() { return ColorGenerator.getTransparentColor(color, insideAlpha); }
+    public int getStrokeIndex() {
+        return strokeIndex;
+    }
 
-    public boolean getInsideVisibility() { return insideVisibility; }
-    public void setInsideVisibility(boolean b) { insideVisibility = b; }
+    public void setStrokeIndex(int i) {
+        strokeIndex = i;
+    }
+
+    public Stroke getStroke() {
+        return StrokeGenerator.getStroke(strokeIndex);
+    }
+
+    public void setStroke(Stroke s) {
+        strokeIndex = StrokeGenerator.getStrokeIndex(s);
+    }
+
+    public int getInsideAlpha() {
+        return insideAlpha;
+    }
+
+    public void setInsideAlpha(int i) {
+        insideAlpha = i;
+    }
+
+    public Color getFillColor() {
+        return ColorGenerator.getTransparentColor(color, insideAlpha);
+    }
+
+    public boolean getInsideVisibility() {
+        return insideVisibility;
+    }
+
+    public void setInsideVisibility(boolean b) {
+        insideVisibility = b;
+    }
 
 }

@@ -15,39 +15,39 @@ import org.openide.nodes.AbstractNode;
  * @author viorel.gheba
  */
 public class VerticalLine
-        extends Annotation
-{
+        extends Annotation {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
-    
+
     private AnnotationProperties properties;
 
-    public VerticalLine()
-    { super(); }
+    public VerticalLine() {
+        super();
+    }
 
-    public VerticalLine(ChartFrame frame)
-    {
+    public VerticalLine(ChartFrame frame) {
         super(frame);
         actionSet.set(TOP);
         actionSet.set(BOTTOM);
         properties = new AnnotationProperties();
     }
 
-    public @Override String getName()
-    { return "Vertical Line"; }
+    public @Override
+    String getName() {
+        return "Vertical Line";
+    }
 
-    public Annotation newInstance(ChartFrame frame) 
-    { return new VerticalLine(frame); }
+    public Annotation newInstance(ChartFrame frame) {
+        return new VerticalLine(frame);
+    }
 
-    public boolean pointIntersects(double x, double y)
-    {
+    public boolean pointIntersects(double x, double y) {
         Rectangle bounds = getAnnotationPanel().getBounds();
         double X = getXFromTime(getT1());
         return (getActionPoint(x, y) != NONE) || lineContains(X, bounds.getMinY(), X, bounds.getMaxY(), x, y, 4);
     }
 
-    public void paint(Graphics2D g) 
-    {
+    public void paint(Graphics2D g) {
         Rectangle bounds = getAnnotationPanel().getBounds();
         double x = getXFromTime(getT1());
 
@@ -58,10 +58,12 @@ public class VerticalLine
         g.draw(CoordCalc.line(x, bounds.getMinY(), x, bounds.getMaxY()));
         g.setStroke(old);
 
-        if (isSelected())
+        if (isSelected()) {
             paintActionPoints(g);
+        }
     }
 
+    @Override
     protected void paintActionPoints(Graphics2D g) {
         Rectangle bounds = getAnnotationPanel().getBounds();
         double x = getXFromTime(getT1());
@@ -75,7 +77,8 @@ public class VerticalLine
         }
     }
 
-    public AbstractNode getNode()
-    { return new AnnotationNode(properties); }
+    public AbstractNode getNode() {
+        return new AnnotationNode(properties);
+    }
 
 }

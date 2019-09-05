@@ -35,18 +35,18 @@ import org.chartsy.main.utils.SerialVersion;
 import org.openide.util.NbBundle;
 
 /**
+ * 图标分割面板 JLayeredPane为容器添加了深度，允许组件在需要时互相重叠。
  *
  * @author viorel.gheba
  */
-public class ChartSplitPanel extends JLayeredPane implements Serializable
-{
+public class ChartSplitPanel extends JLayeredPane implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    private ChartFrame chartFrame;
-    private ChartPanel chartPanel;
-    private IndicatorsPanel indicatorsPanel;
-    private MarkerLabel label;
+    private ChartFrame chartFrame;              // 图表窗口
+    private ChartPanel chartPanel;              // 图表面板
+    private IndicatorsPanel indicatorsPanel;    // 
+    private MarkerLabel label;                  // 
 
     private int index = -1;
     private static int width = 200;
@@ -60,38 +60,40 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
 
     private static Font font;
 
-	static
-	{
-		font = new Font("Dialog", Font.PLAIN, 10);
+    static {
+        font = new Font("Dialog", Font.PLAIN, 10);
         height = 14;
-	}
+    }
 
-    public ChartSplitPanel(ChartFrame frame)
-    {
+    public ChartSplitPanel(ChartFrame frame) {
         chartFrame = frame;
         chartPanel = new ChartPanel(chartFrame);
         indicatorsPanel = new IndicatorsPanel(chartFrame);
         label = new MarkerLabel();
 
         setOpaque(false);
-		setDoubleBuffered(true);
+        setDoubleBuffered(true);
 
         setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        setLayout(new LayoutManager()
-        {
-            public void addLayoutComponent(String name, Component comp)
-            {}
-            public void removeLayoutComponent(Component comp)
-            {}
-            public Dimension preferredLayoutSize(Container parent)
-            {return new Dimension(0, 0);}
-            public Dimension minimumLayoutSize(Container parent)
-            {return new Dimension(0, 0);}
-            public void layoutContainer(Container parent)
-            {
+        setLayout(new LayoutManager() {
+            public void addLayoutComponent(String name, Component comp) {
+            }
+
+            public void removeLayoutComponent(Component comp) {
+            }
+
+            public Dimension preferredLayoutSize(Container parent) {
+                return new Dimension(0, 0);
+            }
+
+            public Dimension minimumLayoutSize(Container parent) {
+                return new Dimension(0, 0);
+            }
+
+            public void layoutContainer(Container parent) {
                 Insets insets = parent.getInsets();
-				int x = insets.left;
-				int y = insets.top;
+                int x = insets.left;
+                int y = insets.top;
                 int w = parent.getWidth() - insets.left - insets.right;
                 int h = parent.getHeight() - insets.top - insets.bottom;
                 int indicatorsHeight = indicatorsPanel.getPanelHeight();
@@ -102,10 +104,11 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
 
                 Point dp = new Point(0, 50);
                 Point p = label.getLocation();
-                if (!dp.equals(p))
+                if (!dp.equals(p)) {
                     label.setBounds(p.x, p.y, width + 2, height * lines + 2);
-                else
+                } else {
                     label.setBounds(dp.x, dp.y, width + 2, height * lines + 2);
+                }
             }
         });
 
@@ -115,64 +118,65 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
         label.setLocation(0, 50);
     }
 
-    public ChartFrame getChartFrame()
-    { return chartFrame; }
+    public ChartFrame getChartFrame() {
+        return chartFrame;
+    }
 
-    public void setChartFrame(ChartFrame frame)
-    { chartFrame = frame; }
+    public void setChartFrame(ChartFrame frame) {
+        chartFrame = frame;
+    }
 
-    public ChartPanel getChartPanel()
-    { return chartPanel; }
+    public ChartPanel getChartPanel() {
+        return chartPanel;
+    }
 
-    public void setChartPanel(ChartPanel panel)
-    { chartPanel = panel; }
+    public void setChartPanel(ChartPanel panel) {
+        chartPanel = panel;
+    }
 
-    public IndicatorsPanel getIndicatorsPanel()
-    { return indicatorsPanel; }
+    public IndicatorsPanel getIndicatorsPanel() {
+        return indicatorsPanel;
+    }
 
-    public void setIndicatorsPanel(IndicatorsPanel panel)
-    { indicatorsPanel = panel; }
+    public void setIndicatorsPanel(IndicatorsPanel panel) {
+        indicatorsPanel = panel;
+    }
 
-    public void setIndex(int i)
-    { index = i; }
+    public void setIndex(int i) {
+        index = i;
+    }
 
-    public int getIndex()
-    { return index; }
+    public int getIndex() {
+        return index;
+    }
 
     @Override
-    public void paint(Graphics g)
-    {
+    public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = GraphicsUtils.prepareGraphics(g);
 
-        if (chartFrame.getChartProperties().getMarkerVisibility())
-        {
-            if (index != -1)
-            {
+        if (chartFrame.getChartProperties().getMarkerVisibility()) {
+            if (index != -1) {
                 labelText();
                 paintMarkerLine(g2);
                 label.setVisible(true);
             }
-        }
-        else
-        {
+        } else {
             label.setVisible(false);
         }
-        
+
         g2.dispose();
     }
 
-	@Override
-	public void update(Graphics g)
-	{
-		paint(g);
-	}
+    @Override
+    public void update(Graphics g) {
+        paint(g);
+    }
 
-    private void paintMarkerLine(Graphics2D g)
-    {
+    private void paintMarkerLine(Graphics2D g) {
         Rectangle bounds = chartPanel.getBounds();
         bounds.grow(-2, -2);
-        
+
         long time = chartFrame.getChartData().getVisible().getTimeAt(index);
         String s = chartFrame.getChartData().getInterval().getMarkerString(time);
         double dx = chartFrame.getChartData().getX(index, bounds);
@@ -196,24 +200,22 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
         bounds.grow(2, 2);
     }
 
-    private String addLine(String left, String right)
-    {
-        if (!right.equals(" "))
-			return NbBundle.getMessage(
-				ChartSplitPanel.class,
-				"HTML_Line",
-				new String[] {String.valueOf(width/2), left, right});
-        else
-			return NbBundle.getMessage(
-				ChartSplitPanel.class,
-				"HTML_EmptyLine",
-				new String[] {String.valueOf(width), left});
+    private String addLine(String left, String right) {
+        if (!right.equals(" ")) {
+            return NbBundle.getMessage(
+                    ChartSplitPanel.class,
+                    "HTML_Line",
+                    new String[]{String.valueOf(width / 2), left, right});
+        } else {
+            return NbBundle.getMessage(
+                    ChartSplitPanel.class,
+                    "HTML_EmptyLine",
+                    new String[]{String.valueOf(width), left});
+        }
     }
 
-    public void labelText()
-    {
-        if (index != -1)
-        {
+    public void labelText() {
+        if (index != -1) {
             ChartData cd = chartFrame.getChartData();
             DecimalFormat df = new DecimalFormat("#,##0.00");
 
@@ -237,16 +239,13 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
             boolean hasOverlays = chartPanel.getOverlaysCount() > 0;
             boolean hasIndicators = indicatorsPanel.getIndicatorsCount() > 0;
 
-            if (hasOverlays || hasIndicators)
-            {
+            if (hasOverlays || hasIndicators) {
                 sb.append(addLine(" ", " "));
                 lines++;
             }
 
-            if (hasOverlays)
-            {
-                for (Overlay overlay : chartPanel.getOverlays())
-                {
+            if (hasOverlays) {
+                for (Overlay overlay : chartPanel.getOverlays()) {
                     LinkedHashMap map = overlay.getHTML(chartFrame, index);
                     Iterator it = map.keySet().iterator();
                     while (it.hasNext()) {
@@ -257,16 +256,13 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
                 }
             }
 
-            if (hasIndicators)
-            {
-                if (hasOverlays)
-                {
+            if (hasIndicators) {
+                if (hasOverlays) {
                     sb.append(addLine(" ", " "));
                     lines++;
                 }
 
-                for (Indicator indicator : indicatorsPanel.getIndicators())
-                {
+                for (Indicator indicator : indicatorsPanel.getIndicators()) {
                     LinkedHashMap map = indicator.getHTML(chartFrame, index);
                     Iterator it = map.keySet().iterator();
                     while (it.hasNext()) {
@@ -277,38 +273,33 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
                 }
             }
 
-			String labelText = NbBundle.getMessage(
-				ChartSplitPanel.class,
-				"HTML_Marker",
-				new String[] {String.valueOf(width), sb.toString()});
-			if (!label.getText().equals(labelText))
-				label.setText(labelText);
+            String labelText = NbBundle.getMessage(
+                    ChartSplitPanel.class,
+                    "HTML_Marker",
+                    new String[]{String.valueOf(width), sb.toString()});
+            if (!label.getText().equals(labelText)) {
+                label.setText(labelText);
+            }
 
-			Dimension dimension = new Dimension(width, height * lines);
-			if (!label.getPreferredSize().equals(dimension))
-				label.setPreferredSize(dimension);
-        }
-        else
-        {
+            Dimension dimension = new Dimension(width, height * lines);
+            if (!label.getPreferredSize().equals(dimension)) {
+                label.setPreferredSize(dimension);
+            }
+        } else {
             label.setVisible(false);
         }
     }
 
-    public void moveLeft()
-    {
+    public void moveLeft() {
         ChartData cd = chartFrame.getChartData();
         int last = cd.getLast();
         int items = cd.getPeriod() - 1;
         int i = index - 1;
-        if (i < 0)
-        {
-            if (last - 1 > items)
-            {
+        if (i < 0) {
+            if (last - 1 > items) {
                 cd.setLast(last - 1);
             }
-        }
-        else
-        {
+        } else {
             index = i;
         }
         labelText();
@@ -316,22 +307,17 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
         chartFrame.repaint();
     }
 
-    public void moveRight()
-    {
+    public void moveRight() {
         ChartData cd = chartFrame.getChartData();
         int all = cd.getDataset().getItemsCount();
         int last = cd.getLast();
         int items = cd.getPeriod() - 1;
         int i = index + 1;
-        if (i > items)
-        {
-            if (last < all)
-            {
+        if (i > items) {
+            if (last < all) {
                 cd.setLast(last + 1);
             }
-        }
-        else
-        {
+        } else {
             index = i;
         }
         labelText();
@@ -339,98 +325,85 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable
         chartFrame.repaint();
     }
 
-    public static class Draggable extends MouseAdapter implements MouseMotionListener
-    {
+    public static class Draggable extends MouseAdapter implements MouseMotionListener {
+
         Point lastP;
         Component cDraggable;
 
-        public Draggable(Component comp)
-        {
+        public Draggable(Component comp) {
             comp.setLocation(0, 0);
             cDraggable = comp;
         }
 
-        private void setCursorType(Point p)
-        {
+        private void setCursorType(Point p) {
             Point loc = cDraggable.getLocation();
             Dimension size = cDraggable.getSize();
-            if ((p.y + 4 < loc.y + size.height) && (p.x + 4 < p.x + size.width))
-            {
+            if ((p.y + 4 < loc.y + size.height) && (p.x + 4 < p.x + size.width)) {
                 cDraggable.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
             }
         }
 
         @Override
-        public void mousePressed(MouseEvent e)
-        {
-            if (cDraggable.getCursor().equals(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR)))
-            {
+        public void mousePressed(MouseEvent e) {
+            if (cDraggable.getCursor().equals(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))) {
                 lastP = e.getPoint();
-            }
-            else
-            {
+            } else {
                 lastP = null;
             }
         }
 
         @Override
-        public void mouseReleased(MouseEvent e)
-        {
+        public void mouseReleased(MouseEvent e) {
             lastP = null;
         }
 
         @Override
-        public void mouseMoved(MouseEvent e)
-        {
+        public void mouseMoved(MouseEvent e) {
             setCursorType(e.getPoint());
         }
 
         @Override
-        public void mouseDragged(MouseEvent e)
-        {
+        public void mouseDragged(MouseEvent e) {
             int x, y;
-            if (lastP != null)
-            {
-                x = cDraggable.getX() + (e.getX() - (int)lastP.getX());
-                y = cDraggable.getY() + (e.getY() - (int)lastP.getY());
+            if (lastP != null) {
+                x = cDraggable.getX() + (e.getX() - (int) lastP.getX());
+                y = cDraggable.getY() + (e.getY() - (int) lastP.getY());
                 cDraggable.setLocation(x, y);
             }
         }
 
     }
 
-	private class MarkerLabel extends HtmlRendererImpl
-	{
+    private class MarkerLabel extends HtmlRendererImpl {
 
-		private static final long serialVersionUID = SerialVersion.APPVERSION;
+        private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-		private MarkerLabel()
-		{
-			setOpaque(false);
-			setFont(font);
-			setForeground(fontColor);
-			setVisible(index != -1);
-			setPreferredSize(new Dimension(width, height));
-			Draggable draggable = new Draggable(this);
-			addMouseListener(draggable);
-			addMouseMotionListener(draggable);
-		}
+        private MarkerLabel() {
+            setOpaque(false);
+            setFont(font);
+            setForeground(fontColor);
+            setVisible(index != -1);
+            setPreferredSize(new Dimension(width, height));
+            Draggable draggable = new Draggable(this);
+            addMouseListener(draggable);
+            addMouseMotionListener(draggable);
+        }
 
-		@Override protected void paintComponent(Graphics g)
-		{
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 
-			g2.setColor(backgroundColor);
-			g2.fillRect(0, 0, width + 2, height * lines + 2);
-			g2.setColor(color);
-			g2.drawRect(0, 0, width + 1, height * lines + 1);
+            g2.setColor(backgroundColor);
+            g2.fillRect(0, 0, width + 2, height * lines + 2);
+            g2.setColor(color);
+            g2.drawRect(0, 0, width + 1, height * lines + 1);
 
-			super.paintComponent(g);
-		}
-		
-	}
+            super.paintComponent(g);
+        }
+
+    }
 
 }

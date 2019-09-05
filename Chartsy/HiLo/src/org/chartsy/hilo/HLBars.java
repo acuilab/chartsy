@@ -15,32 +15,29 @@ import org.chartsy.main.utils.SerialVersion;
  *
  * @author viorel.gheba
  */
-public class HLBars 
-        extends Chart
-{
+public class HLBars
+        extends Chart {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    public HLBars()
-    {}
+    public HLBars() {
+    }
 
-    public String getName()
-    { return "HL Bars"; }
+    public String getName() {
+        return "HL Bars";
+    }
 
-    public void paint(Graphics2D g, ChartFrame cf)
-    {
+    public void paint(Graphics2D g, ChartFrame cf) {
         ChartData cd = cf.getChartData();
         ChartProperties cp = cf.getChartProperties();
-		boolean isLog = cp.getAxisLogarithmicFlag();
+        boolean isLog = cp.getAxisLogarithmicFlag();
         Rectangle rect = cf.getSplitPanel().getChartPanel().getBounds();
         rect.grow(-2, -2);
         Range range = cf.getSplitPanel().getChartPanel().getRange();
 
-        if (!cd.isVisibleNull())
-        {
+        if (!cd.isVisibleNull()) {
             Dataset dataset = cd.getVisible();
-            for(int i = 0; i < dataset.getItemsCount(); i++)
-            {
+            for (int i = 0; i < dataset.getItemsCount(); i++) {
                 double open = dataset.getOpenAt(i);
                 double close = dataset.getCloseAt(i);
                 double high = dataset.getHighAt(i);
@@ -54,10 +51,9 @@ public class HLBars
                 double candleHeight = Math.abs(yHigh - yLow);
 
                 g.setPaint(open > close ? cp.getBarDownColor() : cp.getBarUpColor());
-                if (open > close ? cp.getBarDownVisibility() : cp.getBarUpVisibility())
+                if (open > close ? cp.getBarDownVisibility() : cp.getBarUpVisibility()) {
                     g.fill(CoordCalc.rectangle(x - candleWidth / 2, yHigh, candleWidth, candleHeight));
-                else
-                {
+                } else {
                     g.setStroke(cp.getBarStroke());
                     g.draw(CoordCalc.rectangle(x - candleWidth / 2, yHigh, candleWidth, candleHeight));
                 }

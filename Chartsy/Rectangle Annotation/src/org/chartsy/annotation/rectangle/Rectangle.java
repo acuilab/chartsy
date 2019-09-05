@@ -12,18 +12,19 @@ import org.openide.nodes.AbstractNode;
  * @author viorel.gheba
  */
 public class Rectangle
-        extends Annotation
-{
+        extends Annotation {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
     private AnnotationProperties properties;
 
-    public Rectangle()
-    { super(); }
+    public Rectangle() {
+        super();
+    }
 
-    public Rectangle(ChartFrame frame)
-    {
+    public Rectangle(ChartFrame frame) {
         super(frame);
+        
+        // 上下左右、左上、右上、左下、右下
         actionSet.set(TOP);
         actionSet.set(TOP_LEFT);
         actionSet.set(TOP_RIGHT);
@@ -35,15 +36,19 @@ public class Rectangle
         properties = new AnnotationProperties();
     }
 
-    public @Override String getName()
-    { return "Rectangle"; }
+    public @Override
+    String getName() {
+        return "Rectangle";
+    }
 
-    public Annotation newInstance(ChartFrame frame) 
-    { return new Rectangle(frame); }
+    public Annotation newInstance(ChartFrame frame) {
+        return new Rectangle(frame);
+    }
 
     public boolean pointIntersects(double x, double y) {
-        if (getActionPoint(x, y) != NONE)
+        if (getActionPoint(x, y) != NONE) {
             return true;
+        }
 
         double X1 = getXFromTime(getT1()), X2 = getXFromTime(getT2());
         double Y1 = getYFromValue(getV1()), Y2 = getYFromValue(getV2());
@@ -54,32 +59,34 @@ public class Rectangle
         return r.contains(x, y);
     }
 
-    public void paint(Graphics2D g) 
-    {
+    // 绘制
+    public void paint(Graphics2D g) {
         Stroke old = g.getStroke();
 
+        // 根据两个时间点和值获得坐标
         double X1 = getXFromTime(getT1()), X2 = getXFromTime(getT2());
         double Y1 = getYFromValue(getV1()), Y2 = getYFromValue(getV2());
 
         java.awt.Rectangle r = new java.awt.Rectangle();
         r.setFrameFromDiagonal(X1, Y1, X2, Y2);
 
-        if (properties.getInsideVisibility())
-        {
+        if (properties.getInsideVisibility()) {
             g.setPaint(properties.getFillColor());
             g.fill(r);
         }
-        
+
         g.setPaint(properties.getColor());
         g.setStroke(properties.getStroke());
         g.draw(r);
         g.setStroke(old);
 
-        if (isSelected())
+        if (isSelected()) {
             paintActionPoints(g);
+        }
     }
 
-    public AbstractNode getNode() 
-    { return new AnnotationNode(properties); }
+    public AbstractNode getNode() {
+        return new AnnotationNode(properties);
+    }
 
 }
