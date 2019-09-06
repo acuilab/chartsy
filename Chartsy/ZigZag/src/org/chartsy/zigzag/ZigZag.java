@@ -15,35 +15,34 @@ import org.chartsy.main.utils.SerialVersion;
 import org.openide.nodes.AbstractNode;
 
 /**
- *
+ * Zigzag指标是连接一系列价格点的趋势线。所以Zigzag主要用途是来标识过去价格中的相对高低点，并以这些点之间的连线来表示这段价格变动的趋势。
  * @author viorel.gheba
  */
-public class ZigZag 
-        extends Overlay
-{
+public class ZigZag extends Overlay {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
     public static final String ZZ = "zz";
     private OverlayProperties properties;
 
-    public ZigZag()
-    {
+    public ZigZag() {
         super();
         properties = new OverlayProperties();
     }
 
-    public String getName()
-    { return "ZigZag"; }
+    public String getName() {
+        return "ZigZag";
+    }
 
-    public String getLabel() 
-    { return properties.getLabel(); }
+    public String getLabel() {
+        return properties.getLabel();
+    }
 
-    public Overlay newInstance() 
-    { return new ZigZag(); }
+    public Overlay newInstance() {
+        return new ZigZag();
+    }
 
-    public LinkedHashMap getHTML(ChartFrame cf, int i)
-    {
+    public LinkedHashMap getHTML(ChartFrame cf, int i) {
         LinkedHashMap ht = new LinkedHashMap();
 
         DecimalFormat df = new DecimalFormat("#,##0.00");
@@ -61,78 +60,68 @@ public class ZigZag
         return ht;
     }
 
-    public void paint(Graphics2D g, ChartFrame cf, Rectangle bounds)
-    {
+    public void paint(Graphics2D g, ChartFrame cf, Rectangle bounds) {
         Dataset d = visibleDataset(cf, ZZ);
-        if (d != null)
-        {
+        if (d != null) {
             Range range = cf.getSplitPanel().getChartPanel().getRange();
             DefaultPainter.line(g, cf, range, bounds, d, properties.getColor(), properties.getStroke());
         }
     }
 
-    public void calculate()
-    {
+    public void calculate() {
         Dataset initial = getDataset();
-        if (initial != null && !initial.isEmpty())
-        {
+        if (initial != null && !initial.isEmpty()) {
             Dataset d = getDataset(initial);
             addDataset(ZZ, d);
         }
     }
 
-    public Color[] getColors()
-    { return new Color[] {properties.getColor()}; }
+    public Color[] getColors() {
+        return new Color[]{properties.getColor()};
+    }
 
     public double[] getValues(ChartFrame cf) {
         Dataset d = visibleDataset(cf, ZZ);
-        if (d != null)
-        {
-            return new double[] {d.getLastClose()};
+        if (d != null) {
+            return new double[]{d.getLastClose()};
         }
-        return new double[] {};
+        return new double[]{};
     }
 
-    public double[] getValues(ChartFrame cf, int i)
-    {
+    public double[] getValues(ChartFrame cf, int i) {
         Dataset d = visibleDataset(cf, ZZ);
         if (d != null) {
-            return new double[] {d.getCloseAt(i)};
+            return new double[]{d.getCloseAt(i)};
         }
-        return new double[] {};
+        return new double[]{};
     }
 
-    public boolean getMarkerVisibility()
-    { return properties.getMarker(); }
+    public boolean getMarkerVisibility() {
+        return properties.getMarker();
+    }
 
-    public AbstractNode getNode()
-    { return new OverlayNode(properties); }
+    public AbstractNode getNode() {
+        return new OverlayNode(properties);
+    }
 
-    private Dataset getDataset(final Dataset initial)
-    {
+    private Dataset getDataset(final Dataset initial) {
         int count = initial.getItemsCount();
         Dataset result = Dataset.EMPTY(count);
 
         boolean switchVar = false;
-        for (int i = 2; i <= count; i++)
-        {
-            if (i < count)
-            {
-                if (switchVar == false)
-                {
-                    if (initial.getHighAt(i-1) > initial.getHighAt(i-2) && initial.getHighAt(i-1) > initial.getHighAt(i))
-                    {
-                        result.setDataItem(i-1, new DataItem(initial.getTimeAt(i-1), initial.getHighAt(i-1)));
+        for (int i = 2; i <= count; i++) {
+            if (i < count) {
+                if (switchVar == false) {
+                    if (initial.getHighAt(i - 1) > initial.getHighAt(i - 2) && initial.getHighAt(i - 1) > initial.getHighAt(i)) {
+                        result.setDataItem(i - 1, new DataItem(initial.getTimeAt(i - 1), initial.getHighAt(i - 1)));
                         switchVar = true;
                         continue;
                     }
                 }
 
-                if (switchVar == true)
-                {
-                    if (initial.getLowAt(i-1) < initial.getLowAt(i-2) && initial.getLowAt(i-1) < initial.getLowAt(i))
-                    {
-                        result.setDataItem(i-1, new DataItem(initial.getTimeAt(i-1), initial.getLowAt(i-1)));
+                if (switchVar == true) {
+                    if (initial.getLowAt(i - 1) < initial.getLowAt(i - 2) && initial.getLowAt(i - 1) < initial.getLowAt(i)) {
+                        result.setDataItem(i - 1, new DataItem(initial.getTimeAt(i - 1), initial.getLowAt(i - 1)));
                         switchVar = false;
                         continue;
                     }
@@ -143,7 +132,8 @@ public class ZigZag
         return result;
     }
 
-    public String getPrice() 
-    { return Dataset.CLOSE; }
+    public String getPrice() {
+        return Dataset.CLOSE;
+    }
 
 }

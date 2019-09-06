@@ -123,6 +123,14 @@ public abstract class DataProvider implements Serializable {
         return false;
     }
 
+    /**
+     * 根据股票代码拉取股票
+     * @param symbol
+     * @throws InvalidStockException
+     * @throws StockNotFoundException
+     * @throws RegistrationException
+     * @throws IOException 
+     */
     public void fetchStock(String symbol)
             throws InvalidStockException, StockNotFoundException, RegistrationException, IOException {
         String symb = "";
@@ -147,20 +155,32 @@ public abstract class DataProvider implements Serializable {
         cacheStock(stock);
     }
 
+    /**
+     * 根据股票代码拉取公司名称
+     * @param symbol
+     * @return
+     * @throws InvalidStockException
+     * @throws StockNotFoundException
+     * @throws RegistrationException
+     * @throws IOException 
+     */
     protected abstract String fetchCompanyName(String symbol)
             throws InvalidStockException, StockNotFoundException, RegistrationException, IOException;
 
+    // 将股票加入缓存中
     protected void cacheStock(Stock stock)
             throws IOException {
         String fileName = getStockKey(stock);
         CacheManager.getInstance().cacheStock(stock, fileName);
     }
 
+    // 指定代码的股票是否已缓存
     public boolean stockExists(String symbol) {
         String fileName = getStockKey(symbol);
         return CacheManager.getInstance().stockCacheExists(fileName);
     }
 
+    // 从缓存中拉取股票
     public Stock fetchStockFromCache(String symbol) {
         Stock stock = null;
         String fileName = getStockKey(symbol);
@@ -287,25 +307,27 @@ public abstract class DataProvider implements Serializable {
         return "";
     }
 
-    public static final Interval ONE_MINUTE = new OneMinuteInterval();
-    public static final Interval FIVE_MINUTE = new FiveMinuteInterval();
-    public static final Interval FIFTEEN_MINUTE = new FifteenMinuteInterval();
-    public static final Interval THIRTY_MINUTE = new ThirtyMinuteInterval();
-    public static final Interval SIXTY_MINUTE = new SixtyMinuteInterval();
-    public static final Interval DAILY = new DailyInterval();
-    public static final Interval WEEKLY = new WeeklyInterval();
-    public static final Interval MONTHLY = new MonthlyInterval();
+    public static final Interval ONE_MINUTE = new OneMinuteInterval();          // 一分钟
+    public static final Interval FIVE_MINUTE = new FiveMinuteInterval();        // 五分钟
+    public static final Interval FIFTEEN_MINUTE = new FifteenMinuteInterval();  // 十五分钟
+    public static final Interval THIRTY_MINUTE = new ThirtyMinuteInterval();    // 三十分钟
+    public static final Interval SIXTY_MINUTE = new SixtyMinuteInterval();      // 六十分钟
+    public static final Interval DAILY = new DailyInterval();                   // 每日
+    public static final Interval WEEKLY = new WeeklyInterval();                 // 每周
+    public static final Interval MONTHLY = new MonthlyInterval();               // 每月
+    // 盘中间隔：一分钟、五分钟、十五分钟、三十分钟、六十分钟
     public static final Interval[] INTRA_DAY_INTERVALS = {ONE_MINUTE, FIVE_MINUTE, FIFTEEN_MINUTE, THIRTY_MINUTE, SIXTY_MINUTE};
+    // 间隔：每日、每周、每月
     public static final Interval[] INTERVALS = {DAILY, WEEKLY, MONTHLY};
 
-    protected String name;
-    protected Exchange[] exchanges;
-    protected boolean supportsIntraDay = false;
-    protected boolean supportsCustomInterval = false;
-    protected String stocksPath;
-    protected String datasetsPath;
-    protected boolean initializeFlag = true;
-    protected boolean needsRegistration = false;
-    protected boolean isRegistered = false;
+    protected String name;                              // 名称
+    protected Exchange[] exchanges;                     // 交易所
+    protected boolean supportsIntraDay = false;         // 是否支持盘中
+    protected boolean supportsCustomInterval = false;   // 是否支持自定义间隔
+    protected String stocksPath;                        // 股票路径
+    protected String datasetsPath;                      // 数据集路径
+    protected boolean initializeFlag = true;            // 是否初始化
+    protected boolean needsRegistration = false;        // 是否需要注册
+    protected boolean isRegistered = false;             // 是否已注册
 
 }

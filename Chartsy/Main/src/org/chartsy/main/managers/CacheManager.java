@@ -13,274 +13,258 @@ import org.chartsy.main.data.Stock;
 import org.chartsy.main.utils.FileUtils;
 
 /**
- *
+ * 缓存管理器
  * @author Viorel
  */
-public class CacheManager
-{
+public class CacheManager {
 
-	private static CacheManager instance;
+    private static CacheManager instance;
 
-	public static CacheManager getInstance()
-	{
-		if (instance == null)
-			instance = new CacheManager();
-		return instance;
-	}
+    public static CacheManager getInstance() {
+        if (instance == null) {
+            instance = new CacheManager();
+        }
+        return instance;
+    }
 
-	private CacheManager()
-	{
-	}
+    private CacheManager() {
+    }
 
-	public int getLastChartFrameId()
-		throws IOException
-	{
-		String folder = FileUtils.cacheFolder();
-		File file = FileUtils.hashedCacheFile(folder, "charts");
-		if (file.exists())
-		{
-			Properties properties = new Properties();
-			FileInputStream fileInputStream = new FileInputStream(file);
-			properties.load(fileInputStream);
-			int id = Integer.parseInt(properties.getProperty("last_id", "0"));
-			return id;
-		} else
-			return 0;
-	}
+    // 获得最后的图表窗口id
+    public int getLastChartFrameId()
+            throws IOException {
+        String folder = FileUtils.cacheFolder();
+        File file = FileUtils.hashedCacheFile(folder, "charts");
+        if (file.exists()) {
+            Properties properties = new Properties();
+            FileInputStream fileInputStream = new FileInputStream(file);
+            properties.load(fileInputStream);
+            int id = Integer.parseInt(properties.getProperty("last_id", "0"));
+            return id;
+        } else {
+            return 0;
+        }
+    }
 
-	public void cacheLastChartFrameId(int id)
-		throws IOException
-	{
-		String folder = FileUtils.cacheFolder();
-		File file = FileUtils.hashedCacheFile(folder, "charts");
-		if (!file.exists())
-			file.createNewFile();
+    // 缓存最后的图表窗口id
+    public void cacheLastChartFrameId(int id)
+            throws IOException {
+        String folder = FileUtils.cacheFolder();
+        File file = FileUtils.hashedCacheFile(folder, "charts");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
 
-		Properties properties = new Properties();
-		properties.setProperty("last_id", Integer.toString(id));
+        Properties properties = new Properties();
+        properties.setProperty("last_id", Integer.toString(id));
 
-		FileOutputStream fileOutputStream = new FileOutputStream(file);
-		properties.store(fileOutputStream, "");
-		fileOutputStream.flush();
-		fileOutputStream.close();
-	}
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        properties.store(fileOutputStream, "");
+        fileOutputStream.flush();
+        fileOutputStream.close();
+    }
 
-	public boolean stockCacheExists(String fileName)
-	{
-		String folder = FileUtils.cacheStocksFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
-		return file.exists();
-	}
+    // 股票缓存文件是否存在
+    public boolean stockCacheExists(String fileName) {
+        String folder = FileUtils.cacheStocksFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
+        return file.exists();
+    }
 
-	public void cacheStock(Stock stock, String fileName)
-		throws IOException
-	{
-		String folder = FileUtils.cacheStocksFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
-		if (!file.exists())
-		{
-			file.createNewFile();
-			file.deleteOnExit();
-		}
+    // 缓存股票
+    public void cacheStock(Stock stock, String fileName)
+            throws IOException {
+        String folder = FileUtils.cacheStocksFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
+        if (!file.exists()) {
+            file.createNewFile();
+            file.deleteOnExit();
+        }
 
-		Properties properties = new Properties();
-		properties.setProperty("symbol", stock.getSymbol());
-		properties.setProperty("exchange", stock.getExchange());
-		properties.setProperty("companyName", stock.getCompanyName());
+        Properties properties = new Properties();
+        properties.setProperty("symbol", stock.getSymbol());
+        properties.setProperty("exchange", stock.getExchange());
+        properties.setProperty("companyName", stock.getCompanyName());
 
-		FileOutputStream fileOutputStream = new FileOutputStream(file);
-		properties.store(fileOutputStream, "");
-		fileOutputStream.flush();
-		fileOutputStream.close();
-	}
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        properties.store(fileOutputStream, "");
+        fileOutputStream.flush();
+        fileOutputStream.close();
+    }
 
-	public Stock fetchStockFromCache(String fileName)
-		throws IOException
-	{
-		String folder = FileUtils.cacheStocksFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
+    // 从缓存中拉取股票
+    public Stock fetchStockFromCache(String fileName)
+            throws IOException {
+        String folder = FileUtils.cacheStocksFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
 
-		FileInputStream fileInputStream = new FileInputStream(file);
-		Properties properties = new Properties();
-		properties.load(fileInputStream);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        Properties properties = new Properties();
+        properties.load(fileInputStream);
 
-		Stock stock = new Stock();
-		stock.setSymbol(properties.getProperty("symbol"));
-		stock.setExchange(properties.getProperty("exchange", ""));
-		stock.setCompanyName(properties.getProperty("companyName", ""));
+        Stock stock = new Stock();
+        stock.setSymbol(properties.getProperty("symbol"));
+        stock.setExchange(properties.getProperty("exchange", ""));
+        stock.setCompanyName(properties.getProperty("companyName", ""));
 
-		fileInputStream.close();
-		return stock;
-	}
+        fileInputStream.close();
+        return stock;
+    }
 
-	public boolean datasetCacheExists(String fileName)
-	{
-		String folder = FileUtils.cacheDatasetsFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
-		return file.exists();
-	}
+    // 数据集缓存文件是否存在
+    public boolean datasetCacheExists(String fileName) {
+        String folder = FileUtils.cacheDatasetsFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
+        return file.exists();
+    }
 
-	public void cacheDataset(Dataset dataset, String fileName)
-		throws IOException
-	{
-		String folder = FileUtils.cacheDatasetsFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
-		if (!file.exists())
-		{
-			file.createNewFile();
-			file.deleteOnExit();
-		}
+    // 缓存数据集
+    public void cacheDataset(Dataset dataset, String fileName)
+            throws IOException {
+        String folder = FileUtils.cacheDatasetsFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
+        if (!file.exists()) {
+            file.createNewFile();
+            file.deleteOnExit();
+        }
 
-		Properties properties = new Properties();
-		int size = dataset.getItemsCount();
-		for (int i = 0; i < size; i++)
-		{
-			DataItem item = dataset.getDataItem(i);
-			if (item != null)
-				properties.setProperty(Integer.toString(i), dataset.getDataItem(i).toString());
-			else
-				properties.setProperty(Integer.toString(i), "null");
-		}
+        Properties properties = new Properties();
+        int size = dataset.getItemsCount();
+        for (int i = 0; i < size; i++) {
+            DataItem item = dataset.getDataItem(i);
+            if (item != null) {
+                properties.setProperty(Integer.toString(i), dataset.getDataItem(i).toString());
+            } else {
+                properties.setProperty(Integer.toString(i), "null");
+            }
+        }
 
-		FileOutputStream fileOutputStream = new FileOutputStream(file);
-		properties.store(fileOutputStream, "");
-		fileOutputStream.flush();
-		fileOutputStream.close();
-	}
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        properties.store(fileOutputStream, "");
+        fileOutputStream.flush();
+        fileOutputStream.close();
+    }
 
-	public void fetchDatasetFromCache(String fileName)
-		throws IOException
-	{
-		String folder = FileUtils.cacheDatasetsFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
+    // 从缓存中拉取数据集
+    public void fetchDatasetFromCache(String fileName)
+            throws IOException {
+        String folder = FileUtils.cacheDatasetsFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
 
-		Properties properties = new Properties();
-		FileInputStream fileInputStream = new FileInputStream(file);
-		properties.load(fileInputStream);
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(file);
+        properties.load(fileInputStream);
 
-		int size = properties.size();
-		List<DataItem> items = new ArrayList<DataItem>();
-		
-		for (int i = 0; i < size; i++)
-		{
-			String key = Integer.toString(i);
-			String property = properties.getProperty(key);
-			if (property.equals("null"))
-			{
-				items.add(null);
-			} else
-			{
-				String[] values = property.split(",");
-				DataItem item = new DataItem(
-					Long.parseLong(values[0]),
-					Double.parseDouble(values[1]),
-					Double.parseDouble(values[2]),
-					Double.parseDouble(values[3]),
-					Double.parseDouble(values[4]),
-					Double.parseDouble(values[5]));
-				items.add(item);
-			}
-		}
+        int size = properties.size();
+        List<DataItem> items = new ArrayList<DataItem>();
 
-		Dataset dataset = new Dataset(items);
-		DatasetUsage.getInstance().addDataset(fileName, dataset);
-		fileInputStream.close();
-	}
+        for (int i = 0; i < size; i++) {
+            String key = Integer.toString(i);
+            String property = properties.getProperty(key);
+            if (property.equals("null")) {
+                items.add(null);
+            } else {
+                String[] values = property.split(",");
+                DataItem item = new DataItem(
+                        Long.parseLong(values[0]),
+                        Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]),
+                        Double.parseDouble(values[5]));
+                items.add(item);
+            }
+        }
 
-	public Dataset getDatasetFromCache(String fileName)
-		throws IOException
-	{
-		String folder = FileUtils.cacheDatasetsFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
+        Dataset dataset = new Dataset(items);
+        DatasetUsage.getInstance().addDataset(fileName, dataset);
+        fileInputStream.close();
+    }
 
-		Properties properties = new Properties();
-		FileInputStream fileInputStream = new FileInputStream(file);
-		properties.load(fileInputStream);
+    public Dataset getDatasetFromCache(String fileName)
+            throws IOException {
+        String folder = FileUtils.cacheDatasetsFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
 
-		int size = properties.size();
-		List<DataItem> items = new ArrayList<DataItem>();
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(file);
+        properties.load(fileInputStream);
 
-		for (int i = 0; i < size; i++)
-		{
-			String key = Integer.toString(i);
-			String property = properties.getProperty(key);
-			if (property.equals("null"))
-			{
-				items.add(null);
-			} else
-			{
-				String[] values = property.split(",");
-				DataItem item = new DataItem(
-					Long.parseLong(values[0]),
-					Double.parseDouble(values[1]),
-					Double.parseDouble(values[2]),
-					Double.parseDouble(values[3]),
-					Double.parseDouble(values[4]),
-					Double.parseDouble(values[5]));
-				items.add(item);
-			}
-		}
+        int size = properties.size();
+        List<DataItem> items = new ArrayList<DataItem>();
 
-		Dataset dataset = new Dataset(items);
-		fileInputStream.close();
-		return dataset;
-	}
+        for (int i = 0; i < size; i++) {
+            String key = Integer.toString(i);
+            String property = properties.getProperty(key);
+            if (property.equals("null")) {
+                items.add(null);
+            } else {
+                String[] values = property.split(",");
+                DataItem item = new DataItem(
+                        Long.parseLong(values[0]),
+                        Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]),
+                        Double.parseDouble(values[5]));
+                items.add(item);
+            }
+        }
 
-	public int fetchDatasetSize(String fileName)
-		throws IOException
-	{
-		String folder = FileUtils.cacheDatasetsFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
+        Dataset dataset = new Dataset(items);
+        fileInputStream.close();
+        return dataset;
+    }
 
-		Properties properties = new Properties();
-		FileInputStream fileInputStream = new FileInputStream(file);
-		properties.load(fileInputStream);
+    public int fetchDatasetSize(String fileName)
+            throws IOException {
+        String folder = FileUtils.cacheDatasetsFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
 
-		int size = properties.size();
-		fileInputStream.close();
-		return size;
-	}
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(file);
+        properties.load(fileInputStream);
 
-	public Dataset fetchVisibleDatasetFromCache(String fileName, int period, int end)
-		throws IOException
-	{
-		String folder = FileUtils.cacheDatasetsFolder();
-		File file = FileUtils.hashedCacheFile(folder, fileName);
+        int size = properties.size();
+        fileInputStream.close();
+        return size;
+    }
 
-		Properties properties = new Properties();
-		FileInputStream fileInputStream = new FileInputStream(file);
-		properties.load(fileInputStream);
+    public Dataset fetchVisibleDatasetFromCache(String fileName, int period, int end)
+            throws IOException {
+        String folder = FileUtils.cacheDatasetsFolder();
+        File file = FileUtils.hashedCacheFile(folder, fileName);
 
-		List<DataItem> items = new ArrayList<DataItem>();
-		int size = properties.size();
-		for (int i = 0; i < period; i++)
-		{
-			int j = end - period + i;
-			if (j < size && j >= 0)
-			{
-				String key = Integer.toString(j);
-				String property = properties.getProperty(key);
-				if (property.equals("null"))
-				{
-					items.add(null);
-				} else
-				{
-					String[] values = property.split(",");
-					DataItem item = new DataItem(
-						Long.parseLong(values[0]),
-						Double.parseDouble(values[1]),
-						Double.parseDouble(values[2]),
-						Double.parseDouble(values[3]),
-						Double.parseDouble(values[4]),
-						Double.parseDouble(values[5]));
-					items.add(item);
-				}
-			}
-		}
+        Properties properties = new Properties();
+        FileInputStream fileInputStream = new FileInputStream(file);
+        properties.load(fileInputStream);
 
-		fileInputStream.close();
-		Dataset dataset = new Dataset(items);
-		return dataset;
-	}
+        List<DataItem> items = new ArrayList<DataItem>();
+        int size = properties.size();
+        for (int i = 0; i < period; i++) {
+            int j = end - period + i;
+            if (j < size && j >= 0) {
+                String key = Integer.toString(j);
+                String property = properties.getProperty(key);
+                if (property.equals("null")) {
+                    items.add(null);
+                } else {
+                    String[] values = property.split(",");
+                    DataItem item = new DataItem(
+                            Long.parseLong(values[0]),
+                            Double.parseDouble(values[1]),
+                            Double.parseDouble(values[2]),
+                            Double.parseDouble(values[3]),
+                            Double.parseDouble(values[4]),
+                            Double.parseDouble(values[5]));
+                    items.add(item);
+                }
+            }
+        }
+
+        fileInputStream.close();
+        Dataset dataset = new Dataset(items);
+        return dataset;
+    }
 
 }
