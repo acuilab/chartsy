@@ -18,13 +18,14 @@ import org.chartsy.main.utils.autocomplete.StockAutoCompleter;
 import org.openide.util.Exceptions;
 import org.openide.windows.WindowManager;
 
+// 新图表对话框
 public class NewChartDialog extends javax.swing.JDialog {
 
-    private static final String defaultDataProvider = "MrSwing";
-    private StockAutoCompleter completer = null;
-    private String stock = null;
-    private String dataProvider = null;
-    private Template template = null;
+    private static final String defaultDataProvider = "MrSwing";    //  默认数据提供者
+    private StockAutoCompleter completer = null;                    // 股票自动完成控件
+    private String stock = null;                                    // 股票（代码）
+    private String dataProvider = null;                             // 数据提供者
+    private Template template = null;                               // 模板
     private String msgUrl = "";
 
     /**

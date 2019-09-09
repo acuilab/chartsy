@@ -36,7 +36,7 @@ import org.openide.util.Task;
 import org.openide.util.TaskListener;
 
 /**
- * 代码切换工具栏
+ * 股票代码切换工具栏
  * @author viorel.gheba
  */
 public class SymbolChanger extends JToolBar implements Serializable {

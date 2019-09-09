@@ -13,11 +13,11 @@ import org.chartsy.main.managers.TemplateManager;
  */
 public class Template {
 
-    private String name;                        // 模板名称
+    private final String name;                        // 模板名称
     private Chart chart;                        // 图表
     private ChartProperties chartProperties;    // 图表属性
-    private ArrayList<Overlay> overlays;        // 图层列表
-    private ArrayList<Indicator> indicators;    // 指标列表
+    private final ArrayList<Overlay> overlays;        // 图层列表
+    private final ArrayList<Indicator> indicators;    // 指标列表
 
     public Template(String name) {
         this.name = name;

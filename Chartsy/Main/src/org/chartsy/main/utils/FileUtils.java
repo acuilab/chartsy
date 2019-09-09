@@ -214,22 +214,26 @@ public final class FileUtils {
         return new File(result);
     }
 
+    // 模板文件目录：本地文件夹/templates
     public static String templatesFolder() {
         String result = LocalFolder() + File.separator + "templates";
         createFolder(result);
         return result;
     }
 
+    // 获得模板文件：模板文件目录/具体文件名
     public static File templatesFile(String fileName) {
         String result = templatesFolder() + File.separator + fileName;
         return new File(result);
     }
 
+    // 文件是否存在
     public static boolean fileExists(String path) {
         File file = new File(path);
         return file.exists();
     }
 
+    // 删除文件
     public static void removeFile(String path) {
         File file = new File(path);
         if (file.exists()) {
@@ -242,6 +246,7 @@ public final class FileUtils {
         }
     }
 
+    // 创建文件
     public static void createFile(String path) {
         File f = new File(path);
         try {
@@ -251,6 +256,7 @@ public final class FileUtils {
         }
     }
 
+    // 创建文件夹
     public static void createFolder(String path) {
         File dir = new File(path);
         try {
@@ -260,12 +266,14 @@ public final class FileUtils {
         }
     }
 
+    // 拷贝文件
     public static void copyFile(String source, String destination) throws IOException {
         File sourceFile = new File(source);
         File destinationFile = new File(destination);
         copyFile(sourceFile, destinationFile);
     }
 
+    // 拷贝文件
     public static void copyFile(File source, File destination) throws IOException {
         FileChannel in = null;
         FileChannel out = null;
@@ -283,9 +291,11 @@ public final class FileUtils {
         }
     }
 
+    // 获得文件名称
     public static String getFileName(String folder, final String path) {
         File dir = new File(folder);
         String[] list = dir.list(new FilenameFilter() {
+            @Override
             public boolean accept(File dir, String name) {
                 return name.contains(path);
             }
