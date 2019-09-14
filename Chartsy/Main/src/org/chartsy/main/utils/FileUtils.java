@@ -145,15 +145,13 @@ public final class FileUtils {
 
     // 哈希的缓存文件路径
     public static String hashedCacheFilePath(String folder, String fileName) {
-        String result = folder + File.separator + getStringHash(fileName) + ".properties";
-        return result;
+        return folder + File.separator + getStringHash(fileName) + ".properties";
     }
 
     // 哈希的缓存文件
     public static File hashedCacheFile(String folder, String fileName) {
         String path = hashedCacheFilePath(folder, fileName);
-        File file = new File(path);
-        return file;
+        return new File(path);
     }
 
     // 缓存文件对象
@@ -161,6 +159,7 @@ public final class FileUtils {
         return FileUtil.createData(new File(cacheFile(fileName)));
     }
 
+    // 获得文件名的哈希码
     public static String getStringHash(String fileName) {
         try {
             MessageDigest digest = MessageDigest.getInstance("md5");

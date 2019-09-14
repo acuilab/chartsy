@@ -239,12 +239,17 @@ public class NewChartDialog extends javax.swing.JDialog {
     {//GEN-HEADEREND:event_lstDataProviderActionPerformed
         this.msgLabel.setVisible(false);
         msgUrl = "";
+        
+        // 获得当前数据提供者名称，并设置给completer控件
         JComboBox list = (JComboBox) evt.getSource();
         dataProvider = (String) list.getSelectedItem();
         lstExchange.removeAllItems();
         if (completer != null) {
             completer.setDataProvider(dataProvider);
         }
+        
+        // 获得数据提供者对象，进而获得交易所对象，并填充交易所信息
+        // 若素选数据提供者需要注册且当前未注册，则提供注册url信息
         DataProvider dp = DataProviderManager.getDefault().getDataProvider(dataProvider);
         Exchange[] exchanges = dp.getExchanges();
         if (exchanges == null || exchanges.length == 0) {

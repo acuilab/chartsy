@@ -238,38 +238,43 @@ public abstract class DataProvider implements Serializable {
         return new ArrayList<DataItem>();
     }
 
+    // 更新间隔日
     public boolean updateIntraDay(String key, List<DataItem> dataItems) {
         return false;
     }
 
-    protected void cacheDataset(String key, Dataset dataset)
-            throws IOException {
+    // 缓存数据集
+    protected void cacheDataset(String key, Dataset dataset) throws IOException {
         CacheManager.getInstance().cacheDataset(dataset, key);
     }
 
+    // 数据集是否存在
     public boolean datasetExists(Stock stock, Interval interval) {
         String fileName = getDatasetKey(stock, interval);
         return CacheManager.getInstance().datasetCacheExists(fileName);
     }
 
+    // 从缓存中拉取数据集
     public void fetchDatasetFromCache(Stock stock, Interval interval)
             throws IOException {
         String fileName = getDatasetKey(stock, interval);
         CacheManager.getInstance().fetchDatasetFromCache(fileName);
     }
 
-    public abstract StockSet fetchAutocomplete(String text)
-            throws IOException;
+    public abstract StockSet fetchAutocomplete(String text) throws IOException;
 
     /*
      * Return the refresh interval in seconds
+     * 返回刷新间隔（以秒为单位）
      */
     public abstract int getRefreshInterval();
 
+    // 获得股票key
     public String getStockKey(Stock stock) {
         return getStockKey(stock.getKey());
     }
 
+    // 获得股票key：数据提供者名称_股票代码
     public String getStockKey(String symbol) {
         return NbBundle.getMessage(
                 DataProvider.class,
@@ -278,10 +283,12 @@ public abstract class DataProvider implements Serializable {
                 symbol);
     }
 
+    // 获得数据集key
     public String getDatasetKey(Stock stock, Interval interval) {
         return getDatasetKey(stock.getKey(), interval);
     }
 
+    // 获得数据集key：数据提供者名称_股票代码_间隔
     public String getDatasetKey(String symbol, Interval interval) {
         return NbBundle.getMessage(
                 DataProvider.class,
@@ -291,18 +298,22 @@ public abstract class DataProvider implements Serializable {
                 interval.getTimeParam());
     }
 
+    // 是否需要注册
     public boolean needsRegistration() {
         return needsRegistration;
     }
 
+    // 是否已注册
     public boolean isRegistred() {
         return isRegistered;
     }
 
+    // 获得注册信息
     public String getRegistrationMessage() {
         return "";
     }
 
+    // 获得注册url地址
     public String getRegistrationURL() {
         return "";
     }

@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ * 封装了打开文件和打开浏览器功能的工具类
  * @author viorel.gheba
  */
 public class DesktopUtil {
@@ -23,28 +23,41 @@ public class DesktopUtil {
 
     private static final String[] UNIX_BROWSE_CMDS = {"www-browser", "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape", "w3m", "lynx"};
     private static final String[] UNIX_OPEN_CMDS = {"run-mailcap", "pager", "less", "more"};
-    private static final String[] BROWSERS = { "firefox", "opera", "konqueror", "epiphany", "seamonkey", "galeon", "kazehakase", "mozilla", "netscape" };
+    private static final String[] BROWSERS = {"firefox", "opera", "konqueror", "epiphany", "seamonkey", "galeon", "kazehakase", "mozilla", "netscape"};
 
-    private DesktopUtil() {}
+    private DesktopUtil() {
+    }
 
+    // 启动浏览器并打开url地址
     public static void browse(final String url) throws IOException, InterruptedException, Exception {
         final String osName = System.getProperty("os.name");
-        if (osName.startsWith(OS_MACOS)) { browseMac(url); }
-        else if (osName.startsWith(OS_WINDOWS)) { browseWindows(url); }
-        else { browseUnix(url); }
+        if (osName.startsWith(OS_MACOS)) {
+            browseMac(url);
+        } else if (osName.startsWith(OS_WINDOWS)) {
+            browseWindows(url);
+        } else {
+            browseUnix(url);
+        }
     }
 
     public static void browse(final URL url) throws IOException {
-        if (browseDesktop(url)) return;
+        if (browseDesktop(url)) {
+            return;
+        }
         final String osName = System.getProperty("os.name");
-        if (osName.startsWith(OS_MACOS)) { browseMac(url); }
-        else if (osName.startsWith(OS_WINDOWS)) { browseWindows(url); }
-        else { browseUnix(url); }
+        if (osName.startsWith(OS_MACOS)) {
+            browseMac(url);
+        } else if (osName.startsWith(OS_WINDOWS)) {
+            browseWindows(url);
+        } else {
+            browseUnix(url);
+        }
     }
 
     public static void browseAndWarn(final URL url, final Component parentComponent) {
-        try { browse(url); }
-        catch (final IOException e) {
+        try {
+            browse(url);
+        } catch (final IOException e) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     JOptionPane.showMessageDialog(parentComponent, "Couldn't open a web browser:\n" + e.getLocalizedMessage(), "Unable to launch web browser", JOptionPane.ERROR_MESSAGE);
@@ -54,8 +67,9 @@ public class DesktopUtil {
     }
 
     public static void browseAndWarn(final String url, final Component parentComponent) {
-        try { browse(new URL(url)); }
-        catch (final IOException e) {
+        try {
+            browse(new URL(url));
+        } catch (final IOException e) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     JOptionPane.showMessageDialog(parentComponent, "Couldn't open a web browser:\n" + e.getLocalizedMessage(), "Unable to launch web browser", JOptionPane.ERROR_MESSAGE);
@@ -65,18 +79,25 @@ public class DesktopUtil {
     }
 
     public static void open(final File file) throws IOException {
-        if (openDesktop(file)) return;
+        if (openDesktop(file)) {
+            return;
+        }
 
         final String osName = System.getProperty("os.name");
-        
-        if (osName.startsWith(OS_MACOS)) { openMac(file); }
-        else if (osName.startsWith(OS_WINDOWS)) { openWindows(file); }
-        else { openUnix(file); }
+
+        if (osName.startsWith(OS_MACOS)) {
+            openMac(file);
+        } else if (osName.startsWith(OS_WINDOWS)) {
+            openWindows(file);
+        } else {
+            openUnix(file);
+        }
     }
 
     public static void openAndWarn(final File file, final Component parentComponent) {
-        try { open(file); }
-        catch (final IOException e) {
+        try {
+            open(file);
+        } catch (final IOException e) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     JOptionPane.showMessageDialog(parentComponent, "Couldn't open " + file + ":\n" + e.getLocalizedMessage(), "Unable to open file", JOptionPane.ERROR_MESSAGE);
@@ -87,10 +108,14 @@ public class DesktopUtil {
 
     private static boolean browseDesktop(final URL url) throws IOException {
         final Class desktopClass = getDesktopClass();
-        if (desktopClass == null) return false;
-        
+        if (desktopClass == null) {
+            return false;
+        }
+
         final Object desktopInstance = getDesktopInstance(desktopClass);
-        if (desktopInstance == null) return false;
+        if (desktopInstance == null) {
+            return false;
+        }
 
         try {
             @SuppressWarnings({"unchecked"})
@@ -98,8 +123,11 @@ public class DesktopUtil {
             browseMethod.invoke(desktopInstance, new URI(url.toExternalForm()));
             return true;
         } catch (InvocationTargetException e) {
-            if (e.getCause() instanceof IOException) { throw (IOException) e.getCause(); }
-            else { return false; }
+            if (e.getCause() instanceof IOException) {
+                throw (IOException) e.getCause();
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }
@@ -117,11 +145,15 @@ public class DesktopUtil {
         boolean found = false;
         for (String browser : BROWSERS) {
             if (!found) {
-                found = Runtime.getRuntime().exec(new String[] {"which", browser}).waitFor() == 0;
-                if (found) Runtime.getRuntime().exec(new String[] {browser, url});
+                found = Runtime.getRuntime().exec(new String[]{"which", browser}).waitFor() == 0;
+                if (found) {
+                    Runtime.getRuntime().exec(new String[]{browser, url});
+                }
             }
         }
-        if (!found) throw new Exception(Arrays.toString(BROWSERS));
+        if (!found) {
+            throw new Exception(Arrays.toString(BROWSERS));
+        }
     }
 
     private static void browseUnix(final URL url) throws IOException {
@@ -156,13 +188,17 @@ public class DesktopUtil {
         }
     }
 
-
+    // 通过Desktop打开文件
     private static boolean openDesktop(final File file) throws IOException {
         final Class desktopClass = getDesktopClass();
-        if (desktopClass == null) return false;
-        
+        if (desktopClass == null) {
+            return false;
+        }
+
         final Object desktopInstance = getDesktopInstance(desktopClass);
-        if (desktopInstance == null) return false;
+        if (desktopInstance == null) {
+            return false;
+        }
 
         try {
             @SuppressWarnings({"unchecked"})
@@ -170,21 +206,27 @@ public class DesktopUtil {
             browseMethod.invoke(desktopInstance, file);
             return true;
         } catch (InvocationTargetException e) {
-            if (e.getCause() instanceof IOException) { throw (IOException) e.getCause(); }
-            else if (e.getCause() instanceof IllegalArgumentException) { throw new FileNotFoundException(e.getCause().getLocalizedMessage()); }
-            else { return false; }
-        } catch (Exception e) { return false; }
+            if (e.getCause() instanceof IOException) {
+                throw (IOException) e.getCause();
+            } else if (e.getCause() instanceof IllegalArgumentException) {
+                throw new FileNotFoundException(e.getCause().getLocalizedMessage());
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
+    // 通过Runtime打开文件
     private static void openWindows(final File file) throws IOException {
         Runtime.getRuntime().exec(new String[]{"rundll32", "shell32.dll,ShellExec_RunDLL", file.getAbsolutePath()});
     }
 
-    private @SuppressWarnings({"deprecation"}) static void openMac(final File file) throws IOException
-    {
+    private @SuppressWarnings({"deprecation"})
+    static void openMac(final File file) throws IOException {
         browseMac(file.getAbsoluteFile().toURL());
     }
-
 
     private static void openUnix(final File file) throws IOException {
         for (final String cmd : UNIX_OPEN_CMDS) {
@@ -196,19 +238,26 @@ public class DesktopUtil {
         throw new IOException("Could not find a suitable viewer");
     }
 
+    // 获得Desktop类
     private static Class getDesktopClass() {
         final String desktopClassName = "java.awt.Desktop";
-        try { return Class.forName(desktopClassName); }
-        catch (ClassNotFoundException e) { return null; }
-  }
+        try {
+            return Class.forName(desktopClassName);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
 
+    // 获得Desktop实例
     private static Object getDesktopInstance(final Class desktopClass) {
         try {
             @SuppressWarnings({"unchecked"})
             final Method isDesktopSupportedMethod = desktopClass.getDeclaredMethod("isDesktopSupported");
             final boolean isDesktopSupported = (Boolean) isDesktopSupportedMethod.invoke(null);
-            
-            if (!isDesktopSupported) { return null; }
+
+            if (!isDesktopSupported) {
+                return null;
+            }
 
             @SuppressWarnings({"unchecked"})
             final Method getDesktopMethod = desktopClass.getDeclaredMethod("getDesktop");
@@ -231,9 +280,10 @@ public class DesktopUtil {
             try {
                 whichProcess.waitFor();
                 finished = true;
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         } while (!finished);
-        
+
         return whichProcess.exitValue() == 0;
     }
 
