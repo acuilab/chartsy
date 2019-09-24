@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mode PUBLIC
+          "-//NetBeans//DTD Mode Properties 2.0//EN"
+          "http://www.netbeans.org/dtds/mode-properties2_0.dtd">
+
+<mode version="2.3">
+    <name unique="favoritesExplorer" />
+    <kind type="sliding" />
+    <slidingSide side="left" />
+    <constraints>
+        <path orientation="horizontal" number="20" weight="0.17264038231780168"/>
+        <path orientation="vertical" number="20" weight="0.5"/>
+    </constraints>
+    <relative-bounds x="168" y="242" width="200" height="373" />
+    <frame state="0"/>
+    <active-tc id="FavoritesComponent" />
+    <empty-behavior permanent="true" />
+</mode>

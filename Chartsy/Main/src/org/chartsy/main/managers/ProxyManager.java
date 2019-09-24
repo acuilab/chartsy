@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.prefs.Preferences;
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
@@ -18,6 +19,7 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.openide.util.NbPreferences;
 
 /**
@@ -107,6 +109,36 @@ public final class ProxyManager {
         }
 
         return stream;
+    }
+    
+    public String inputStringGET(String url, String cookies) throws IOException {
+        String response = "";
+        GetMethod method = new GetMethod(url);
+        method.addRequestHeader("accept", "application/xml");  // 视具体情况而定，可以从浏览器或postman查看下请求的header
+        method.setRequestHeader("cookie", cookies.toString());
+        method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8"); //这里设置具体编码，视具体接口而定
+        
+        int status = client.executeMethod(method);
+        
+        // 获得登陆后的 Cookie
+        Cookie[] cookies1 = ProxyManager.getDefault().httpClient().getState().getCookies();
+        StringBuffer tmpcookies = new StringBuffer();
+        for (Cookie c : cookies1) {
+            tmpcookies.append(c.toString() + ";");
+            System.out.println("cookies1 = "+c.toString());
+        }
+        
+        
+        System.out.println("status=" + status);
+        if (status != HttpStatus.SC_OK) {
+            throw new IOException(method.getStatusText());
+        } else {
+            response = method.getResponseBodyAsString();
+        }
+        
+        method.releaseConnection();
+        
+        return response;
     }
 
     public BufferedReader bufferReaderGET(String url)

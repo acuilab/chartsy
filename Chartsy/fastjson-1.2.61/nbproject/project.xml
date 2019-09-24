@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.apisupport.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
+            <code-name-base>com.alibaba.fastjson</code-name-base>
+            <suite-component/>
+            <module-dependencies/>
+            <public-packages>
+                <package>com.alibaba.fastjson</package>
+                <package>com.alibaba.fastjson.annotation</package>
+                <package>com.alibaba.fastjson.asm</package>
+                <package>com.alibaba.fastjson.parser</package>
+                <package>com.alibaba.fastjson.parser.deserializer</package>
+                <package>com.alibaba.fastjson.serializer</package>
+                <package>com.alibaba.fastjson.spi</package>
+                <package>com.alibaba.fastjson.support.config</package>
+                <package>com.alibaba.fastjson.support.hsf</package>
+                <package>com.alibaba.fastjson.support.jaxrs</package>
+                <package>com.alibaba.fastjson.support.moneta</package>
+                <package>com.alibaba.fastjson.support.retrofit</package>
+                <package>com.alibaba.fastjson.support.spring</package>
+                <package>com.alibaba.fastjson.support.spring.annotation</package>
+                <package>com.alibaba.fastjson.support.spring.messaging</package>
+                <package>com.alibaba.fastjson.support.springfox</package>
+                <package>com.alibaba.fastjson.util</package>
+            </public-packages>
+            <class-path-extension>
+                <runtime-relative-path>ext/fastjson-1.2.61.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/fastjson-1.2.61.jar</binary-origin>
+            </class-path-extension>
+        </data>
+    </configuration>
+</project>
