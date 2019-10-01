@@ -18,6 +18,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.openide.util.NbPreferences;
@@ -89,6 +90,24 @@ public final class ProxyManager {
 
             bis.close();
             response = sb.toString();
+        }
+
+        method.releaseConnection();
+
+        return response;
+    }
+    
+    public String inputStringPOST(String url, String json) throws IOException {
+        String response = "";
+        PostMethod method = new PostMethod(url);
+        method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"UTF-8"); //这里设置具体编码，视具体接口而定
+        method.setRequestEntity(new StringRequestEntity(json, "application/json", "UTF-8"));
+
+        int status = client.executeMethod(method);
+        if (status != HttpStatus.SC_OK) {
+            throw new IOException(method.getStatusText());
+        } else {
+            response = response = method.getResponseBodyAsString();
         }
 
         method.releaseConnection();
