@@ -20,118 +20,114 @@ import javax.swing.SwingConstants;
 import org.openide.util.ImageUtilities;
 
 /**
- *
+ * 链接按钮
  * @author Viorel
  */
 public abstract class LinkButton extends JButton
-	implements Constants, MouseListener, ActionListener, FocusListener
-{
+        implements Constants, MouseListener, ActionListener, FocusListener {
 
-	private String label;
-	private boolean underline = false;
-	final ImageIcon BULLET = ImageUtilities.loadImageIcon(BULLET_ICON, false);
-	private final Color defaultForeground;
-	
-	public LinkButton(String label, boolean showBullet)
-	{
-		this(label, showBullet, LINK_COLOR);
-	}
-	
-	public LinkButton(String label, boolean showBullet, Color foreground)
-	{
-		super(label);
-		this.label = label;
-		this.defaultForeground = foreground;
-		setForeground(defaultForeground);
-		setFont(LINK_FONT);
-		setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		setHorizontalAlignment(SwingConstants.LEFT);
-		setVerticalAlignment(SwingConstants.CENTER);
-		if (showBullet)
+    private String label;
+    private boolean underline = false;
+    final ImageIcon BULLET = ImageUtilities.loadImageIcon(BULLET_ICON, false);
+    private final Color defaultForeground;
+
+    public LinkButton(String label, boolean showBullet) {
+        this(label, showBullet, LINK_COLOR);
+    }
+
+    public LinkButton(String label, boolean showBullet, Color foreground) {
+        super(label);
+        this.label = label;
+        this.defaultForeground = foreground;
+        setForeground(defaultForeground);
+        setFont(LINK_FONT);
+        setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        setHorizontalAlignment(SwingConstants.LEFT);
+        setVerticalAlignment(SwingConstants.CENTER);
+        if (showBullet) {
             setIcon(BULLET);
-		setFocusable(true);
-		setMargin(new Insets(0, 0, 0, 0));
-		setBorderPainted(false);
-		setFocusPainted(false);
-		setRolloverEnabled(false);
-		setContentAreaFilled(false);
+        }
+        setFocusable(true);
+        setMargin(new Insets(0, 0, 0, 0));
+        setBorderPainted(false);
+        setFocusPainted(false);
+        setRolloverEnabled(false);
+        setContentAreaFilled(false);
 
-		addMouseListener((MouseListener)this);
-		addActionListener((ActionListener)this);
-		addFocusListener((FocusListener)this);
-	}
+        addMouseListener((MouseListener) this);
+        addActionListener((ActionListener) this);
+        addFocusListener((FocusListener) this);
+    }
 
-	public void mouseClicked(MouseEvent e)
-	{}
+    public void mouseClicked(MouseEvent e) {
+    }
 
-	public void mousePressed(MouseEvent e)
-	{}
+    public void mousePressed(MouseEvent e) {
+    }
 
-	public void mouseReleased(MouseEvent e)
-	{}
+    public void mouseReleased(MouseEvent e) {
+    }
 
-	public void mouseEntered(MouseEvent e)
-	{
-		setText("<html><u>"+label+"</u></html>");
-		if (isEnabled())
-			onMouseEntered();
-	}
+    public void mouseEntered(MouseEvent e) {
+        setText("<html><u>" + label + "</u></html>");
+        if (isEnabled()) {
+            onMouseEntered();
+        }
+    }
 
-	public void mouseExited(MouseEvent e)
-	{
-		setText("<html>"+label+"</html>");
-		if (isEnabled())
-			onMouseExited();
-	}
+    public void mouseExited(MouseEvent e) {
+        setText("<html>" + label + "</html>");
+        if (isEnabled()) {
+            onMouseExited();
+        }
+    }
 
-	public void actionPerformed(ActionEvent e)
-	{
-		if (isEnabled())
-			onActionPerformed();
-	}
-	
-	public void focusGained(FocusEvent e)
-	{
-		Rectangle rect = getBounds();
-		rect.grow(0, FONT_SIZE);
-		scrollRectToVisible(rect);
-	}
+    public void actionPerformed(ActionEvent e) {
+        if (isEnabled()) {
+            onActionPerformed();
+        }
+    }
 
-	public void focusLost(FocusEvent e)
-	{}
+    public void focusGained(FocusEvent e) {
+        Rectangle rect = getBounds();
+        rect.grow(0, FONT_SIZE);
+        scrollRectToVisible(rect);
+    }
 
-	protected void onActionPerformed()
-	{}
+    public void focusLost(FocusEvent e) {
+    }
 
-	protected void onMouseExited()
-	{}
+    protected void onActionPerformed() {
+    }
 
-    protected void onMouseEntered()
-	{}
+    protected void onMouseExited() {
+    }
 
-    @Override public void paint(Graphics g) {
+    protected void onMouseEntered() {
+    }
+
+    @Override
+    public void paint(Graphics g) {
         super.paint(g);
-        if (underline && isEnabled())
-		{
+        if (underline && isEnabled()) {
             Font f = getFont();
             FontMetrics fm = getFontMetrics(f);
             int iconWidth = 0;
-            if (null != getIcon())
-			{
+            if (null != getIcon()) {
                 iconWidth = getIcon().getIconWidth() + getIconTextGap();
             }
             int x1 = iconWidth;
             int y1 = fm.getHeight();
             int x2 = fm.stringWidth(getText()) + iconWidth;
-            if (getText().length() > 0)
+            if (getText().length() > 0) {
                 g.drawLine(x1, y1, x2, y1);
+            }
         }
     }
 
-	protected boolean isVisited()
-	{
-		return false;
-	}
+    protected boolean isVisited() {
+        return false;
+    }
 
 }

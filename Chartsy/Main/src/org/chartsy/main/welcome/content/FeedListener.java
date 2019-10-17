@@ -1,12 +1,11 @@
 package org.chartsy.main.welcome.content;
 
 /**
- *
+ * 种子监听器
  * @author Viorel
  */
-public interface FeedListener
-{
+public interface FeedListener {
 
-	public void fireFeedParsed(FeedEvent event);
+    public void fireFeedParsed(FeedEvent event);
 
 }

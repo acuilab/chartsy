@@ -24,7 +24,8 @@ import org.chartsy.main.utils.SerialVersion;
 import org.openide.nodes.AbstractNode;
 
 /**
- * 注解
+ * 注释
+ * 
  * @author viorel.gheba
  */
 public abstract class Annotation implements Serializable, MouseListener, MouseMotionListener {

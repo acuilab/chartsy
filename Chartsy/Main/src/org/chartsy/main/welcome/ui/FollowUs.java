@@ -10,38 +10,35 @@ import org.chartsy.main.welcome.content.WebLink;
 import org.openide.util.ImageUtilities;
 
 /**
- *
+ * 跟着我面板
  * @author Viorel
  */
-public class FollowUs extends JPanel implements Constants
-{
+public class FollowUs extends JPanel implements Constants {
 
-	public FollowUs()
-	{
-		super(new SpringLayout());
-		setOpaque(false);
-		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		initComponents();
-	}
+    public FollowUs() {
+        super(new SpringLayout());
+        setOpaque(false);
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        initComponents();
+    }
 
-	private void initComponents()
-	{
-		JLabel label;
+    private void initComponents() {
+        JLabel label;
 
-		label = new JLabel(ImageUtilities.loadImageIcon(FOLLOW_ICON, true));
-		label.setHorizontalAlignment(JLabel.LEFT);
-		label.setOpaque(false);
-		label.setBorder(BorderFactory.createEmptyBorder());
-		add(label);
+        label = new JLabel(ImageUtilities.loadImageIcon(FOLLOW_ICON, true));
+        label.setHorizontalAlignment(JLabel.LEFT);
+        label.setOpaque(false);
+        label.setBorder(BorderFactory.createEmptyBorder());
+        add(label);
 
-		add(WebLink.createWebLink("twitter", true));
-		add(WebLink.createWebLink("facebook", true));
-		add(WebLink.createWebLink("youtube", true));
+        add(WebLink.createWebLink("twitter", true));
+        add(WebLink.createWebLink("facebook", true));
+        add(WebLink.createWebLink("youtube", true));
 
-		SpringUtilities.makeCompactGrid(this,
-			4, 1,
-			5, 5,
-			5, 5);
-	}
+        SpringUtilities.makeCompactGrid(this,
+                4, 1,
+                5, 5,
+                5, 5);
+    }
 
 }

@@ -66,6 +66,8 @@ public class DataProviderManager {
 
     static {
         ignored = new ArrayList<String>();
-        //ignored.add("Yahoo");
+        ignored.add("Yahoo");
+        ignored.add("ForexFeed");
+        ignored.add("MrSwing");
     }
 }
