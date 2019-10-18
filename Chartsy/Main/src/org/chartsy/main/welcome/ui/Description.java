@@ -8,26 +8,24 @@ import org.chartsy.main.welcome.content.Constants;
 import org.openide.util.NbBundle;
 
 /**
- *
+ * 描述面板
  * @author Viorel
  */
-public class Description extends JPanel implements Constants
-{
+public class Description extends JPanel implements Constants {
 
-	public Description()
-	{
-		super(new BorderLayout());
-		setOpaque(false);
+    public Description() {
+        super(new BorderLayout());
+        setOpaque(false);
 
-		JLabel desc = new JLabel(
-			NbBundle.getMessage(Description.class, "DESC_Chartsy"));
-		desc.setHorizontalAlignment(JLabel.LEFT);
-		desc.setVerticalAlignment(JLabel.CENTER);
-		desc.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		desc.setOpaque(false);
-		desc.setFont(BUTTON_FONT);
-		desc.setForeground(LINK_COLOR);
-		add(desc, BorderLayout.CENTER);
-	}
+        JLabel desc = new JLabel(
+                NbBundle.getMessage(Description.class, "DESC_Chartsy"));
+        desc.setHorizontalAlignment(JLabel.LEFT);
+        desc.setVerticalAlignment(JLabel.CENTER);
+        desc.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        desc.setOpaque(false);
+        desc.setFont(BUTTON_FONT);
+        desc.setForeground(LINK_COLOR);
+        add(desc, BorderLayout.CENTER);
+    }
 
 }

@@ -17,89 +17,85 @@ import org.chartsy.main.welcome.content.WebLink;
 import org.openide.util.ImageUtilities;
 
 /**
- *
+ * 随机插件面板
  * @author Viorel
  */
-public class RandomPlugin extends JPanel implements Constants, FeedListener
-{
+public class RandomPlugin extends JPanel implements Constants, FeedListener {
 
-	private JLabel loading;
+    private JLabel loading;
 
-	public RandomPlugin()
-	{
-		super(new SpringLayout());
-		setOpaque(false);
-		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		initComponents();
-		Feeds.getDefault().addFeedListener(Feeds.randomPluginFeed, (FeedListener) this);
-	}
+    public RandomPlugin() {
+        super(new SpringLayout());
+        setOpaque(false);
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        initComponents();
+        Feeds.getDefault().addFeedListener(Feeds.randomPluginFeed, (FeedListener) this);
+    }
 
-	private void initComponents()
-	{
-		JLabel label;
+    private void initComponents() {
+        JLabel label;
 
-		label = new JLabel(ImageUtilities.loadImageIcon(RANDOM_ICON, true));
-		label.setHorizontalAlignment(JLabel.LEFT);
-		label.setOpaque(false);
-		label.setBorder(BorderFactory.createEmptyBorder());
-		add(label);
+        label = new JLabel(ImageUtilities.loadImageIcon(RANDOM_ICON, true));
+        label.setHorizontalAlignment(JLabel.LEFT);
+        label.setOpaque(false);
+        label.setBorder(BorderFactory.createEmptyBorder());
+        add(label);
 
-		loading = new JLabel("Loading content ...");
-		loading.setHorizontalAlignment(JLabel.LEFT);
-		loading.setOpaque(false);
-		loading.setBorder(BorderFactory.createEmptyBorder());
-		loading.setFont(LINK_FONT);
-		loading.setForeground(LINK_COLOR);
-		add(loading);
+        loading = new JLabel("Loading content ...");
+        loading.setHorizontalAlignment(JLabel.LEFT);
+        loading.setOpaque(false);
+        loading.setBorder(BorderFactory.createEmptyBorder());
+        loading.setFont(LINK_FONT);
+        loading.setForeground(LINK_COLOR);
+        add(loading);
 
-		SpringUtilities.makeCompactGrid(this,
-			getComponentCount(), 1,
-			5, 5,
-			5, 5);
-	}
+        SpringUtilities.makeCompactGrid(this,
+                getComponentCount(), 1,
+                5, 5,
+                5, 5);
+    }
 
-	@Override public void fireFeedParsed(FeedEvent event)
-	{
-		Feed feed = (Feed) event.getSource();
-		if (feed.getFeedName().equals(Feeds.randomPluginFeed))
-		{
-			remove(loading);
-			
-			FeedMessage message = feed.getMessages().get(0);
-			JLabel label;
+    @Override
+    public void fireFeedParsed(FeedEvent event) {
+        Feed feed = (Feed) event.getSource();
+        if (feed.getFeedName().equals(Feeds.randomPluginFeed)) {
+            remove(loading);
 
-			label = new JLabel("<html>"+message.getTitle()+"</html>");
-			label.setOpaque(false);
-			label.setBorder(BorderFactory.createEmptyBorder());
-			label.setFont(TITLE_FONT);
-			label.setForeground(LINK_COLOR);
-			add(label);
+            FeedMessage message = feed.getMessages().get(0);
+            JLabel label;
 
-			JTextArea textArea = new JTextArea(message.getDescription());
-			textArea.setEditable(false);
-			textArea.setOpaque(false);
-			textArea.setFont(RSS_DESCRIPTION_FONT);
-			textArea.setForeground(LINK_COLOR);
-			textArea.setLineWrap(true);
-			textArea.setWrapStyleWord(true);
+            label = new JLabel("<html>" + message.getTitle() + "</html>");
+            label.setOpaque(false);
+            label.setBorder(BorderFactory.createEmptyBorder());
+            label.setFont(TITLE_FONT);
+            label.setForeground(LINK_COLOR);
+            add(label);
 
-			JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.getViewport().setOpaque(false);
-			scrollPane.getViewport().setBorder(null);
-			scrollPane.setOpaque(false);
-			scrollPane.setBorder(null);
-			add(scrollPane);
+            JTextArea textArea = new JTextArea(message.getDescription());
+            textArea.setEditable(false);
+            textArea.setOpaque(false);
+            textArea.setFont(RSS_DESCRIPTION_FONT);
+            textArea.setForeground(LINK_COLOR);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
 
-			add(WebLink.createWebLink("View All", message.getLink(), true));
+            JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrollPane.getViewport().setOpaque(false);
+            scrollPane.getViewport().setBorder(null);
+            scrollPane.setOpaque(false);
+            scrollPane.setBorder(null);
+            add(scrollPane);
 
-			SpringUtilities.makeCompactGrid(this,
-					getComponentCount(), 1,
-					5, 5,
-					5, 5);
+            add(WebLink.createWebLink("View All", message.getLink(), true));
 
-			revalidate();
-			repaint();
-		}
-	}
+            SpringUtilities.makeCompactGrid(this,
+                    getComponentCount(), 1,
+                    5, 5,
+                    5, 5);
+
+            revalidate();
+            repaint();
+        }
+    }
 
 }

@@ -1,0 +1,11 @@
+||:org.chartsy.talib.TaLibUtilities
+java.lang.Object
+java.lang.StringBuilder
+[D
+java.lang.System
+java.io.PrintStream
+org.chartsy.talib.TaLibUtilities
+||:org.chartsy.talib.TaLibInit
+java.lang.Object
+com.tictactec.ta.lib.Core
+org.chartsy.talib.TaLibInit

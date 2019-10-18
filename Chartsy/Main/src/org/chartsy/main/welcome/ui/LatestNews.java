@@ -17,7 +17,7 @@ import org.chartsy.main.welcome.content.WebLink;
 import org.openide.util.ImageUtilities;
 
 /**
- *
+ * 最新消息面板
  * @author Viorel
  */
 public class LatestNews extends JPanel implements Constants, FeedListener

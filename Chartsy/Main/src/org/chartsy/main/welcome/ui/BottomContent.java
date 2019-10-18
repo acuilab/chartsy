@@ -28,7 +28,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 
 /**
- *
+ * 底部内容面板
  * @author Viorel
  */
 public final class BottomContent extends JPanel

@@ -6,6 +6,9 @@
         <group>
             <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/data/Stock.java</file>
             <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/data/DataProvider.java</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/managers/DatasetUsage.java</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/chart/Annotation.java</file>
+            <file>file:/D:/GitHub/chartsy/Chartsy/Main/src/org/chartsy/main/managers/DataProviderManager.java</file>
         </group>
     </open-files>
 </project-private>
