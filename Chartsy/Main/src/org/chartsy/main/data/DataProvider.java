@@ -138,13 +138,15 @@ public abstract class DataProvider implements Serializable {
         String company = "";
 
         symbol.trim();
-        String delimiter = ".";
+        String delimiter = "."; // 股票代码分隔符
 
         if (symbol.contains(delimiter)) {
+            // 若股票代码包含分隔符，则代码取分隔符之前的文本，交易所取分隔符之后的文本
             int index = symbol.indexOf(delimiter);
             symb = symbol.substring(0, index);
             exchange = symbol.substring(index - 1, symbol.length() - 1);
         } else {
+            // 若股票代码不包含分隔符，则
             symb = symbol;
         }
 
