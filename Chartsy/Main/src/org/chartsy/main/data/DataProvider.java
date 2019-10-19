@@ -146,7 +146,7 @@ public abstract class DataProvider implements Serializable {
             symb = symbol.substring(0, index);
             exchange = symbol.substring(index - 1, symbol.length() - 1);
         } else {
-            // 若股票代码不包含分隔符，则
+            // 若股票代码不包含分隔符，则不设置exchange
             symb = symbol;
         }
 

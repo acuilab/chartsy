@@ -21,7 +21,7 @@ import org.openide.windows.WindowManager;
 // 新图表对话框
 public class NewChartDialog extends javax.swing.JDialog {
 
-    private static final String defaultDataProvider = "MrSwing";    //  默认数据提供者
+    private static final String defaultDataProvider = "XueQiu";    //  默认数据提供者
     private StockAutoCompleter completer = null;                    // 股票自动完成控件
     private String stock = null;                                    // 股票（代码）
     private String dataProvider = null;                             // 数据提供者
