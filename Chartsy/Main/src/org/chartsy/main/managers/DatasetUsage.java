@@ -68,6 +68,11 @@ public class DatasetUsage {
         }
     }
 
+    /**
+     * 增加数据集，在DataProvider中调用
+     * @param key
+     * @param dataset 
+     */
     public void addDataset(String key, Dataset dataset) {
         datasets.put(key, dataset);
     }

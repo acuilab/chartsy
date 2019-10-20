@@ -196,8 +196,8 @@ public abstract class DataProvider implements Serializable {
         return stock;
     }
 
-    public void fetchDatasetForFavorites(Stock stock)
-            throws IOException, ParseException {
+    // 为收藏夹拉取数据集
+    public void fetchDatasetForFavorites(Stock stock) throws IOException, ParseException {
         Dataset dataset = fetchDataForFavorites(stock);
         if (dataset != null) {
             String key = getDatasetKey(stock, DAILY);
@@ -207,8 +207,8 @@ public abstract class DataProvider implements Serializable {
         }
     }
 
-    protected abstract Dataset fetchDataForFavorites(Stock stock)
-            throws IOException, ParseException;
+    // 为收藏夹拉取数据
+    protected abstract Dataset fetchDataForFavorites(Stock stock) throws IOException, ParseException;
 
     public void fetchDataset(Stock stock, Interval interval)
             throws IOException, ParseException {
@@ -240,7 +240,7 @@ public abstract class DataProvider implements Serializable {
         return new ArrayList<DataItem>();
     }
 
-    // 更新间隔日
+    // 更新是否支持盘中
     public boolean updateIntraDay(String key, List<DataItem> dataItems) {
         return false;
     }
