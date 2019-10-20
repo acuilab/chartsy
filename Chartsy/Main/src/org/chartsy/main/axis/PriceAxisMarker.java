@@ -13,18 +13,14 @@ import org.chartsy.main.utils.RectangleInsets;
  *
  * @author viorel.gheba
  */
-public class PriceAxisMarker
-{
+public class PriceAxisMarker {
 
-    private PriceAxisMarker()
-    {
+    private PriceAxisMarker() {
     }
 
-    public static void paint(Graphics2D g, ChartFrame cf, double value, Color color, double y)
-    {
+    public static void paint(Graphics2D g, ChartFrame cf, double value, Color color, double y) {
         DecimalFormat df = new DecimalFormat("#,##0.00");
-        if (value < 10f)
-        {
+        if (value < 10f) {
             df = new DecimalFormat("#,##0.00000");
         }
         RectangleInsets dataOffset = ChartData.dataOffset;

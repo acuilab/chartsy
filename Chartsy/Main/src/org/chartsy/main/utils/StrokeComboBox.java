@@ -10,7 +10,9 @@ import javax.swing.JComboBox;
  */
 public class StrokeComboBox extends JComboBox {
 
-    public StrokeComboBox() { this(StrokeGenerator.getStrokes(), 100, 30); }
+    public StrokeComboBox() {
+        this(StrokeGenerator.getStrokes(), 100, 30);
+    }
 
     public StrokeComboBox(Stroke[] strokes, int width, int height) {
         super(strokes);

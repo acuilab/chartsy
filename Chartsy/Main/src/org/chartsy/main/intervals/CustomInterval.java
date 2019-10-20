@@ -10,8 +10,8 @@ public class CustomInterval extends Interval {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    private long startTime;
-    private int lengthInSeconds;
+    private final long startTime;
+    private final int lengthInSeconds;
 
     public CustomInterval(String name, boolean isIntraDay,
             long startTime, String timeParam, int lengthInSeconds) {

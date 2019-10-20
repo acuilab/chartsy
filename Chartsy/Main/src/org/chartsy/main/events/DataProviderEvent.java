@@ -6,20 +6,17 @@ import java.util.EventObject;
  *
  * @author Viorel
  */
-public class DataProviderEvent extends EventObject
-{
+public class DataProviderEvent extends EventObject {
 
-	private int itemsAdded;
+    private int itemsAdded;
 
-	public DataProviderEvent(Object source, int itemsAdded)
-	{
-		super(source);
-		this.itemsAdded = itemsAdded;
-	}
+    public DataProviderEvent(Object source, int itemsAdded) {
+        super(source);
+        this.itemsAdded = itemsAdded;
+    }
 
-	public int getItemsAdded()
-	{
-		return this.itemsAdded;
-	}
+    public int getItemsAdded() {
+        return this.itemsAdded;
+    }
 
 }

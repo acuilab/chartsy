@@ -13,62 +13,59 @@ import org.openide.nodes.Sheet;
  * @author viorel.gheba
  */
 public class ChartNode
-        extends AbstractPropertiesNode
-{
+        extends AbstractPropertiesNode {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    public ChartNode()
-    {
+    public ChartNode() {
         super("Chart Properties");
     }
 
-    public ChartNode(ChartProperties chartProperties)
-    {
+    public ChartNode(ChartProperties chartProperties) {
         super("Chart Properties", chartProperties);
     }
 
     @SuppressWarnings("unchecked")
-    protected @Override Sheet createSheet()
-    {
+    protected @Override
+    Sheet createSheet() {
         Sheet sheet = new Sheet();
 
-        for (Sheet.Set set : getSets())
+        for (Sheet.Set set : getSets()) {
             sheet.put(set);
+        }
 
         return sheet;
     }
 
-    public @Override Sheet.Set[] getSets()
-    {
+    public @Override
+    Sheet.Set[] getSets() {
         Sheet.Set[] sets = new Sheet.Set[4];
 
         Sheet.Set window = getPropertiesSet(
                 "Window Properties", // properties set name
                 "Window Properties" // properties set description
-                );
+        );
         sets[0] = window;
 
         Sheet.Set axis = getPropertiesSet(
                 "Axis Properties", // properties set name
                 "Axis Properties" // properties set description
-                );
+        );
         sets[1] = axis;
 
         Sheet.Set data = getPropertiesSet(
                 "Data Properties", // properties set name
                 "Data Properties" // properties set description
-                );
+        );
         sets[2] = data;
 
         Sheet.Set grid = getPropertiesSet(
                 "Grid Properties", // properties set name
                 "Grid Properties" // properties set description
-                );
+        );
         sets[3] = grid;
 
-        try
-        {
+        try {
             // Window Properties
 
             // Background Color
@@ -81,7 +78,7 @@ public class ChartNode
                     "getBackgroundColor", // get method name
                     "setBackgroundColor", // set method name
                     ChartProperties.BACKGROUND_COLOR // default property value
-                    ));
+            ));
             // Font
             window.put(getProperty(
                     "Font", // property name
@@ -92,7 +89,7 @@ public class ChartNode
                     "getFont", // get method name
                     "setFont", // set method name
                     ChartProperties.FONT // default property value
-                    ));
+            ));
             // Font Color
             window.put(getProperty(
                     "Font Color", // property name
@@ -103,10 +100,9 @@ public class ChartNode
                     "getFontColor", // get method name
                     "setFontColor", // set method name
                     ChartProperties.FONT_COLOR // default property value
-                    ));
+            ));
 
             // Asix Properties
-
             // Axis Color
             axis.put(getProperty(
                     "Axis Color", // property name
@@ -117,7 +113,7 @@ public class ChartNode
                     "getAxisColor", // get method name
                     "setAxisColor", // set method name
                     ChartProperties.AXIS_COLOR // default property value
-                    ));
+            ));
             // Axis Stroke
             axis.put(getProperty(
                     "Axis Style", // property name
@@ -128,7 +124,7 @@ public class ChartNode
                     "getAxisStroke", // get method name
                     "setAxisStroke", // set method name
                     StrokeGenerator.getStroke(ChartProperties.AXIS_STROKE_INDEX) // default property value
-                    ));
+            ));
             // Logarithmic Flag
             axis.put(getProperty(
                     "Logarithmic Axis", // property name
@@ -139,10 +135,9 @@ public class ChartNode
                     "getAxisLogarithmicFlag", // get method name
                     "setAxisLogarithmicFlag", // set method name
                     ChartProperties.AXIS_LOGARITHMIC_FLAG // default property value
-                    ));
+            ));
 
             // Data Properties
-
             // Bar Color
             data.put(getProperty(
                     "Bar Border Color", // property name
@@ -153,7 +148,7 @@ public class ChartNode
                     "getBarColor", // get method name
                     "setBarColor", // set method name
                     ChartProperties.BAR_COLOR // default property value
-                    ));
+            ));
             // Bar Stroke
             data.put(getProperty(
                     "Bar Border Style", // property name
@@ -164,7 +159,7 @@ public class ChartNode
                     "getBarStroke", // get method name
                     "setBarStroke", // set method name
                     StrokeGenerator.getStroke(ChartProperties.BAR_STROKE_INDEX) // default property value
-                    ));
+            ));
             // Bar Visibility
             data.put(getProperty(
                     "Bar Border Visibility", // property name
@@ -175,7 +170,7 @@ public class ChartNode
                     "getBarVisibility", // get method name
                     "setBarVisibility", // set method name
                     ChartProperties.BAR_VISIBILITY // default property value
-                    ));
+            ));
             // Up Bar Color
             data.put(getProperty(
                     "Up Bar Color", // property name
@@ -186,7 +181,7 @@ public class ChartNode
                     "getBarUpColor", // get method name
                     "setBarUpColor", // set method name
                     ChartProperties.BAR_UP_COLOR // default property value
-                    ));
+            ));
             // Up Bar Visibility
             data.put(getProperty(
                     "Up Bar Visibility", // property name
@@ -197,7 +192,7 @@ public class ChartNode
                     "getBarUpVisibility", // get method name
                     "setBarUpVisibility", // set method name
                     ChartProperties.BAR_UP_VISIBILITY // default property value
-                    ));
+            ));
             // Down Bar Color
             data.put(getProperty(
                     "Down Bar Color", // property name
@@ -208,7 +203,7 @@ public class ChartNode
                     "getBarDownColor", // get method name
                     "setBarDownColor", // set method name
                     ChartProperties.BAR_DOWN_COLOR // default property value
-                    ));
+            ));
             // Down Bar Visibility
             data.put(getProperty(
                     "Down Bar Visibility", // property name
@@ -219,10 +214,9 @@ public class ChartNode
                     "getBarDownVisibility", // get method name
                     "setBarDownVisibility", // set method name
                     ChartProperties.BAR_DOWN_VISIBILITY // default property value
-                    ));
+            ));
 
             // Grid Properties
-
             // Horizontal Grid Color
             grid.put(getProperty(
                     "Horizontal Lines Color", // property name
@@ -233,7 +227,7 @@ public class ChartNode
                     "getGridHorizontalColor", // get method name
                     "setGridHorizontalColor", // set method name
                     ChartProperties.GRID_HORIZONTAL_COLOR // default property value
-                    ));
+            ));
             // Horizontal Grid Stroke
             grid.put(getProperty(
                     "Horizontal Lines Style", // property name
@@ -244,7 +238,7 @@ public class ChartNode
                     "getGridHorizontalStroke", // get method name
                     "setGridHorizontalStroke", // set method name
                     StrokeGenerator.getStroke(ChartProperties.GRID_HORIZONTAL_STROKE_INDEX) // default property value
-                    ));
+            ));
             // Horizontal Grid Visibility
             grid.put(getProperty(
                     "Horizontal Lines Visibility", // property name
@@ -255,7 +249,7 @@ public class ChartNode
                     "getGridHorizontalVisibility", // get method name
                     "setGridHorizontalVisibility", // set method name
                     ChartProperties.GRID_HORIZONTAL_VISIBILITY // default property value
-                    ));
+            ));
             // Vertical Grid Color
             grid.put(getProperty(
                     "Vertical Lines Color", // property name
@@ -266,7 +260,7 @@ public class ChartNode
                     "getGridVerticalColor", // get method name
                     "setGridVerticalColor", // set method name
                     ChartProperties.GRID_VERTICAL_COLOR // default property value
-                    ));
+            ));
             // Vertical Grid Stroke
             grid.put(getProperty(
                     "Vertical Lines Style", // property name
@@ -277,7 +271,7 @@ public class ChartNode
                     "getGridVerticalStroke", // get method name
                     "setGridVerticalStroke", // set method name
                     StrokeGenerator.getStroke(ChartProperties.GRID_VERTICAL_STROKE_INDEX) // default property value
-                    ));
+            ));
             // Vertical Grid Visibility
             grid.put(getProperty(
                     "Vertical Lines Visibility", // property name
@@ -288,10 +282,8 @@ public class ChartNode
                     "getGridVerticalVisibility", // get method name
                     "setGridVerticalVisibility", // set method name
                     ChartProperties.GRID_VERTICAL_VISIBILITY // default property value
-                    ));
-        }
-        catch (NoSuchMethodException ex)
-        {
+            ));
+        } catch (NoSuchMethodException ex) {
             LOG.log(Level.SEVERE, "[ChartNode] : Method does not exist.", ex);
         }
 

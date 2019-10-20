@@ -1,3 +1,8 @@
+||:org.chartsy.tworsi.OverlayProperties
+java.awt.Color
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.tworsi.OverlayProperties
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.tworsi.TwoRSI
 org.chartsy.tworsi.OverlayProperties
 [Z
@@ -21,11 +26,6 @@ java.awt.geom.Ellipse2D
 java.awt.Graphics2D
 org.chartsy.main.utils.SerialVersion
 java.awt.Rectangle
-||:org.chartsy.tworsi.OverlayProperties
-java.awt.Color
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.tworsi.OverlayProperties
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.tworsi.OverlayNode
 org.chartsy.main.chart.AbstractPropertiesNode
 org.chartsy.tworsi.OverlayProperties

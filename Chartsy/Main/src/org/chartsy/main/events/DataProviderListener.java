@@ -6,9 +6,8 @@ import java.util.EventListener;
  *
  * @author Viorel
  */
-public interface DataProviderListener extends EventListener
-{
+public interface DataProviderListener extends EventListener {
 
-	public void triggerDataProviderListener(DataProviderEvent evt);
+    public void triggerDataProviderListener(DataProviderEvent evt);
 
 }
