@@ -7,47 +7,45 @@ import org.chartsy.main.data.Stock;
  *
  * @author viorel.gheba
  */
-public class StockManager
-{
+public class StockManager {
 
     private static StockManager instance;
     //private static Logger LOG = Logger.getLogger(StockManager.class.getPackage().getName());
     private ArrayList<Stock> stocks;
     //private String path;
 
-    public static StockManager getDefault()
-    {
-        if (instance == null)
+    public static StockManager getDefault() {
+        if (instance == null) {
             instance = new StockManager();
+        }
         return instance;
     }
 
-    private StockManager()
-    {
+    private StockManager() {
         stocks = new ArrayList<Stock>();
     }
 
-    public void addStock(Stock stock)
-    {
+    public void addStock(Stock stock) {
         //readExternal();
-        if (!stocks.contains(stock))
+        if (!stocks.contains(stock)) {
             stocks.add(stock);
+        }
         //writeExternal();
     }
 
-    public boolean hasStock(Stock stock)
-    {
+    public boolean hasStock(Stock stock) {
         //readExternal();
         return stocks.contains(stock);
     }
 
-    public Stock getStock(Stock stock)
-    {
+    public Stock getStock(Stock stock) {
         //readExternal();
-        for (Stock s : stocks)
-            if (s.equals(stock))
+        for (Stock s : stocks) {
+            if (s.equals(stock)) {
                 return s;
-        
+            }
+        }
+
         return null;
     }
 
@@ -122,5 +120,4 @@ public class StockManager
             LOG.log(Level.SEVERE, "Cannot perform input.", ex);
         }
     }*/
-
 }

@@ -9,6 +9,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -273,11 +274,11 @@ public class ChartFrame extends TopComponent
         List<Integer> list = new ArrayList<Integer>();
         int i = 0;
         i += getSplitPanel().getChartPanel().getAnnotationPanel().getAnnotations().length;
-        list.add(new Integer(i));
+        list.add(i);
 
         for (IndicatorPanel ip : getSplitPanel().getIndicatorsPanel().getIndicatorPanels()) {
             i += ip.getAnnotationPanel().getAnnotations().length;
-            list.add(new Integer(i));
+            list.add(i);
         }
 
         return list;
@@ -307,8 +308,6 @@ public class ChartFrame extends TopComponent
                 getSplitPanel().getIndicatorsPanel().getIndicatorPanels()[i - 1].getAnnotationPanel().setAnnotationsList(newList);
             }
         }
-
-        return;
     }
 
     public JPopupMenu getMenu() {
@@ -865,7 +864,7 @@ public class ChartFrame extends TopComponent
     private static void storeLastID() {
         try {
             CacheManager.getInstance().cacheLastChartFrameId(ID.get());
-        } catch (Exception ex) {
+        } catch (IOException ex) {
         }
     }
 
