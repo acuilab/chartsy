@@ -12,9 +12,7 @@ import org.chartsy.main.utils.StrokeGenerator;
  *
  * @author viorel.gheba
  */
-public class OverlayProperties 
-        extends AbstractPropertyListener
-{
+public class OverlayProperties extends AbstractPropertyListener {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
@@ -32,26 +30,65 @@ public class OverlayProperties
     private Color color;
     private int strokeIndex = STROKE_INDEX;
 
-    public OverlayProperties() { COLOR = ColorGenerator.getRandomColor(); color = COLOR; }
+    public OverlayProperties() {
+        COLOR = ColorGenerator.getRandomColor();
+        color = COLOR;
+    }
 
-    public int getPeriod() { return period; }
-    public void setPeriod(int i) { period = i; }
+    public int getPeriod() {
+        return period;
+    }
 
-    public String getPrice() { return price; }
-    public void setPrice(String s) { price = s; }
+    public void setPeriod(int i) {
+        period = i;
+    }
 
-    public String getLabel() { return label; }
-    public void setLabel(String s) { label = s; }
+    public String getPrice() {
+        return price;
+    }
 
-    public boolean getMarker() { return marker; }
-    public void setMarker(boolean b) { marker = b; }
+    public void setPrice(String s) {
+        price = s;
+    }
 
-    public Color getColor() { return color; }
-    public void setColor(Color c) { color = c; }
+    public String getLabel() {
+        return label;
+    }
 
-    public int getStrokeIndex() { return strokeIndex; }
-    public void setStrokeIndex(int i) { strokeIndex = i; }
-    public Stroke getStroke() { return StrokeGenerator.getStroke(strokeIndex); }
-    public void setStroke(Stroke s) { strokeIndex = StrokeGenerator.getStrokeIndex(s); }
+    public void setLabel(String s) {
+        label = s;
+    }
+
+    public boolean getMarker() {
+        return marker;
+    }
+
+    public void setMarker(boolean b) {
+        marker = b;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color c) {
+        color = c;
+    }
+
+    public int getStrokeIndex() {
+        return strokeIndex;
+    }
+
+    public void setStrokeIndex(int i) {
+        strokeIndex = i;
+    }
+
+    public Stroke getStroke() {
+        return StrokeGenerator.getStroke(strokeIndex);
+    }
+
+    public void setStroke(Stroke s) {
+        strokeIndex = StrokeGenerator.getStrokeIndex(s);
+    }
 
 }

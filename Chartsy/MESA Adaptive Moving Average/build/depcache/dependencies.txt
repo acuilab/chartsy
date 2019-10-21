@@ -1,3 +1,9 @@
+||:org.chartsy.mesa.IndicatorProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.mesa.IndicatorProperties
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.mesa.MESA
 com.tictactec.ta.lib.Core
 org.chartsy.main.data.DataItem
@@ -15,12 +21,6 @@ org.chartsy.main.utils.DefaultPainter
 java.util.LinkedHashMap
 java.lang.String
 java.text.DecimalFormat
-||:org.chartsy.mesa.IndicatorProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.mesa.IndicatorProperties
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.mesa.IndicatorNode
 org.chartsy.main.chart.AbstractPropertiesNode
 java.awt.Color

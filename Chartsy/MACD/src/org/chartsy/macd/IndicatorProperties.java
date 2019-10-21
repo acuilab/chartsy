@@ -10,9 +10,7 @@ import org.chartsy.main.utils.StrokeGenerator;
  *
  * @author viorel.gheba
  */
-public class IndicatorProperties 
-        extends AbstractPropertyListener
-{
+public class IndicatorProperties extends AbstractPropertyListener {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
@@ -46,54 +44,143 @@ public class IndicatorProperties
     private Color macdColor = MACD_COLOR;
     private int macdStrokeIndex = MACD_STROKE_INDEX;
 
-    public IndicatorProperties() {}
+    public IndicatorProperties() {
+    }
 
-    public int getFast() { return fast; }
-    public void setFast(int i) { fast = i; }
+    public int getFast() {
+        return fast;
+    }
 
-    public int getSlow() { return slow; }
-    public void setSlow(int i) { slow = i; }
+    public void setFast(int i) {
+        fast = i;
+    }
 
-    public int getSmooth() { return smooth; }
-    public void setSmooth(int i) { smooth = i; }
+    public int getSlow() {
+        return slow;
+    }
 
-    public String getLabel() { return label; }
-    public void setLabel(String s) { label = s; }
+    public void setSlow(int i) {
+        slow = i;
+    }
 
-    public boolean getMarker() { return marker; }
-    public void setMarker(boolean b) { marker = b; }
+    public int getSmooth() {
+        return smooth;
+    }
 
-    public Color getZeroLineColor() { return zeroLineColor; }
-    public void setZeroLineColor(Color c) { zeroLineColor = c; }
+    public void setSmooth(int i) {
+        smooth = i;
+    }
 
-    public int getZeroLineStrokeIndex() { return zeroLineStrokeIndex; }
-    public void setZeroLineStrokeIndex(int i) { zeroLineStrokeIndex = i; }
-    public Stroke getZeroLineStroke() { return StrokeGenerator.getStroke(zeroLineStrokeIndex); }
-    public void setZeroLineStroke(Stroke s) { zeroLineStrokeIndex = StrokeGenerator.getStrokeIndex(s); }
+    public String getLabel() {
+        return label;
+    }
 
-    public boolean getZeroLineVisibility() { return zeroLineVisibility; }
-    public void setZeroLineVisibility(boolean b) { zeroLineVisibility = b; }
+    public void setLabel(String s) {
+        label = s;
+    }
 
-    public Color getHistogramPositiveColor() { return histogramPositiveColor; }
-    public void setHistogramPositiveColor(Color c) { histogramPositiveColor = c; }
+    public boolean getMarker() {
+        return marker;
+    }
 
-    public Color getHistogramNegativeColor() { return histogramNegativeColor; }
-    public void setHistogramNegativeColor(Color c) { histogramNegativeColor = c; }
+    public void setMarker(boolean b) {
+        marker = b;
+    }
 
-    public Color getSignalColor() { return signalColor; }
-    public void setSignalColor(Color c) { signalColor = c; }
+    public Color getZeroLineColor() {
+        return zeroLineColor;
+    }
 
-    public int getSignalStrokeIndex() { return signalStrokeIndex; }
-    public void setSignalStrokeIndex(int i) { signalStrokeIndex = i; }
-    public Stroke getSignalStroke() { return StrokeGenerator.getStroke(signalStrokeIndex); }
-    public void setSignalStroke(Stroke s) { signalStrokeIndex = StrokeGenerator.getStrokeIndex(s); }
+    public void setZeroLineColor(Color c) {
+        zeroLineColor = c;
+    }
 
-    public Color getMacdColor() { return macdColor; }
-    public void setMacdColor(Color c) { macdColor = c; }
+    public int getZeroLineStrokeIndex() {
+        return zeroLineStrokeIndex;
+    }
 
-    public int getMacdStrokeIndex() { return macdStrokeIndex; }
-    public void setMacdStrokeIndex(int i) { macdStrokeIndex = i; }
-    public Stroke getMacdStroke() { return StrokeGenerator.getStroke(macdStrokeIndex); }
-    public void setMacdStroke(Stroke s) { macdStrokeIndex = StrokeGenerator.getStrokeIndex(s); }
+    public void setZeroLineStrokeIndex(int i) {
+        zeroLineStrokeIndex = i;
+    }
+
+    public Stroke getZeroLineStroke() {
+        return StrokeGenerator.getStroke(zeroLineStrokeIndex);
+    }
+
+    public void setZeroLineStroke(Stroke s) {
+        zeroLineStrokeIndex = StrokeGenerator.getStrokeIndex(s);
+    }
+
+    public boolean getZeroLineVisibility() {
+        return zeroLineVisibility;
+    }
+
+    public void setZeroLineVisibility(boolean b) {
+        zeroLineVisibility = b;
+    }
+
+    public Color getHistogramPositiveColor() {
+        return histogramPositiveColor;
+    }
+
+    public void setHistogramPositiveColor(Color c) {
+        histogramPositiveColor = c;
+    }
+
+    public Color getHistogramNegativeColor() {
+        return histogramNegativeColor;
+    }
+
+    public void setHistogramNegativeColor(Color c) {
+        histogramNegativeColor = c;
+    }
+
+    public Color getSignalColor() {
+        return signalColor;
+    }
+
+    public void setSignalColor(Color c) {
+        signalColor = c;
+    }
+
+    public int getSignalStrokeIndex() {
+        return signalStrokeIndex;
+    }
+
+    public void setSignalStrokeIndex(int i) {
+        signalStrokeIndex = i;
+    }
+
+    public Stroke getSignalStroke() {
+        return StrokeGenerator.getStroke(signalStrokeIndex);
+    }
+
+    public void setSignalStroke(Stroke s) {
+        signalStrokeIndex = StrokeGenerator.getStrokeIndex(s);
+    }
+
+    public Color getMacdColor() {
+        return macdColor;
+    }
+
+    public void setMacdColor(Color c) {
+        macdColor = c;
+    }
+
+    public int getMacdStrokeIndex() {
+        return macdStrokeIndex;
+    }
+
+    public void setMacdStrokeIndex(int i) {
+        macdStrokeIndex = i;
+    }
+
+    public Stroke getMacdStroke() {
+        return StrokeGenerator.getStroke(macdStrokeIndex);
+    }
+
+    public void setMacdStroke(Stroke s) {
+        macdStrokeIndex = StrokeGenerator.getStrokeIndex(s);
+    }
 
 }

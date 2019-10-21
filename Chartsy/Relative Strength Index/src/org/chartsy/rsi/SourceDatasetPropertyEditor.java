@@ -2,38 +2,29 @@ package org.chartsy.rsi;
 
 import java.beans.PropertyEditorSupport;
 
-public class SourceDatasetPropertyEditor extends PropertyEditorSupport
-{
+public class SourceDatasetPropertyEditor extends PropertyEditorSupport {
 
     @Override
-    public String[] getTags()
-    {
-        return new String[]
-                {
-                    "Close Price", "HMA"
-                };
+    public String[] getTags() {
+        return new String[]{
+            "Close Price", "HMA"
+        };
     }
 
     @Override
-    public void setAsText(String s)
-    {
-        if (s.equals("Close Price"))
-        {
+    public void setAsText(String s) {
+        if (s.equals("Close Price")) {
             setValue(new Integer(IndicatorProperties.SOURCE_CLOSE));
-        } else if (s.equals("HMA"))
-        {
+        } else if (s.equals("HMA")) {
             setValue(new Integer(IndicatorProperties.SOURCE_HMA));
-        } else
-        {
+        } else {
             throw new IllegalArgumentException(s);
         }
     }
 
     @Override
-    public String getAsText()
-    {
-        switch (((Number) getValue()).intValue())
-        {
+    public String getAsText() {
+        switch (((Number) getValue()).intValue()) {
             default:
             case IndicatorProperties.SOURCE_CLOSE:
                 return "Close Price";

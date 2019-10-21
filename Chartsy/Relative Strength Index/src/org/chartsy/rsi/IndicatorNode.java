@@ -15,31 +15,26 @@ import org.openide.nodes.Sheet;
  *
  * @author viorel.gheba
  */
-public class IndicatorNode 
-        extends AbstractPropertiesNode
-{
+public class IndicatorNode extends AbstractPropertiesNode {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
-    public IndicatorNode()
-    {
+    public IndicatorNode() {
         super("RSI Properties");
     }
 
-    public IndicatorNode(IndicatorProperties indicatorProperties)
-    {
+    public IndicatorNode(IndicatorProperties indicatorProperties) {
         super("RSI Properties", indicatorProperties);
     }
 
     @SuppressWarnings("unchecked")
-    protected @Override Sheet createSheet()
-    {
+    protected @Override
+    Sheet createSheet() {
         Sheet sheet = Sheet.createDefault();
         Sheet.Set set = getPropertiesSet();
         sheet.put(set);
 
-        try
-        {
+        try {
             // Period
             set.put(getProperty(
                     "Period", // property name
@@ -50,7 +45,7 @@ public class IndicatorNode
                     "getPeriod", // get method name
                     "setPeriod", // set method name
                     IndicatorProperties.PERIOD // default property value
-                    ));
+            ));
             // Label
             set.put(getProperty(
                     "Label", // property name
@@ -61,7 +56,7 @@ public class IndicatorNode
                     "getLabel", // get method name
                     "setLabel", // set method name
                     IndicatorProperties.LABEL // default property value
-                    ));
+            ));
             // Used dataset (close or Hull Moving Average)
             set.put(getProperty(
                     "Source dataset", // property name
@@ -72,7 +67,7 @@ public class IndicatorNode
                     "getSourceDataset", // get method name
                     "setSourceDataset", // set method name
                     IndicatorProperties.SOURCE_CLOSE // default property value
-                    ));
+            ));
             // HMA Period
             set.put(getProperty(
                     "HMA Period", // property name
@@ -83,7 +78,7 @@ public class IndicatorNode
                     "getHmaPeriod", // get method name
                     "setHmaPeriod", // set method name
                     IndicatorProperties.HMA_PERIOD // default property value
-                    ));
+            ));
             // Marker Visibility
             set.put(getProperty(
                     "Marker Visibility", // property name
@@ -94,7 +89,7 @@ public class IndicatorNode
                     "getMarker", // get method name
                     "setMarker", // set method name
                     IndicatorProperties.MARKER // default property value
-                    ));
+            ));
             // Line Color
             set.put(getProperty(
                     "Line Color", // property name
@@ -105,7 +100,7 @@ public class IndicatorNode
                     "getColor", // get method name
                     "setColor", // set method name
                     IndicatorProperties.COLOR // default property value
-                    ));
+            ));
             // Line Style
             set.put(getProperty(
                     "Line Style", // property name
@@ -116,7 +111,7 @@ public class IndicatorNode
                     "getStroke", // get method name
                     "setStroke", // set method name
                     StrokeGenerator.getStroke(IndicatorProperties.STROKE_INDEX) // default property value
-                    ));
+            ));
             // Inside Color
             set.put(getProperty(
                     "Inside Color", // property name
@@ -127,7 +122,7 @@ public class IndicatorNode
                     "getInsideColor", // get method name
                     "setInsideColor", // set method name
                     IndicatorProperties.INSIDE_COLOR // default property value
-                    ));
+            ));
             // Inside Alpha
             set.put(getProperty(
                     "Inside Alpha", // property name
@@ -138,7 +133,7 @@ public class IndicatorNode
                     "getInsideAlpha", // get method name
                     "setInsideAlpha", // set method name
                     IndicatorProperties.INSIDE_ALPHA // default property value
-                    ));
+            ));
             // Inside Visibility
             set.put(getProperty(
                     "Inside Visibility", // property name
@@ -149,10 +144,8 @@ public class IndicatorNode
                     "getInsideVisibility", // get method name
                     "setInsideVisibility", // set method name
                     IndicatorProperties.INSIDE_VISIBILITY // default property value
-                    ));
-        }
-        catch (NoSuchMethodException ex)
-        {
+            ));
+        } catch (NoSuchMethodException ex) {
             LOG.log(Level.SEVERE, "[RSINode] : Method does not exist.", ex);
         }
 

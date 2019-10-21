@@ -17,29 +17,29 @@ import org.openide.nodes.AbstractNode;
  *
  * @author viorel.gheba
  */
-public class SMA
-        extends Overlay
-{
+public class SMA extends Overlay {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
-    
+
     public static final String SMA = "sma";
     private OverlayProperties properties;
 
-    public SMA()
-    {
+    public SMA() {
         super();
         properties = new OverlayProperties();
     }
 
-    public String getName() 
-    { return "SMA"; }
+    public String getName() {
+        return "SMA";
+    }
 
-    public String getLabel() 
-    { return properties.getLabel() + " (" + properties.getPrice() + ", " + properties.getPeriod() + ")"; }
+    public String getLabel() {
+        return properties.getLabel() + " (" + properties.getPrice() + ", " + properties.getPeriod() + ")";
+    }
 
-    public Overlay newInstance() 
-    { return new SMA(); }
+    public Overlay newInstance() {
+        return new SMA();
+    }
 
     public LinkedHashMap getHTML(ChartFrame cf, int i) {
         LinkedHashMap ht = new LinkedHashMap();
@@ -59,57 +59,55 @@ public class SMA
         return ht;
     }
 
-    public void paint(Graphics2D g, ChartFrame cf, Rectangle bounds)
-    {
+    public void paint(Graphics2D g, ChartFrame cf, Rectangle bounds) {
         Dataset sma = visibleDataset(cf, SMA);
-        if (sma != null)
-        {
+        if (sma != null) {
             Range range = cf.getSplitPanel().getChartPanel().getRange();
             DefaultPainter.line(g, cf, range, bounds, sma, properties.getColor(), properties.getStroke(), Dataset.getPrice(properties.getPrice()));
         }
     }
 
-    public void calculate()
-    {
+    public void calculate() {
         Dataset initial = getDataset();
-        if (initial != null && !initial.isEmpty())
-        {
+        if (initial != null && !initial.isEmpty()) {
             int period = properties.getPeriod();
             Dataset sma = Dataset.SMA(initial, period);
             addDataset(SMA, sma);
         }
     }
 
-    public Color[] getColors() 
-    { return new Color[] {properties.getColor()}; }
+    public Color[] getColors() {
+        return new Color[]{properties.getColor()};
+    }
 
-    public double[] getValues(ChartFrame cf)
-    {
+    public double[] getValues(ChartFrame cf) {
         Dataset sma = visibleDataset(cf, SMA);
         if (sma != null) {
             int price = Dataset.getPrice(properties.getPrice());
-            return new double[] {sma.getLastPrice(price)};
+            return new double[]{sma.getLastPrice(price)};
         }
-        return new double[] {};
+        return new double[]{};
     }
 
-    public double[] getValues(ChartFrame cf, int i)
-    {
+    public double[] getValues(ChartFrame cf, int i) {
         Dataset sma = visibleDataset(cf, SMA);
         if (sma != null) {
             String price = properties.getPrice();
-            return new double[] {sma.getPriceAt(i, price)};
+            return new double[]{sma.getPriceAt(i, price)};
         }
-        return new double[] {};
+        return new double[]{};
     }
 
-    public boolean getMarkerVisibility() 
-    { return properties.getMarker(); }
+    public boolean getMarkerVisibility() {
+        return properties.getMarker();
+    }
 
-    public AbstractNode getNode() 
-    { return new OverlayNode(properties); }
+    public AbstractNode getNode() {
+        return new OverlayNode(properties);
+    }
 
-    public String getPrice()
-    { return properties.getPrice(); }
+    public String getPrice() {
+        return properties.getPrice();
+    }
 
 }

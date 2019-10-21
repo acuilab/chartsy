@@ -14,8 +14,7 @@ import org.openide.nodes.Sheet;
  *
  * @author viorel.gheba
  */
-public class IndicatorNode 
-        extends AbstractPropertiesNode
+public class IndicatorNode extends AbstractPropertiesNode
 {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
