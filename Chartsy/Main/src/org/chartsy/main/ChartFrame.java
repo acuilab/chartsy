@@ -95,6 +95,7 @@ public class ChartFrame extends TopComponent
         add(mainPanel, BorderLayout.CENTER);
         add(scrollBar, BorderLayout.SOUTH);
 
+        // 执行重新布局。
         validate();
 
         if (restored) {
