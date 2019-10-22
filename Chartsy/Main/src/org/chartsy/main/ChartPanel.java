@@ -53,7 +53,7 @@ public class ChartPanel extends JLayeredPane implements Serializable {
     private JLabel stockInfo;
     private JToolBar overlayToolboxes;
     private List<Overlay> overlays;
-    private boolean overlayToolboxesUpdated = false;
+    private final boolean overlayToolboxesUpdated = false;
 
     public ChartPanel(ChartFrame frame) {
         chartFrame = frame;

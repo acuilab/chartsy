@@ -48,8 +48,8 @@ public class AnnotationPanel extends JPanel
     private int state;
 
     private ChartFrame chartFrame;          // 父窗口
-    private List<Annotation> annotations;   // 注解列表
-    private Annotation current = null;      // 当前注解
+    private List<Annotation> annotations;   // 注释列表
+    private Annotation current = null;      // 当前注释
     private final ToolTipManager toolTipManager;
 
     public AnnotationPanel(ChartFrame frame) {
@@ -82,7 +82,7 @@ public class AnnotationPanel extends JPanel
 
     @Override
     public void paint(Graphics g) {
-        // 在注解面板上绘制所有注解
+        // 在注释面板上绘制所有注释
         Graphics2D g2 = GraphicsUtils.prepareGraphics(g);
         for (Annotation annotation : annotations) {
             annotation.paint(g2);

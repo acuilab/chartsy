@@ -15,8 +15,7 @@ import org.chartsy.main.utils.SerialVersion;
  *
  * @author viorel.gheba
  */
-public class CandleStick
-        extends Chart {
+public class CandleStick extends Chart {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
