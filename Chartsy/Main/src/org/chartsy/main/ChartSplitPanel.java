@@ -76,20 +76,25 @@ public class ChartSplitPanel extends JLayeredPane implements Serializable {
 
         setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         setLayout(new LayoutManager() {
+            @Override
             public void addLayoutComponent(String name, Component comp) {
             }
 
+            @Override
             public void removeLayoutComponent(Component comp) {
             }
 
+            @Override
             public Dimension preferredLayoutSize(Container parent) {
                 return new Dimension(0, 0);
             }
 
+            @Override
             public Dimension minimumLayoutSize(Container parent) {
                 return new Dimension(0, 0);
             }
 
+            @Override
             public void layoutContainer(Container parent) {
                 Insets insets = parent.getInsets();
                 int x = insets.left;
