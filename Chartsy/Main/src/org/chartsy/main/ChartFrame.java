@@ -95,6 +95,7 @@ public class ChartFrame extends TopComponent
         add(mainPanel, BorderLayout.CENTER);
         add(scrollBar, BorderLayout.SOUTH);
 
+        // 执行重新布局。
         validate();
 
         if (restored) {
@@ -138,8 +139,11 @@ public class ChartFrame extends TopComponent
             }
         }
 
+        // 增加数据源监听器
         DatasetUsage.getInstance().addDataProviderListener(this);
+        // 增加鼠标滚轮监听器
         addMouseWheelListener((MouseWheelListener) this);
+        // 增加滚动条监听器
         scrollBar.addAdjustmentListener((AdjustmentListener) this);
 
         initialized = true;

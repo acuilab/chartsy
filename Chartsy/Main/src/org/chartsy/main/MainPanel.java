@@ -17,10 +17,10 @@ import org.chartsy.main.utils.SerialVersion;
 
 /**
  * 主面板
+ *
  * @author viorel.gheba
  */
-public class MainPanel extends JLayeredPane implements Serializable
-{
+public class MainPanel extends JLayeredPane implements Serializable {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
@@ -30,8 +30,7 @@ public class MainPanel extends JLayeredPane implements Serializable
     private DateAxis dateAxis;      // 日期轴
     private PriceAxis priceAxis;    // 价格轴
 
-    public MainPanel(ChartFrame frame)
-    {
+    public MainPanel(ChartFrame frame) {
         chartFrame = frame;
         sPane = new ChartSplitPanel(chartFrame);
         grid = new Grid(chartFrame);
@@ -41,20 +40,24 @@ public class MainPanel extends JLayeredPane implements Serializable
         setOpaque(true);
         setBackground(chartFrame.getChartProperties().getBackgroundColor());
         setBorder(BorderFactory.createEmptyBorder(2, 20, 0, 0));
-        setLayout(new LayoutManager()
-        {
-            public void addLayoutComponent(String name, Component comp)
-            {}
-            public void removeLayoutComponent(Component comp)
-            {}
-            public Dimension preferredLayoutSize(Container parent)
-            {return new Dimension(0, 0);}
-            public Dimension minimumLayoutSize(Container parent)
-            {return new Dimension(0, 0);}
-            public void layoutContainer(Container parent)
-            {
-                int right = (int)ChartData.dataOffset.right;
-                int bottom = (int)ChartData.dataOffset.bottom;
+        setLayout(new LayoutManager() {
+            public void addLayoutComponent(String name, Component comp) {
+            }
+
+            public void removeLayoutComponent(Component comp) {
+            }
+
+            public Dimension preferredLayoutSize(Container parent) {
+                return new Dimension(0, 0);
+            }
+
+            public Dimension minimumLayoutSize(Container parent) {
+                return new Dimension(0, 0);
+            }
+
+            public void layoutContainer(Container parent) {
+                int right = (int) ChartData.dataOffset.right;
+                int bottom = (int) ChartData.dataOffset.bottom;
                 Insets insets = parent.getInsets();
                 int w = parent.getWidth() - insets.left - insets.right - right;
                 int h = parent.getHeight() - insets.top - insets.bottom - bottom;
@@ -75,12 +78,12 @@ public class MainPanel extends JLayeredPane implements Serializable
         putClientProperty("print.name", "");
     }
 
-    public ChartSplitPanel getSplitPanel()
-    { return sPane; }
+    public ChartSplitPanel getSplitPanel() {
+        return sPane;
+    }
 
     @Override
-    public void paint(Graphics g)
-    {
+    public void paint(Graphics g) {
         chartFrame.getChartData().calculate(chartFrame);
         chartFrame.getChartData().calculateRange(chartFrame, sPane.getChartPanel().getOverlays());
 
