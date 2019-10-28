@@ -1,3 +1,9 @@
+||:org.chartsy.annotation.verticalline.AnnotationProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.annotation.verticalline.AnnotationProperties
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.annotation.verticalline.VerticalLine
 org.chartsy.main.chart.Annotation
 java.awt.Graphics2D
@@ -14,12 +20,6 @@ java.awt.geom.Line2D$Double
 java.awt.Rectangle
 org.chartsy.main.AnnotationPanel
 org.chartsy.annotation.verticalline.AnnotationNode
-||:org.chartsy.annotation.verticalline.AnnotationProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.annotation.verticalline.AnnotationProperties
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.annotation.verticalline.AnnotationNode
 java.lang.NoSuchMethodException
 org.openide.nodes.Node

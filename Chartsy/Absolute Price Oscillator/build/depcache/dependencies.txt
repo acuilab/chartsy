@@ -21,12 +21,6 @@ org.chartsy.main.utils.DefaultPainter
 org.chartsy.apo.IndicatorNode
 java.lang.String
 org.chartsy.main.utils.SerialVersion
-||:org.chartsy.apo.IndicatorProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.apo.IndicatorProperties
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.apo.IndicatorNode
 org.chartsy.main.chart.AbstractPropertiesNode
 java.awt.Color
@@ -49,3 +43,9 @@ org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.util.logging.Level
+||:org.chartsy.apo.IndicatorProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.apo.IndicatorProperties
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.main.utils.SerialVersion
