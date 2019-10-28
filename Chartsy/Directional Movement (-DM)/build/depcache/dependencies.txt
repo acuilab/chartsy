@@ -1,9 +1,3 @@
-||:org.chartsy.minusdm.IndicatorProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.minusdm.IndicatorProperties
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.minusdm.IndicatorNode
 org.chartsy.main.chart.AbstractPropertiesNode
 java.awt.Color
@@ -26,6 +20,12 @@ org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.util.logging.Level
+||:org.chartsy.minusdm.IndicatorProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.minusdm.IndicatorProperties
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.minusdm.MinusDM
 java.lang.StringBuilder
 java.awt.Color
