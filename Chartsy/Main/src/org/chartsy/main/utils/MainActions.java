@@ -252,23 +252,20 @@ public final class MainActions {
         menu.setIcon(ResourcesUtils.getIcon16(NbBundle.getMessage(MainActions.class, "ICON_Annotations")));
 
         for (String annotation : AnnotationManager.getDefault().getAnnotations()) {
-            menu.add(menuItem = new JMenuItem(
-                    MainActions.addAnnotation(annotation)));
+            menu.add(menuItem = new JMenuItem(MainActions.addAnnotation(annotation)));
             menuItem.setMargin(new Insets(0, 0, 0, 0));
         }
 
         menu.addSeparator();
 
-        menu.add(menuItem = new JMenuItem(
-                MainActions.removeAllAnnotations(chartFrame)));
+        menu.add(menuItem = new JMenuItem(MainActions.removeAllAnnotations(chartFrame)));
         menuItem.setMargin(new Insets(0, 0, 0, 0));
 
         if (chartFrame.hasCurrentAnnotation()) {
             Annotation current = chartFrame.getCurrentAnnotation();
             if (current.isSelected()) {
                 menu.addSeparator();
-                menu.add(menuItem = new JMenuItem(
-                        MainActions.annotationProperties(chartFrame, current)));
+                menu.add(menuItem = new JMenuItem(MainActions.annotationProperties(chartFrame, current)));
                 menuItem.setMargin(new Insets(0, 0, 0, 0));
             }
         }
@@ -350,7 +347,7 @@ public final class MainActions {
 
     private static class IntervalPopup extends MainAction {
 
-        private ChartFrame chartFrame;
+        private final ChartFrame chartFrame;
 
         public static Action getAction(ChartFrame chartFrame) {
             return new IntervalPopup(chartFrame);
@@ -414,8 +411,7 @@ public final class MainActions {
                                 String timeParam = properties.getProperty("time_param");
                                 int lengthInSeconds = Integer.parseInt(properties.getProperty("length_in_seconds"));
                                 Interval interval = new org.chartsy.main.intervals.CustomInterval(name, true, 0, timeParam, lengthInSeconds);
-                                menu.add(item = new JMenuItem(
-                                        MainActions.changeInterval(chartFrame, interval, interval.equals(current))));
+                                menu.add(item = new JMenuItem(MainActions.changeInterval(chartFrame, interval, interval.equals(current))));
                                 item.setMargin(new java.awt.Insets(0, 0, 0, 0));
                             }
                         } catch (IOException ex) {
