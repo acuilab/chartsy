@@ -847,7 +847,7 @@ public final class MainActions {
 
     private static class ChartProps extends MainAction {
 
-        private ChartFrame chartFrame;
+        private final ChartFrame chartFrame;
 
         public static Action getAction(ChartFrame chartFrame) {
             return new ChartProps(chartFrame);
@@ -866,7 +866,7 @@ public final class MainActions {
 
     private static class ToggleToolbarVisibility extends MainAction {
 
-        private ChartFrame chartFrame;
+        private final ChartFrame chartFrame;
 
         public static Action getAction(ChartFrame chartFrame) {
             return new ToggleToolbarVisibility(chartFrame);
@@ -890,7 +890,7 @@ public final class MainActions {
 
     private static class AddToFavorites extends MainAction {
 
-        private ChartFrame chartFrame;
+        private final ChartFrame chartFrame;
 
         public static Action getAction(ChartFrame chartFrame) {
             return new AddToFavorites(chartFrame);
@@ -931,7 +931,7 @@ public final class MainActions {
 
     private static class JoinConference extends MainAction {
 
-        private ChartFrame chartFrame;
+        private final ChartFrame chartFrame;
 
         public static Action getAction(ChartFrame chartFrame) {
             return new JoinConference(chartFrame);
@@ -995,7 +995,7 @@ public final class MainActions {
 
     private static class PostToFacebook extends MainAction {
 
-        private ChartFrame chartFrame;
+        private final ChartFrame chartFrame;
 
         public static Action getAction(ChartFrame chartFrame) {
             return new PostToFacebook(chartFrame);
