@@ -78,13 +78,6 @@ java.io.FileInputStream
 org.chartsy.main.utils.FileUtils
 org.chartsy.favorites.xml.FavoritesXmlHandler
 org.xml.sax.helpers.XMLReaderFactory
-||:org.chartsy.favorites.OpenFavorites
-java.lang.Object
-org.chartsy.favorites.FavoritesComponent
-org.openide.windows.WindowManager
-org.chartsy.favorites.OpenFavorites
-java.awt.event.ActionListener
-org.openide.windows.Mode
 ||:org.chartsy.favorites.xml.FavoritesXmlWriter
 java.io.OutputStreamWriter
 java.util.logging.Logger
@@ -106,6 +99,13 @@ org.chartsy.main.favorites.nodes.FolderAPINode
 org.chartsy.favorites.xml.FavoritesXmlWriter
 org.chartsy.main.favorites.nodes.StockAPINode
 java.util.logging.Level
+||:org.chartsy.favorites.OpenFavorites
+java.lang.Object
+org.chartsy.favorites.FavoritesComponent
+org.openide.windows.WindowManager
+org.chartsy.favorites.OpenFavorites
+java.awt.event.ActionListener
+org.openide.windows.Mode
 ||:org.chartsy.favorites.xml.FavoritesXmlHandler
 java.lang.StringBuilder
 org.chartsy.main.favorites.nodes.FolderAPI

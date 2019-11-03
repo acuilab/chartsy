@@ -1,3 +1,9 @@
+||:org.chartsy.willr.IndicatorProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.willr.IndicatorProperties
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.willr.WillR
 org.chartsy.willr.IndicatorNode
 java.lang.StringBuilder
@@ -21,12 +27,6 @@ java.lang.Double
 org.chartsy.willr.IndicatorProperties
 [Ljava.awt.Color;
 java.lang.String
-org.chartsy.main.utils.SerialVersion
-||:org.chartsy.willr.IndicatorProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.willr.IndicatorProperties
 org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.willr.IndicatorNode
 org.chartsy.willr.IndicatorNode

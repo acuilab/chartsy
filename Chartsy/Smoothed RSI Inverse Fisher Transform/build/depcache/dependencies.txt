@@ -20,6 +20,12 @@ org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.util.logging.Level
+||:org.chartsy.srift.IndicatorProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.srift.IndicatorProperties
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.srift.SRIFT
 java.awt.Color
 com.tictactec.ta.lib.MInteger
@@ -45,10 +51,4 @@ java.lang.Double
 [Ljava.awt.Color;
 java.lang.String
 org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.utils.SerialVersion
-||:org.chartsy.srift.IndicatorProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.srift.IndicatorProperties
 org.chartsy.main.utils.SerialVersion
