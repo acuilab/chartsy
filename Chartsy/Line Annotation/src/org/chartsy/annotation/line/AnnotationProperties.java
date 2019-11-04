@@ -10,8 +10,7 @@ import org.chartsy.main.utils.StrokeGenerator;
  *
  * @author viorel.gheba
  */
-public class AnnotationProperties 
-        extends AbstractPropertyListener
+public class AnnotationProperties extends AbstractPropertyListener
 {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;

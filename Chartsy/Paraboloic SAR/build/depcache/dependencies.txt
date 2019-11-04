@@ -20,6 +20,12 @@ org.openide.nodes.Sheet
 org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 java.util.logging.Level
+||:org.chartsy.parabolicsar.OverlayProperties
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.data.Dataset
+org.chartsy.main.utils.ColorGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.parabolicsar.OverlayProperties
 ||:org.chartsy.parabolicsar.ParabolicSAR
 java.lang.StringBuilder
 java.awt.Color
@@ -41,9 +47,3 @@ org.chartsy.talib.TaLibInit
 org.chartsy.main.utils.DefaultPainter
 org.chartsy.main.chart.Overlay
 org.chartsy.main.utils.SerialVersion
-||:org.chartsy.parabolicsar.OverlayProperties
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.data.Dataset
-org.chartsy.main.utils.ColorGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.parabolicsar.OverlayProperties

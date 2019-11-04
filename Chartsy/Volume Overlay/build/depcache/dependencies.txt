@@ -20,6 +20,13 @@ org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.util.logging.Level
+||:org.chartsy.volumeoverlay.OverlayProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.volumeoverlay.OverlayProperties
+java.lang.Integer
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.volumeoverlay.VolumeOverlay
 org.chartsy.volumeoverlay.VolumeOverlay
 java.awt.Point
@@ -43,10 +50,3 @@ org.chartsy.volumeoverlay.OverlayProperties
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.awt.Rectangle
-||:org.chartsy.volumeoverlay.OverlayProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.volumeoverlay.OverlayProperties
-java.lang.Integer
-org.chartsy.main.utils.SerialVersion
