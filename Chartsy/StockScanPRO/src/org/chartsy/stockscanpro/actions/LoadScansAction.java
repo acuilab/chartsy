@@ -31,104 +31,87 @@ import org.openide.util.NbPreferences;
  *
  * @author Viorel
  */
-public class LoadScansAction implements ActionListener
-{
+public class LoadScansAction implements ActionListener {
 
-	private static final Logger LOG = Logger.getLogger(LoadScansAction.class.getPackage().getName());
+    private static final Logger LOG = Logger.getLogger(LoadScansAction.class.getPackage().getName());
 
-	public LoadScansAction()
-	{}
+    public LoadScansAction() {
+    }
 
-	public void actionPerformed(ActionEvent e)
-	{
-		QueryPanel queryPanel = null;
-		Object obj = e.getSource();
-		if (obj instanceof JButton)
-		{
-			JButton btn = (JButton) obj;
-			Container container = btn.getParent();
-			if (container instanceof StockScanToolbar)
-				queryPanel = ((StockScanToolbar) container).getQueryPanel();
-			else
-				queryPanel = null;
-		}
+    public void actionPerformed(ActionEvent e) {
+        QueryPanel queryPanel = null;
+        Object obj = e.getSource();
+        if (obj instanceof JButton) {
+            JButton btn = (JButton) obj;
+            Container container = btn.getParent();
+            if (container instanceof StockScanToolbar) {
+                queryPanel = ((StockScanToolbar) container).getQueryPanel();
+            } else {
+                queryPanel = null;
+            }
+        }
 
-		if (queryPanel != null)
-		{
-			ScanLoaderPanel panel = new ScanLoaderPanel(queryPanel);
-			DialogDescriptor descriptor 
-				= new DialogDescriptor(panel, "Load Scan", true, null);
-			descriptor.setMessageType(DialogDescriptor.PLAIN_MESSAGE);
-			descriptor.setOptions(new Object[]
-			{
-				DialogDescriptor.OK_OPTION,
-				DialogDescriptor.CANCEL_OPTION
-			});
-			panel.addNotify();
-			Object ret = DialogDisplayer.getDefault().notify(descriptor);
-			if (ret.equals(DialogDescriptor.OK_OPTION))
-			{
-				panel.loadScan();
-				panel.removeNotify();
-			}
-			else
-			{
-				panel.removeNotify();
-			}
-		}
-	}
+        if (queryPanel != null) {
+            ScanLoaderPanel panel = new ScanLoaderPanel(queryPanel);
+            DialogDescriptor descriptor = new DialogDescriptor(panel, "Load Scan", true, null);
+            descriptor.setMessageType(DialogDescriptor.PLAIN_MESSAGE);
+            descriptor.setOptions(new Object[]{
+                DialogDescriptor.OK_OPTION,
+                DialogDescriptor.CANCEL_OPTION
+            });
+            panel.addNotify();
+            Object ret = DialogDisplayer.getDefault().notify(descriptor);
+            if (ret.equals(DialogDescriptor.OK_OPTION)) {
+                panel.loadScan();
+                panel.removeNotify();
+            } else {
+                panel.removeNotify();
+            }
+        }
+    }
 
-	public static Node getRootNode()
-	{
-		boolean copied = false;
-		Preferences preferences = NbPreferences.root().node("/org/chartsy/register");
+    public static Node getRootNode() {
+        boolean copied = false;
+        Preferences preferences = NbPreferences.root().node("/org/chartsy/register");
 
-		try
-		{
-			FileObject dest = FileUtil.createData(FileUtils.stockScanFile("loadScans.xml"));
-			NameValuePair[] query = new NameValuePair[]
-			{
-				new NameValuePair("option", "com_chartsy"),
-				new NameValuePair("view", "loadscans"),
-				new NameValuePair("format", "raw"),
-				new NameValuePair("username", preferences.get("username", "")),
-				new NameValuePair("passwd", preferences.get("password", ""))
-			};
+        try {
+            FileObject dest = FileUtil.createData(FileUtils.stockScanFile("loadScans.xml"));
+            NameValuePair[] query = new NameValuePair[]{
+                new NameValuePair("option", "com_chartsy"),
+                new NameValuePair("view", "loadscans"),
+                new NameValuePair("format", "raw"),
+                new NameValuePair("username", preferences.get("username", "")),
+                new NameValuePair("passwd", preferences.get("password", ""))
+            };
 
-			InputStream inputStream = ProxyManager.getDefault().inputStreamPOST(
-				NbBundle.getMessage(LoadScansAction.class, "StockScanPRO_URL"),
-				query);
-			OutputStream outputStream = dest.getOutputStream();
-			FileUtil.copy(inputStream, outputStream);
-			inputStream.close();
-			outputStream.close();
-			copied = true;
-		}
-		catch (IOException ex)
-		{
-			copied = false;
-			LOG.log(Level.SEVERE, "", ex);
-		}
+            InputStream inputStream = ProxyManager.getDefault().inputStreamPOST(
+                    NbBundle.getMessage(LoadScansAction.class, "StockScanPRO_URL"),
+                    query);
+            OutputStream outputStream = dest.getOutputStream();
+            FileUtil.copy(inputStream, outputStream);
+            inputStream.close();
+            outputStream.close();
+            copied = true;
+        } catch (IOException ex) {
+            copied = false;
+            LOG.log(Level.SEVERE, "", ex);
+        }
 
-		if (copied)
-		{
-			try
-			{
-				URL fileURL = FileUtils.stockScanFile("loadScans.xml").toURL();
+        if (copied) {
+            try {
+                URL fileURL = FileUtils.stockScanFile("loadScans.xml").toURL();
 
-				XMLFileSystem fileSystem = new XMLFileSystem();
-				fileSystem.setXmlUrl(fileURL);
-				FileObject fileObject = fileSystem.findResource("StockScanFolders");
-				DataFolder dataFolder = DataFolder.findFolder(fileObject);
-				return dataFolder.getNodeDelegate();
-			}
-			catch (Exception ex)
-			{
-				LOG.log(Level.SEVERE, "", ex);
-			}
-		}
+                XMLFileSystem fileSystem = new XMLFileSystem();
+                fileSystem.setXmlUrl(fileURL);
+                FileObject fileObject = fileSystem.findResource("StockScanFolders");
+                DataFolder dataFolder = DataFolder.findFolder(fileObject);
+                return dataFolder.getNodeDelegate();
+            } catch (Exception ex) {
+                LOG.log(Level.SEVERE, "", ex);
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

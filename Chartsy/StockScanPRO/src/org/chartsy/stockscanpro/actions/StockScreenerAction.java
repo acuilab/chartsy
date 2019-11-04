@@ -30,168 +30,139 @@ import org.openide.util.Task;
 import org.openide.util.TaskListener;
 import org.openide.windows.WindowManager;
 
-public final class StockScreenerAction implements ActionListener
-{
+public final class StockScreenerAction implements ActionListener {
 
-	private final static RequestProcessor RP = new RequestProcessor("interruptible tasks", 1, true);
-	private Preferences preferences;
-	private String username = "";
-	private String password = "";
-	private boolean isStockScanUser = false;
-	private int userId = 0;
+    private final static RequestProcessor RP = new RequestProcessor("interruptible tasks", 1, true);
+    private Preferences preferences;
+    private String username = "";
+    private String password = "";
+    private boolean isStockScanUser = false;
+    private int userId = 0;
 
-    public void actionPerformed(ActionEvent e)
-    {
-		if (!StockScreenerComponent.findInstance().isOpened())
-		{
-			if (!checkRegistration())
-			{
-				RegisterForm register = new RegisterForm(new JFrame(), true);
-				register.setLocationRelativeTo(WindowManager.getDefault().getMainWindow());
-				register.setVisible(true);
-			}
-			else
-			{
-				username = preferences.get("username", "");
-				password = preferences.get("password", "");
-				checkStockScanUser();
-			}
-		} 
-		else
-		{
-			StockScreenerComponent.findInstance().requestActive();
-		}
+    public void actionPerformed(ActionEvent e) {
+        if (!StockScreenerComponent.findInstance().isOpened()) {
+//            if (!checkRegistration()) {
+//                RegisterForm register = new RegisterForm(new JFrame(), true);
+//                register.setLocationRelativeTo(WindowManager.getDefault().getMainWindow());
+//                register.setVisible(true);
+//            } else {
+//                username = preferences.get("username", "");
+//                password = preferences.get("password", "");
+//                checkStockScanUser();
+//            }
+            openComponent();
+        } else {
+            StockScreenerComponent.findInstance().requestActive();
+        }
     }
 
-	private boolean checkRegistration()
-	{
-		preferences = NbPreferences.root().node("/org/chartsy/register");
-		boolean registred = preferences.getBoolean("registred", false);
-		return registred;
-	}
+    private boolean checkRegistration() {
+        preferences = NbPreferences.root().node("/org/chartsy/register");
+        boolean registred = preferences.getBoolean("registred", false);
+        return registred;
+    }
 
-	private void checkStockScanUser()
-	{
-		final Preferences prefs = NbPreferences.root().node("/org/chartsy/stockscanpro");
-		isStockScanUser = prefs.getBoolean("stockscanproregistred", false);
-		
-		final RequestProcessor.Task task = RP.create(new Runnable()
-		{
-			public void run()
-			{
-				userId = getUserId();
-				isStockScanUser = userId != 0;
-				if (isStockScanUser)
-				{
-					prefs.putBoolean("stockscanproregistred", isStockScanUser);
-					prefs.putInt("stockscanprouser", userId);
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						public void run()
-						{
-							FeaturesPanel.getDefault().hideBanners();
-						}
-					});
-				}
-			}
-		});
+    private void checkStockScanUser() {
+        final Preferences prefs = NbPreferences.root().node("/org/chartsy/stockscanpro");
+        isStockScanUser = prefs.getBoolean("stockscanproregistred", false);
 
-		final ProgressHandle handle = ProgressHandleFactory.createHandle("Cheching registration", task);
-		task.addTaskListener(new TaskListener()
-		{
-			public void taskFinished(Task task)
-			{
-				handle.finish();
-				if (isStockScanUser)
-				{
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						public void run()
-						{
-							openComponent();
-						}
-					});
-				} 
-				else
-				{
-					JLabel label = new JLabel(NbBundle.getMessage(StockScreenerAction.class, "Registration_MSG"));
-					label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-					label.addMouseListener(new MouseAdapter()
-					{
-						public @Override void mouseClicked(MouseEvent e)
-						{
-							try { DesktopUtil.browse(NbBundle.getMessage(StockScreenerAction.class, "MrSwing_URL")); }
-							catch (Exception ex) { Exceptions.printStackTrace(ex); }
-						}
-					});
+        final RequestProcessor.Task task = RP.create(new Runnable() {
+            public void run() {
+                userId = getUserId();
+                isStockScanUser = userId != 0;
+                if (isStockScanUser) {
+                    prefs.putBoolean("stockscanproregistred", isStockScanUser);
+                    prefs.putInt("stockscanprouser", userId);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            FeaturesPanel.getDefault().hideBanners();
+                        }
+                    });
+                }
+            }
+        });
 
-					DialogDescriptor descriptor = new DialogDescriptor(label, "Register");
-					descriptor.setMessageType(DialogDescriptor.INFORMATION_MESSAGE);
-					descriptor.setOptions(new Object[] 
-					{
-						DialogDescriptor.OK_OPTION,
-						DialogDescriptor.CANCEL_OPTION
-					});
+        final ProgressHandle handle = ProgressHandleFactory.createHandle("Cheching registration", task);
+        task.addTaskListener(new TaskListener() {
+            public void taskFinished(Task task) {
+                handle.finish();
+                if (isStockScanUser) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            openComponent();
+                        }
+                    });
+                } else {
+                    JLabel label = new JLabel(NbBundle.getMessage(StockScreenerAction.class, "Registration_MSG"));
+                    label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    label.addMouseListener(new MouseAdapter() {
+                        public @Override
+                        void mouseClicked(MouseEvent e) {
+                            try {
+                                DesktopUtil.browse(NbBundle.getMessage(StockScreenerAction.class, "MrSwing_URL"));
+                            } catch (Exception ex) {
+                                Exceptions.printStackTrace(ex);
+                            }
+                        }
+                    });
 
-					Object ret = DialogDisplayer.getDefault().notify(descriptor);
-					if (ret.equals(DialogDescriptor.OK_OPTION))
-					{
-						try { DesktopUtil.browse(NbBundle.getMessage(StockScreenerAction.class, "MrSwing_URL")); }
-						catch (Exception ex) { Exceptions.printStackTrace(ex); }
-					}
-				}
-			}
-		});
+                    DialogDescriptor descriptor = new DialogDescriptor(label, "Register");
+                    descriptor.setMessageType(DialogDescriptor.INFORMATION_MESSAGE);
+                    descriptor.setOptions(new Object[]{
+                        DialogDescriptor.OK_OPTION,
+                        DialogDescriptor.CANCEL_OPTION
+                    });
 
-		if (!isStockScanUser)
-		{
-			handle.start();
-			task.schedule(0);
-		} 
-		else
-		{
-			openComponent();
-		}
-	}
+                    Object ret = DialogDisplayer.getDefault().notify(descriptor);
+                    if (ret.equals(DialogDescriptor.OK_OPTION)) {
+                        try {
+                            DesktopUtil.browse(NbBundle.getMessage(StockScreenerAction.class, "MrSwing_URL"));
+                        } catch (Exception ex) {
+                            Exceptions.printStackTrace(ex);
+                        }
+                    }
+                }
+            }
+        });
 
-	private void openComponent()
-	{
-		StockScreenerComponent component = new StockScreenerComponent();
-		component.open();
-		component.requestActive();
-	}
+        if (!isStockScanUser) {
+            handle.start();
+            task.schedule(0);
+        } else {
+            openComponent();
+        }
+    }
 
-	private int getUserId()
-	{
-		HttpClient client = ProxyManager.getDefault().httpClient();
-		GetMethod method = new GetMethod(
-			NbBundle.getMessage(StockScreenerAction.class, "StockScanPRO_URL"));
-		int id = 0;
+    private void openComponent() {
+        StockScreenerComponent component = new StockScreenerComponent();
+        component.open();
+        component.requestActive();
+    }
 
-		try
-		{
-			method.setQueryString(new NameValuePair[]
-			{
-				new NameValuePair("option", "com_chartsy"),
-				new NameValuePair("view", "checkregistration"),
-				new NameValuePair("format", "raw"),
-				new NameValuePair("username", username),
-				new NameValuePair("passwd", password)
-			});
+    private int getUserId() {
+        HttpClient client = ProxyManager.getDefault().httpClient();
+        GetMethod method = new GetMethod(
+                NbBundle.getMessage(StockScreenerAction.class, "StockScanPRO_URL"));
+        int id = 0;
 
-			client.executeMethod(method);
-			id = Integer.parseInt(method.getResponseBodyAsString());
-		}
-		catch (IOException ex)
-		{
-			Exceptions.printStackTrace(ex);
-		}
-		finally
-		{
-			method.releaseConnection();
-		}
-		
-		return id;
-	}
+        try {
+            method.setQueryString(new NameValuePair[]{
+                new NameValuePair("option", "com_chartsy"),
+                new NameValuePair("view", "checkregistration"),
+                new NameValuePair("format", "raw"),
+                new NameValuePair("username", username),
+                new NameValuePair("passwd", password)
+            });
+
+            client.executeMethod(method);
+            id = Integer.parseInt(method.getResponseBodyAsString());
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        } finally {
+            method.releaseConnection();
+        }
+
+        return id;
+    }
 
 }
