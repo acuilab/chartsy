@@ -1,9 +1,3 @@
-||:org.chartsy.annotation.fibonacciextension.AnnotationProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.annotation.fibonacciextension.AnnotationProperties
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.annotation.fibonacciextension.FibonacciExtension
 java.lang.StringBuilder
 java.text.DecimalFormat
@@ -22,6 +16,12 @@ org.chartsy.annotation.fibonacciextension.FibonacciExtension
 java.awt.Graphics2D
 org.chartsy.main.chart.Annotation
 java.awt.Rectangle
+org.chartsy.main.utils.SerialVersion
+||:org.chartsy.annotation.fibonacciextension.AnnotationProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.annotation.fibonacciextension.AnnotationProperties
+org.chartsy.main.chart.AbstractPropertyListener
 org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.annotation.fibonacciextension.AnnotationNode
 java.lang.NoSuchMethodException

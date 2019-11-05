@@ -15,8 +15,7 @@ import org.openide.nodes.AbstractNode;
  *
  * @author viorel.gheba
  */
-public class Line
-        extends Annotation
+public class Line extends Annotation
 {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;

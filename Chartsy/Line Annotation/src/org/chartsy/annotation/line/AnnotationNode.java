@@ -13,8 +13,7 @@ import org.openide.nodes.Sheet;
  *
  * @author viorel.gheba
  */
-public class AnnotationNode
-        extends AbstractPropertiesNode
+public class AnnotationNode extends AbstractPropertiesNode
 {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
