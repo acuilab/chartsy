@@ -323,6 +323,11 @@ public abstract class Annotation implements Serializable, MouseListener, MouseMo
         return idx;
     }
 
+    /**
+     * 从时间获得x坐标
+     * @param t
+     * @return 
+     */
     protected double getXFromTime(long t) {
         double xc = 0;
 
@@ -353,6 +358,11 @@ public abstract class Annotation implements Serializable, MouseListener, MouseMo
         return xc;
     }
 
+    /**
+     * 从x坐标获得时间
+     * @param x
+     * @return 
+     */
     protected long getTimeFromX(double x) {
         Integer idx = null;
         ChartData cd = chartFrame.getChartData();
@@ -395,6 +405,11 @@ public abstract class Annotation implements Serializable, MouseListener, MouseMo
         return chartFrame.getChartData().getDataset().getTimeAt(idx);
     }
 
+    /**
+     * 从value获得y坐标
+     * @param v
+     * @return 
+     */
     protected double getYFromValue(double v) {
         Rectangle rect = chartFrame.getSplitPanel().getChartPanel().getBounds();
         rect.grow(-2, -2);
@@ -421,6 +436,11 @@ public abstract class Annotation implements Serializable, MouseListener, MouseMo
         return py;
     }
 
+    /**
+     * 从y坐标获得value
+     * @param y
+     * @return 
+     */
     protected double getValueFromY(double y) {
         Rectangle bounds = chartFrame.getSplitPanel().getChartPanel().getBounds();
         bounds.grow(-2, -2);
