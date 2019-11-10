@@ -1,9 +1,3 @@
-||:org.chartsy.spearman.IndicatorProperties
-java.awt.Color
-org.chartsy.spearman.IndicatorProperties
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.spearman.IndicatorNode
 org.chartsy.main.chart.AbstractPropertiesNode
 java.awt.Color
@@ -26,6 +20,12 @@ org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.util.logging.Level
+||:org.chartsy.spearman.IndicatorProperties
+java.awt.Color
+org.chartsy.spearman.IndicatorProperties
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.spearman.Spearman
 java.lang.StringBuilder
 java.awt.Color

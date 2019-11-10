@@ -20,6 +20,12 @@ org.chartsy.main.utils.StrokeGenerator
 java.lang.String
 org.chartsy.main.utils.SerialVersion
 java.util.logging.Level
+||:org.chartsy.roc.IndicatorProperties
+java.awt.Color
+org.chartsy.main.utils.StrokeGenerator
+org.chartsy.main.chart.AbstractPropertyListener
+org.chartsy.roc.IndicatorProperties
+org.chartsy.main.utils.SerialVersion
 ||:org.chartsy.roc.ROC
 org.chartsy.roc.IndicatorNode
 java.lang.StringBuilder
@@ -41,10 +47,4 @@ org.chartsy.main.utils.DefaultPainter
 org.chartsy.roc.IndicatorProperties
 [Ljava.awt.Color;
 java.lang.String
-org.chartsy.main.utils.SerialVersion
-||:org.chartsy.roc.IndicatorProperties
-java.awt.Color
-org.chartsy.main.utils.StrokeGenerator
-org.chartsy.main.chart.AbstractPropertyListener
-org.chartsy.roc.IndicatorProperties
 org.chartsy.main.utils.SerialVersion

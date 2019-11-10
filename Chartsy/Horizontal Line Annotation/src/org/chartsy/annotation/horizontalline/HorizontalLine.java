@@ -17,9 +17,7 @@ import org.openide.nodes.AbstractNode;
  *
  * @author viorel.gheba
  */
-public class HorizontalLine
-        extends Annotation
-{
+public class HorizontalLine extends Annotation {
 
     private static final long serialVersionUID = SerialVersion.APPVERSION;
 
@@ -28,11 +26,11 @@ public class HorizontalLine
     private DecimalFormat df = new DecimalFormat("#,##0.00");
     private Font font;
 
-    public HorizontalLine()
-    { super(); }
+    public HorizontalLine() {
+        super();
+    }
 
-    public HorizontalLine(ChartFrame frame)
-    {
+    public HorizontalLine(ChartFrame frame) {
         super(frame);
         actionSet.set(LEFT);
         actionSet.set(RIGHT);
@@ -41,21 +39,22 @@ public class HorizontalLine
         properties = new AnnotationProperties();
     }
 
-    public @Override String getName()
-    { return "Horizontal Line"; }
+    public @Override
+    String getName() {
+        return "Horizontal Line";
+    }
 
-    public Annotation newInstance(ChartFrame frame)
-    { return new HorizontalLine(frame); }
+    public Annotation newInstance(ChartFrame frame) {
+        return new HorizontalLine(frame);
+    }
 
-    public boolean pointIntersects(double x, double y)
-    {
+    public boolean pointIntersects(double x, double y) {
         Rectangle bounds = getAnnotationPanel().getBounds();
         double Y = getYFromValue(getV1());
         return (getActionPoint(x, y) != NONE) || lineContains(bounds.getMinX(), Y, bounds.getMaxX(), Y, x, y, 4);
     }
 
-    public void paint(Graphics2D g)
-    {
+    public void paint(Graphics2D g) {
         Rectangle bounds = getAnnotationPanel().getBounds();
         double y = getYFromValue(getV1());
         Stroke oldStroke = g.getStroke();
@@ -72,27 +71,27 @@ public class HorizontalLine
         g.setStroke(oldStroke);
         g.setFont(oldFont);
 
-        if (isSelected()) 
+        if (isSelected()) {
             paintActionPoints(g);
+        }
     }
 
-    protected @Override void paintActionPoints(Graphics2D g)
-    {
+    protected @Override
+    void paintActionPoints(Graphics2D g) {
         Rectangle bounds = getAnnotationPanel().getBounds();
         double y = getYFromValue(getV1());
         g.setPaint(Color.BLACK);
-        
-        if (actionSet.get(LEFT))
-        {
+
+        if (actionSet.get(LEFT)) {
             g.draw(CoordCalc.rectangle(bounds.getMinX() + 5 - 2, y - 2, 4, 4));
         }
-        if (actionSet.get(RIGHT))
-        {
+        if (actionSet.get(RIGHT)) {
             g.draw(CoordCalc.rectangle(bounds.getMaxX() - 5 - 2, y - 2, 4, 4));
         }
     }
 
-    public AbstractNode getNode() 
-    { return new AnnotationNode(properties); }
+    public AbstractNode getNode() {
+        return new AnnotationNode(properties);
+    }
 
 }
