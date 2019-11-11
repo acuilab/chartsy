@@ -690,8 +690,7 @@ public final class MainActions {
             JMenuItem item;
 
             for (String annotation : AnnotationManager.getDefault().getAnnotations()) {
-                popup.add(item = new JMenuItem(
-                        MainActions.addAnnotation(annotation)));
+                popup.add(item = new JMenuItem(MainActions.addAnnotation(annotation)));
                 item.setMargin(new Insets(0, 0, 0, 0));
             }
 
@@ -717,7 +716,7 @@ public final class MainActions {
 
     private static class AddAnnotation extends MainAction {
 
-        private String annotationName;
+        private final String annotationName;
 
         public static Action getAction(String annotationName) {
             return new AddAnnotation(annotationName);
