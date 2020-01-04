@@ -26,6 +26,7 @@ import org.openide.nodes.AbstractNode;
 
 /**
  * Accumulation Distribution Line according to Marc Chaikin.
+ * 累积/派发线
  *
  * @author joshua.taylor
  */

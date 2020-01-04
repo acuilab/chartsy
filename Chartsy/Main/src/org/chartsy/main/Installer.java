@@ -44,13 +44,13 @@ public class Installer extends ModuleInstall implements Runnable {
         addKeystore();
         setPrintProperties();
 
-        // 如果尚未注册，弹出注册对话框
-        boolean registred = chartsyPreferences.getBoolean("registred", false);
-        if (!registred) {
-            RegisterForm register = new RegisterForm(new JFrame(), true);
-            register.setLocationRelativeTo(WindowManager.getDefault().getMainWindow());
-            register.setVisible(true);
-        }
+//        // 如果尚未注册，弹出注册对话框
+//        boolean registred = chartsyPreferences.getBoolean("registred", false);
+//        if (!registred) {
+//            RegisterForm register = new RegisterForm(new JFrame(), true);
+//            register.setLocationRelativeTo(WindowManager.getDefault().getMainWindow());
+//            register.setVisible(true);
+//        }
     }
 
     public @Override
